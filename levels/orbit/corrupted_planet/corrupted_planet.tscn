@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyoyenarx8rc3"]
+
+[ext_resource type="PackedScene" uid="uid://ds4yxuypcoimk" path="res://levels/orbit/planet/planet.tscn" id="1_wn733"]
+[ext_resource type="Script" path="res://levels/orbit/corrupted_planet/corrupted_planet.gd" id="2_7epwo"]
+
+[node name="CorruptedPlanet" instance=ExtResource("1_wn733")]
+script = ExtResource("2_7epwo")
+max_health = 30
+
+[node name="Planet" parent="." index="0"]
+modulate = Color(1, 0, 0, 1)
+
+[node name="Overlay" type="Node2D" parent="." index="2"]
+
+[node name="Label" type="Label" parent="Overlay" index="0"]
+offset_left = -61.0
+offset_top = 76.0
+offset_right = 64.0
+offset_bottom = 99.0
+text = "Enter the planet"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

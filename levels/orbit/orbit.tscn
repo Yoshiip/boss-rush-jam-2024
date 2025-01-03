@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://2svu0n22325q"]
+
+[ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_ja802"]
+[ext_resource type="PackedScene" uid="uid://ds4yxuypcoimk" path="res://levels/orbit/planet/planet.tscn" id="2_7tpxp"]
+[ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="2_rujw1"]
+[ext_resource type="PackedScene" uid="uid://dyoyenarx8rc3" path="res://levels/orbit/corrupted_planet/corrupted_planet.tscn" id="3_qq6ph"]
+
+[node name="Orbit" type="Node2D"]
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("2_rujw1")
+
+[node name="Planet2" parent="." instance=ExtResource("2_7tpxp")]
+position = Vector2(146, -63)
+
+[node name="Planet3" parent="." instance=ExtResource("2_7tpxp")]
+position = Vector2(-166, 90)
+
+[node name="Planet4" parent="." instance=ExtResource("2_7tpxp")]
+position = Vector2(-179, -84)
+
+[node name="Spaceship" parent="." instance=ExtResource("1_ja802")]
+
+[node name="CorruptedPlanet" parent="." instance=ExtResource("3_qq6ph")]
+position = Vector2(177, 126)

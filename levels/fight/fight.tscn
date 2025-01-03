@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dturmkkjs4uyx"]
+
+[ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
+
+[node name="Fight" type="Node2D"]
+
+[node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
+position = Vector2(0, 195)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+metadata/_edit_lock_ = true
