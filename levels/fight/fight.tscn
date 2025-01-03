@@ -1,11 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=4 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
+[ext_resource type="Texture2D" uid="uid://cuvd6q5kv8ipl" path="res://assets/planets/planet.png" id="2_uuk0r"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ylx4l"]
 
 [node name="Fight" type="Node2D"]
 
 [node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
-position = Vector2(0, 195)
+position = Vector2(0, 125)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 metadata/_edit_lock_ = true
+
+[node name="Core" type="Area2D" parent="."]
+
+[node name="Planet" type="Sprite2D" parent="Core"]
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.15625, 0.15625)
+texture = ExtResource("2_uuk0r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Core"]
+shape = SubResource("CircleShape2D_ylx4l")
