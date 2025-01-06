@@ -15,6 +15,10 @@ run/main_scene="res://levels/menu/menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+UiUtils="*res://ui/ui_utils.gd"
+
 [display]
 
 window/size/viewport_width=640
@@ -27,7 +31,7 @@ window/stretch/aspect="expand"
 [global_group]
 
 Bullet=""
-Spaceship=""
+Spaceship="The player"
 Planet=""
 
 [input]
