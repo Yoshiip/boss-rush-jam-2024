@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cw0njmjruvdmf"]
 
 [ext_resource type="Script" path="res://assets/spaceship/spaceship.gd" id="1_lprlc"]
-[ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="2_5iplu"]
+[ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/Place holder ship.png" id="2_dnahp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tye7f"]
 size = Vector2(32, 32)
@@ -10,8 +10,7 @@ size = Vector2(32, 32)
 script = ExtResource("1_lprlc")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_5iplu")
+texture = ExtResource("2_dnahp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_tye7f")

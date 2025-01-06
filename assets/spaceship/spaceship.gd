@@ -3,8 +3,8 @@ extends CharacterBody2D
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ROTATE_SPEED = 290.0
-const ACCELERATION_SPEED = 100.0
+const ROTATE_SPEED = 310.0
+const ACCELERATION_SPEED = 300.0
 const FRICTION_COEFF = 0.75
 
 var acceleration_force := Vector2.ZERO
@@ -29,6 +29,10 @@ func _handle_weapon(delta: float) -> void:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
 		bullet.rotation = rotation
+		var mouse_position = get_global_mouse_position()
+		var direction = (mouse_position - global_position).normalized()
+		bullet.rotation = direction.angle()
+		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED
 
