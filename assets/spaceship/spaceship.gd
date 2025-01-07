@@ -4,7 +4,7 @@ extends CharacterBody2D
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 const ROTATE_SPEED = 310.0
-const ACCELERATION_SPEED = 300.0
+const ACCELERATION_SPEED = 400.0
 const FRICTION_COEFF = 0.75
 
 var acceleration_force := Vector2.ZERO

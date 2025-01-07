@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtb62cf1xyaxh"]
+
+[ext_resource type="Script" path="res://levels/orbit/vulnerable_part.gd" id="1_f1uxf"]
+[ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://place holder vulnerable part.png" id="2_xou1k"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3i8oi"]
+radius = 32.0
+
+[node name="VulnerablePart" type="Area2D" groups=["Planet"]]
+position = Vector2(41, 86)
+script = ExtResource("1_f1uxf")
+max_health = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_3i8oi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_xou1k")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
