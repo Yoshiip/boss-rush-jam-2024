@@ -1,5 +1,7 @@
+class_name Spaceship
 extends CharacterBody2D
 
+signal took_damage
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
@@ -10,6 +12,9 @@ const FRICTION_COEFF = 0.75
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
+
+@export var max_health := 10
+@onready var health := max_health
 
 
 const FIRE_SPEED = 0.15
@@ -50,3 +55,7 @@ func _physics_process(delta: float) -> void:
 	_apply_force(delta)
 	
 	move_and_slide()
+
+func take_damage(amount: int) -> void:
+	health -= amount
+	took_damage.emit()

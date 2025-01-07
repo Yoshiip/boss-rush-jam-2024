@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cq1tpomatjxg4"
-path="res://.godot/imported/place holder shooting part.png-b9f703e4b338f98a71e61d2addb265e4.ctex"
+path="res://.godot/imported/default_eye.png-a23cf01987307d133dad07ca621983ae.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://place holder shooting part.png"
-dest_files=["res://.godot/imported/place holder shooting part.png-b9f703e4b338f98a71e61d2addb265e4.ctex"]
+source_file="res://entities/eyes/default/default_eye.png"
+dest_files=["res://.godot/imported/default_eye.png-a23cf01987307d133dad07ca621983ae.ctex"]
 
 [params]
 

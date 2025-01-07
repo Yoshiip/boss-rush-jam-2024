@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5h6clohub72s"
-path="res://.godot/imported/Place holder ship.png-9a5970c01da880d9aa1c9c264d0a7fcc.ctex"
+uid="uid://doirwymy84qij"
+path="res://.godot/imported/core.png-13599544a5e1b2a8b45481b65f1854ab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/spaceship/Place holder ship.png"
-dest_files=["res://.godot/imported/Place holder ship.png-9a5970c01da880d9aa1c9c264d0a7fcc.ctex"]
+source_file="res://entities/core/core.png"
+dest_files=["res://.godot/imported/core.png-13599544a5e1b2a8b45481b65f1854ab.ctex"]
 
 [params]
 

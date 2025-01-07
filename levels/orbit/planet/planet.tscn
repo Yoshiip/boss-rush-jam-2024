@@ -13,5 +13,5 @@ script = ExtResource("1_4b50i")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_clhjo")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_3i8oi")

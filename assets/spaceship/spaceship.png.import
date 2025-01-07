@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doirwymy84qij"
-path="res://.godot/imported/place holder vulnerable part.png-35dd2542485c9bec9c59d94601e82df5.ctex"
+uid="uid://b5h6clohub72s"
+path="res://.godot/imported/spaceship.png-b33493e80af3c10cb826f58cf16f73aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://place holder vulnerable part.png"
-dest_files=["res://.godot/imported/place holder vulnerable part.png-35dd2542485c9bec9c59d94601e82df5.ctex"]
+source_file="res://assets/spaceship/spaceship.png"
+dest_files=["res://.godot/imported/spaceship.png-b33493e80af3c10cb826f58cf16f73aa.ctex"]
 
 [params]
 

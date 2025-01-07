@@ -66,10 +66,6 @@ text = "Settings"
 layout_mode = 2
 text = "Credits"
 
-[node name="QuitGameButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]
-layout_mode = 2
-text = "Quit Game"
-
 [node name="Credits" type="Control" parent="Canvas/Container"]
 visible = false
 layout_mode = 1
@@ -104,5 +100,4 @@ text = "Go Back"
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Credits/Container/GoBackButton" to="." method="_on_go_back_button_pressed"]
