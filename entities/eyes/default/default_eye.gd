@@ -42,8 +42,10 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	var bullet := BULLET.instantiate()
 	bullet.from_enemy = true
 	bullet.position = global_position
+	bullet.speed = 3
 	bullet.look_at(spaceship.global_position)
 	bullet.rotation += rotation_offset
+	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	get_tree().current_scene.add_child(bullet)
 
 func _on_area_entered(area: Area2D) -> void:

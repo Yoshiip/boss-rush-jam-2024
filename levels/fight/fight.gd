@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var spin_speed := 0.2
+@export var spin_speed := 0.05
 @onready var spaceship: Spaceship = $Spaceship
 
 func _ready() -> void:

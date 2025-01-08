@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=17 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="5_6undx"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="5_g487y"]
 [ext_resource type="Texture2D" uid="uid://bx5s0b3tainfp" path="res://assets/utils/pixel.png" id="5_ihacb"]
+[ext_resource type="Texture2D" uid="uid://cn5l1jb22gsl8" path="res://assets/spaceship/Place holder ship2.png" id="5_vkklu"]
 [ext_resource type="Texture2D" uid="uid://cnkyxiwscusub" path="res://assets/utils/circle_256.png" id="6_8icnl"]
 [ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="8_3n00j"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_ks536"]
@@ -34,7 +35,7 @@ corner_radius_bottom_left = 4
 
 [node name="Fight" type="Node2D"]
 script = ExtResource("1_5kee0")
-spin_speed = 0.13
+spin_speed = 0.395
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -46,17 +47,20 @@ texture = ExtResource("5_ihacb")
 [node name="Circle256" type="Sprite2D" parent="Background"]
 modulate = Color(0.105882, 0.105882, 0.219608, 1)
 position = Vector2(2, 6)
-scale = Vector2(5.76, 5.76)
+scale = Vector2(4.02, 4.02)
 texture = ExtResource("6_8icnl")
 
 [node name="Circle257" type="Sprite2D" parent="Background"]
 modulate = Color(0, 0.00392157, 0.027451, 1)
 position = Vector2(2, 6)
-scale = Vector2(5.29, 5.29)
+scale = Vector2(3.55, 3.55)
 texture = ExtResource("6_8icnl")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
 position = Vector2(0, 125)
+
+[node name="Icon" parent="Spaceship" index="0"]
+texture = ExtResource("5_vkklu")
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -65,47 +69,22 @@ script = ExtResource("5_g487y")
 metadata/_edit_lock_ = true
 
 [node name="Core" parent="." instance=ExtResource("5_6undx")]
-position = Vector2(2, -3)
 
 [node name="Planet2" type="Node2D" parent="."]
 
 [node name="Planet" type="Node2D" parent="."]
 
 [node name="DefaultEye" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(-694, 104)
-max_health = 30
-max_shoot_timer = 2.0
+position = Vector2(-471, 118)
 
 [node name="DefaultEye2" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(645, -210)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye3" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(-222, 642)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye4" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(5, -289)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye5" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(330, 217)
-max_health = 30
-max_shoot_timer = 2.0
-special_chance = 0.74
-accurracy = 0.619
+position = Vector2(-380, 251)
 
 [node name="Core2" parent="Planet" instance=ExtResource("5_6undx")]
-position = Vector2(490, -437)
-
-[node name="Core3" parent="Planet" instance=ExtResource("5_6undx")]
-position = Vector2(-564, 380)
+position = Vector2(427, -119)
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-439, -434)
+position = Vector2(-311, -30)
 
 [node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D3"]
 position = Vector2(3.49999, 0)
@@ -116,23 +95,8 @@ texture = ExtResource("9_i46yy")
 position = Vector2(3, -1)
 shape = SubResource("RectangleShape2D_yik4y")
 
-[node name="StaticBody2D3" type="StaticBody2D" parent="Planet/StaticBody2D3" groups=["Obstacle"]]
-position = Vector2(221, 77)
-scale = Vector2(3.52, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D3/StaticBody2D3"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D3/StaticBody2D3"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
 [node name="StaticBody2D2" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(481, 165)
-rotation = 0.579721
-scale = Vector2(3.28, 1)
+position = Vector2(410, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D2"]
 position = Vector2(3.49999, 0)
@@ -143,38 +107,8 @@ texture = ExtResource("9_i46yy")
 position = Vector2(3, -1)
 shape = SubResource("RectangleShape2D_yik4y")
 
-[node name="StaticBody2D7" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-540, -799)
-rotation = 2.55731
-scale = Vector2(7.38826, 1.08641)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D7"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D7"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-1079, 443)
-rotation = -0.4509
-scale = Vector2(1.44962, 6.91879)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D6"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D6"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
 [node name="StaticBody2D" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-203, 149)
-rotation = 0.880944
-scale = Vector2(1, 3.5131)
+position = Vector2(-423, -36)
 
 [node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D"]
 position = Vector2(3.49999, 0)
@@ -182,47 +116,6 @@ scale = Vector2(1.76563, 1.78125)
 texture = ExtResource("9_i46yy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(710, -634)
-rotation = 0.86466
-scale = Vector2(3.5534, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D5"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D5"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-104, 1089)
-scale = Vector2(6.6415, -1.89154)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D4"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D4"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(884, 491)
-rotation = -1.29064
-scale = Vector2(6.79366, 1.91308)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D8"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D8"]
 position = Vector2(3, -1)
 shape = SubResource("RectangleShape2D_yik4y")
 
@@ -302,7 +195,7 @@ text = "5/5"
 horizontal_alignment = 2
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Obstacle"]]
-position = Vector2(-897, 293)
+position = Vector2(-204, 161)
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 texture = ExtResource("8_3n00j")
@@ -312,7 +205,7 @@ position = Vector2(3, -1)
 shape = SubResource("RectangleShape2D_yik4y")
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(-738, 425)
+position = Vector2(249, -188)
 physics_material_override = SubResource("PhysicsMaterial_j5c3c")
 gravity_scale = 0.015
 freeze_mode = 1
@@ -333,9 +226,7 @@ parameters/looping = true
 
 [connection signal="area_entered" from="Core" to="Core" method="_on_area_entered"]
 [connection signal="area_entered" from="Planet/Core2" to="Planet/Core2" method="_on_area_entered"]
-[connection signal="area_entered" from="Planet/Core3" to="Planet/Core3" method="_on_area_entered"]
 
 [editable path="Spaceship"]
 [editable path="Core"]
 [editable path="Planet/Core2"]
-[editable path="Planet/Core3"]

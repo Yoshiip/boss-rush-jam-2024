@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://2svu0n22325q"]
+[gd_scene load_steps=8 format=3 uid="uid://2svu0n22325q"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_ja802"]
 [ext_resource type="PackedScene" uid="uid://ds4yxuypcoimk" path="res://levels/orbit/planet/planet.tscn" id="2_7tpxp"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="2_rujw1"]
-[ext_resource type="PackedScene" path="res://assets/planets/vulnerable_part.tscn" id="3_qc1vw"]
+[ext_resource type="PackedScene" uid="uid://dtb62cf1xyaxh" path="res://assets/planets/vulnerable_part.tscn" id="3_qc1vw"]
 [ext_resource type="PackedScene" uid="uid://dyoyenarx8rc3" path="res://levels/orbit/corrupted_planet/corrupted_planet.tscn" id="3_qq6ph"]
+[ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="6_ck0h5"]
 [ext_resource type="Texture2D" uid="uid://cq1tpomatjxg4" path="res://entities/eyes/default/default_eye.png" id="7_lu5ji"]
 
 [node name="Orbit" type="Node2D"]
@@ -28,6 +29,9 @@ zoom = Vector2(0.5, 0.5)
 script = ExtResource("2_rujw1")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_ja802")]
+
+[node name="Core" parent="." instance=ExtResource("6_ck0h5")]
+position = Vector2(-210.276, 238.702)
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(2, 61)

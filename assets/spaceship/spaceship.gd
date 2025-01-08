@@ -5,9 +5,9 @@ signal took_damage
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ROTATE_SPEED = 310.0
+const ROTATE_SPEED = 400.0
 const ACCELERATION_SPEED = 400.0
-const FRICTION_COEFF = 0.75
+const FRICTION_COEFF = 1
 
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
@@ -17,7 +17,7 @@ var net_force := Vector2.ZERO
 @onready var health := max_health
 
 
-const FIRE_SPEED = 0.15
+const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 
 func _handle_input(delta: float) -> void:
@@ -30,13 +30,15 @@ func _handle_input(delta: float) -> void:
 
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
-	if Input.is_action_pressed("fire") && fire_timer <= 0.0:
+	if (1==1 || Input.is_action_pressed("fire") )&& fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
-		bullet.rotation = rotation
+		bullet.speed = 6
+		bullet.from_enemy= false
 		var mouse_position = get_global_mouse_position()
 		var direction = (mouse_position - global_position).normalized()
 		bullet.rotation = direction.angle()
+		bullet.velocity = Vector2.RIGHT.rotated(rotation)
 		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED

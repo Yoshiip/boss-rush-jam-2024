@@ -4,12 +4,14 @@
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_dnahp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tye7f"]
-size = Vector2(32, 32)
+size = Vector2(24, 24)
 
 [node name="Spaceship" type="CharacterBody2D" groups=["Spaceship"]]
+motion_mode = 1
 script = ExtResource("1_lprlc")
 
 [node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(6, 0)
 texture = ExtResource("2_dnahp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
