@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=17 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_ks536"]
 [ext_resource type="Texture2D" uid="uid://bgn2xnya0p5fq" path="res://Place holder Body Obstacle.png" id="9_i46yy"]
 [ext_resource type="AudioStream" uid="uid://biiev7vdjo7js" path="res://audios/musics/fight.mp3" id="9_rbswc"]
+[ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="9_yayix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yik4y"]
 size = Vector2(115, 114)
@@ -87,16 +88,14 @@ max_health = 30
 max_shoot_timer = 2.0
 
 [node name="DefaultEye4" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(5, -289)
+position = Vector2(5, -286)
 max_health = 30
 max_shoot_timer = 2.0
 
 [node name="DefaultEye5" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(330, 217)
+position = Vector2(379, 17)
 max_health = 30
 max_shoot_timer = 2.0
-special_chance = 0.74
-accurracy = 0.619
 
 [node name="Core2" parent="Planet" instance=ExtResource("5_6undx")]
 position = Vector2(490, -437)
@@ -225,6 +224,15 @@ texture = ExtResource("9_i46yy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D8"]
 position = Vector2(3, -1)
 shape = SubResource("RectangleShape2D_yik4y")
+
+[node name="SpikeBall" parent="Planet" instance=ExtResource("9_yayix")]
+position = Vector2(-502, -501)
+
+[node name="SpikeBall3" parent="Planet" instance=ExtResource("9_yayix")]
+position = Vector2(-314, 332)
+
+[node name="SpikeBall2" parent="Planet" instance=ExtResource("9_yayix")]
+position = Vector2(265, 437)
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 

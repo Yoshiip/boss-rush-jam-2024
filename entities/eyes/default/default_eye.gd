@@ -10,6 +10,8 @@ extends Area2D
 @export_range(0.0, 1.0) var special_chance = 0.2
 @export_range(0.0, PI/3) var accurracy = 0.2
 
+@onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
+
 var spaceship: Spaceship
 
 func _ready() -> void:
@@ -51,6 +53,7 @@ func _shoot_bullet(rotation_offset: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") and not area.from_enemy:
 		health -= area.damage
+		camera.add_trauma(1)
 		if health <= 0:
 			queue_free()
 		area.destroy_bullet()

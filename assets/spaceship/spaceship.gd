@@ -5,9 +5,9 @@ signal took_damage
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ROTATE_SPEED = 400.0
-const ACCELERATION_SPEED = 400.0
-const FRICTION_COEFF = 1
+const ROTATE_SPEED = 350.0
+const ACCELERATION_SPEED = 450.0
+const FRICTION_COEFF = 1.5
 
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
@@ -30,7 +30,7 @@ func _handle_input(delta: float) -> void:
 
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
-	if (1==1 || Input.is_action_pressed("fire") )&& fire_timer <= 0.0:
+	if Input.is_action_pressed("fire") && fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
 		bullet.speed = 6
