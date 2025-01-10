@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpja6dvi7a3ph"]
+[gd_scene load_steps=4 format=3 uid="uid://cpja6dvi7a3ph"]
 
 [ext_resource type="Script" path="res://levels/menu/menu.gd" id="1_w8ayo"]
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="2_qqqd8"]
+[ext_resource type="Script" path="res://levels/menu/ui_button.gd" id="3_feo83"]
 
 [node name="Menu" type="Node2D"]
 script = ExtResource("1_w8ayo")
@@ -57,14 +58,17 @@ horizontal_alignment = 1
 [node name="PlayButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]
 layout_mode = 2
 text = "Play"
+script = ExtResource("3_feo83")
 
 [node name="SettingsButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
+script = ExtResource("3_feo83")
 
 [node name="CreditsButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]
 layout_mode = 2
 text = "Credits"
+script = ExtResource("3_feo83")
 
 [node name="Credits" type="Control" parent="Canvas/Container"]
 visible = false
@@ -96,6 +100,7 @@ uppercase = true
 [node name="GoBackButton" type="Button" parent="Canvas/Container/Credits/Container"]
 layout_mode = 2
 text = "Go Back"
+script = ExtResource("3_feo83")
 
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
