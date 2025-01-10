@@ -14,7 +14,7 @@ func _ready() -> void:
 		# we'il probably make a special bullet for enemy later
 		modulate = Color.RED
 		
-		speed *= 0.6
+		speed *= 0.4
 
 func _physics_process(delta: float) -> void:
 	position += velocity * speed

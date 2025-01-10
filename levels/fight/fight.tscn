@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=13 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -8,14 +8,7 @@
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="5_g487y"]
 [ext_resource type="Texture2D" uid="uid://bx5s0b3tainfp" path="res://assets/utils/pixel.png" id="5_ihacb"]
 [ext_resource type="Texture2D" uid="uid://cnkyxiwscusub" path="res://assets/utils/circle_256.png" id="6_8icnl"]
-[ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="8_3n00j"]
-[ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_ks536"]
-[ext_resource type="Texture2D" uid="uid://bgn2xnya0p5fq" path="res://Place holder Body Obstacle.png" id="9_i46yy"]
 [ext_resource type="AudioStream" uid="uid://biiev7vdjo7js" path="res://audios/musics/fight.mp3" id="9_rbswc"]
-[ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="9_yayix"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_yik4y"]
-size = Vector2(115, 114)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pg6c"]
 bg_color = Color(0.156863, 0.156863, 0.156863, 0.247059)
@@ -31,11 +24,15 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j5c3c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwk67"]
+bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fr33"]
+bg_color = Color(0.894118, 0.231373, 0.266667, 1)
 
 [node name="Fight" type="Node2D"]
 script = ExtResource("1_5kee0")
-spin_speed = 0.13
+planet_radius = 284.0
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -47,13 +44,13 @@ texture = ExtResource("5_ihacb")
 [node name="Circle256" type="Sprite2D" parent="Background"]
 modulate = Color(0.105882, 0.105882, 0.219608, 1)
 position = Vector2(2, 6)
-scale = Vector2(5.76, 5.76)
+scale = Vector2(2.4, 2.4)
 texture = ExtResource("6_8icnl")
 
 [node name="Circle257" type="Sprite2D" parent="Background"]
 modulate = Color(0, 0.00392157, 0.027451, 1)
 position = Vector2(2, 6)
-scale = Vector2(5.29, 5.29)
+scale = Vector2(2.2, 2.2)
 texture = ExtResource("6_8icnl")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
@@ -66,173 +63,8 @@ script = ExtResource("5_g487y")
 metadata/_edit_lock_ = true
 
 [node name="Core" parent="." instance=ExtResource("5_6undx")]
-position = Vector2(2, -3)
-
-[node name="Planet2" type="Node2D" parent="."]
 
 [node name="Planet" type="Node2D" parent="."]
-
-[node name="DefaultEye" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(-694, 104)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye2" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(645, -210)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye3" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(-222, 642)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye4" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(5, -286)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="DefaultEye5" parent="Planet" instance=ExtResource("8_ks536")]
-position = Vector2(379, 17)
-max_health = 30
-max_shoot_timer = 2.0
-
-[node name="Core2" parent="Planet" instance=ExtResource("5_6undx")]
-position = Vector2(490, -437)
-
-[node name="Core3" parent="Planet" instance=ExtResource("5_6undx")]
-position = Vector2(-564, 380)
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-439, -434)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D3"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D3"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D3" type="StaticBody2D" parent="Planet/StaticBody2D3" groups=["Obstacle"]]
-position = Vector2(221, 77)
-scale = Vector2(3.52, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D3/StaticBody2D3"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D3/StaticBody2D3"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(481, 165)
-rotation = 0.579721
-scale = Vector2(3.28, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D2"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D2"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D7" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-540, -799)
-rotation = 2.55731
-scale = Vector2(7.38826, 1.08641)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D7"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D7"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D6" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-1079, 443)
-rotation = -0.4509
-scale = Vector2(1.44962, 6.91879)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D6"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D6"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-203, 149)
-rotation = 0.880944
-scale = Vector2(1, 3.5131)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D5" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(710, -634)
-rotation = 0.86466
-scale = Vector2(3.5534, 1)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D5"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D5"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D4" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(-104, 1089)
-scale = Vector2(6.6415, -1.89154)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D4"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D4"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="StaticBody2D8" type="StaticBody2D" parent="Planet" groups=["Obstacle"]]
-position = Vector2(884, 491)
-rotation = -1.29064
-scale = Vector2(6.79366, 1.91308)
-
-[node name="Sprite2D" type="Sprite2D" parent="Planet/StaticBody2D8"]
-position = Vector2(3.49999, 0)
-scale = Vector2(1.76563, 1.78125)
-texture = ExtResource("9_i46yy")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet/StaticBody2D8"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="SpikeBall" parent="Planet" instance=ExtResource("9_yayix")]
-position = Vector2(-502, -501)
-
-[node name="SpikeBall3" parent="Planet" instance=ExtResource("9_yayix")]
-position = Vector2(-314, 332)
-
-[node name="SpikeBall2" parent="Planet" instance=ExtResource("9_yayix")]
-position = Vector2(265, 437)
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -309,28 +141,54 @@ grow_vertical = 0
 text = "5/5"
 horizontal_alignment = 2
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Obstacle"]]
-position = Vector2(-897, 293)
+[node name="BossHealth" type="Panel" parent="Canvas/Container"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -108.0
+offset_top = -72.0
+offset_right = 108.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-texture = ExtResource("8_3n00j")
+[node name="Name" type="RichTextLabel" parent="Canvas/Container/BossHealth"]
+clip_contents = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_top = -8.0
+offset_right = 35.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0.894118, 0.231373, 0.266667, 1)
+theme_override_font_sizes/normal_font_size = 20
+bbcode_enabled = true
+text = "[wave]BOSS[/wave]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(-738, 425)
-physics_material_override = SubResource("PhysicsMaterial_j5c3c")
-gravity_scale = 0.015
-freeze_mode = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(3, -1)
-shape = SubResource("RectangleShape2D_yik4y")
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-texture = ExtResource("8_3n00j")
+[node name="ProgressBar" type="ProgressBar" parent="Canvas/Container/BossHealth"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -26.0
+offset_right = -17.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = SubResource("StyleBoxFlat_bwk67")
+theme_override_styles/fill = SubResource("StyleBoxFlat_2fr33")
+step = 1.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_rbswc")
@@ -338,12 +196,3 @@ volume_db = -12.0
 autoplay = true
 bus = &"Music"
 parameters/looping = true
-
-[connection signal="area_entered" from="Core" to="Core" method="_on_area_entered"]
-[connection signal="area_entered" from="Planet/Core2" to="Planet/Core2" method="_on_area_entered"]
-[connection signal="area_entered" from="Planet/Core3" to="Planet/Core3" method="_on_area_entered"]
-
-[editable path="Spaceship"]
-[editable path="Core"]
-[editable path="Planet/Core2"]
-[editable path="Planet/Core3"]
