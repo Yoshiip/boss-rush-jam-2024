@@ -11,7 +11,8 @@ var trauma := 0.0
 func _process(delta: float) -> void:
 	offset = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized() * trauma
 	trauma *= 0.92
-	global_position = lerp(spaceship.global_position, core.global_position, 0.25)
+	if is_instance_valid(spaceship) && is_instance_valid(core):
+		global_position = lerp(spaceship.global_position, core.global_position, 0.25)
 		
 func add_trauma(amount: float) -> void:
 	trauma += amount

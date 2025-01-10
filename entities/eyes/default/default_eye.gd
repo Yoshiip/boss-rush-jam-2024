@@ -15,6 +15,7 @@ extends Area2D
 var spaceship: Spaceship
 
 func _ready() -> void:
+	$Sprite.material = $Sprite.material.duplicate()
 	spaceship = get_tree().get_first_node_in_group("Spaceship")
 
 func _process(delta: float) -> void:
@@ -41,6 +42,8 @@ func _do_special() -> void:
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 func _shoot_bullet(rotation_offset: float) -> void:
+	if is_instance_valid(spaceship):
+		return
 	var bullet := BULLET.instantiate()
 	bullet.from_enemy = true
 	bullet.position = global_position
@@ -55,4 +58,8 @@ func _on_area_entered(area: Area2D) -> void:
 		camera.add_trauma(1)
 		if health <= 0:
 			queue_free()
+		else:
+			$Sprite.material.set_shader_parameter("whitening", 1.0)
+			var tween := get_tree().create_tween()
+			tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
 		area.destroy_bullet()

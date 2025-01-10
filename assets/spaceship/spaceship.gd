@@ -2,6 +2,7 @@ class_name Spaceship
 extends CharacterBody2D
 
 signal took_damage
+signal dead
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
@@ -19,6 +20,8 @@ var net_force := Vector2.ZERO
 const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 
+func _ready() -> void:
+	$Sprite.material = $Sprite.material.duplicate()
 
 func _handle_input(delta: float) -> void:
 	var axis = Vector2(
@@ -64,3 +67,10 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	health -= amount
 	took_damage.emit()
+	if health > 0:
+		$Sprite.material.set_shader_parameter("whitening", 1.0)
+		var tween := get_tree().create_tween()
+		tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
+	else:
+		dead.emit()
+		queue_free()

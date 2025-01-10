@@ -13,6 +13,7 @@ func _ready() -> void:
 	
 	update_music_volume(music_volume)
 	update_effects_volume(effects_volume)
+	$Panel/Container/FullscreenCheckBox.button_pressed = get_window().mode == Window.MODE_FULLSCREEN
 
 func update_music_volume(value: float) -> void:
 	music_slider.value = value

@@ -15,13 +15,17 @@ var i := 0.0
 @onready var root: Node2D = $".."
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
+
+func _ready() -> void:
+	$Sprite.material = $Sprite.material.duplicate()
+
 func _shoot_circle() -> void:
 	for i in 8:
 		var bullet := BULLET.instantiate()
 		bullet.position = position
 		bullet.from_enemy = true
 		bullet.rotation = (PI * 2.0) / 8.0 * i
-		add_sibling(bullet)
+		call_deferred("add_sibling", bullet)
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -43,6 +47,10 @@ func _on_area_entered(area: Area2D) -> void:
 			$Sprite.texture = CORE_DEAD_TEXTURE
 			$CollisionShape.disabled = true
 			get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
+		else:
+			$Sprite.material.set_shader_parameter("whitening", 1.0)
+			var tween := get_tree().create_tween()
+			tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
 		took_damage.emit()
 		camera.add_trauma(1)
 		area.destroy_bullet()
