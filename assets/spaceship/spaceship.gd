@@ -5,8 +5,7 @@ signal took_damage
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ROTATE_SPEED = 350.0
-const ACCELERATION_SPEED = 450.0
+const ACCELERATION_SPEED = 250.0
 const FRICTION_COEFF = 1.5
 
 var acceleration_force := Vector2.ZERO
@@ -20,13 +19,17 @@ var net_force := Vector2.ZERO
 const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 
+
 func _handle_input(delta: float) -> void:
-	if Input.is_action_pressed("steer_left"):
-		rotation_degrees -= ROTATE_SPEED * delta
-	if Input.is_action_pressed("steer_right"):
-		rotation_degrees += ROTATE_SPEED * delta
-	if Input.is_action_pressed("accelerate"):
-		acceleration_force = Vector2.RIGHT.rotated(rotation) * ACCELERATION_SPEED # forward
+	var axis = Vector2(
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("move_up", "move_down")
+	)
+	if axis.length() > 0:
+		velocity = velocity.lerp(axis * ACCELERATION_SPEED, 20.0 * delta)
+		look_at(position+velocity)
+	else:
+		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
