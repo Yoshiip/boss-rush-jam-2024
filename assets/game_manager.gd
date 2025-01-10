@@ -6,6 +6,15 @@ const UI_SOUNDS = {
 	"hover": preload("res://audios/effects/ui/hover1.wav")
 }
 
+var save_data := {}
+
+func clear_save_data() -> void:
+	save_data = {
+		"level": 0
+	}
+
+func _ready() -> void:
+	clear_save_data()
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):

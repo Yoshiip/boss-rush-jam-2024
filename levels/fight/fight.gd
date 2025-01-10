@@ -2,6 +2,7 @@ extends Node2D
 
 @export var spin_speed := 0.05
 @export var planet_radius := 200.0
+
 @onready var spaceship: Spaceship = $Spaceship
 @onready var core: Core = $Core
 
@@ -11,6 +12,7 @@ func _ready() -> void:
 	$Canvas/Container/PlayerHealth/ProgressBar.max_value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
+	
 	spawn_wave()
 	
 	
