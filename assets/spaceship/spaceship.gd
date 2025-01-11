@@ -6,7 +6,7 @@ signal dead
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ACCELERATION_SPEED = 250.0
+const ACCELERATION_SPEED = 350.0
 const FRICTION_COEFF = 1.5
 
 var acceleration_force := Vector2.ZERO
@@ -17,7 +17,7 @@ var net_force := Vector2.ZERO
 @onready var health := max_health
 
 
-const FIRE_SPEED = 0.25
+const FIRE_SPEED = 0.3
 @onready var fire_timer := FIRE_SPEED
 
 func _ready() -> void:
@@ -29,17 +29,17 @@ func _handle_input(delta: float) -> void:
 		Input.get_axis("move_up", "move_down")
 	)
 	if axis.length() > 0:
-		velocity = velocity.lerp(axis * ACCELERATION_SPEED, 20.0 * delta)
+		velocity = velocity.lerp(axis.normalized() * ACCELERATION_SPEED, 20.0 * delta)
 		look_at(position+velocity)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
-	if Input.is_action_pressed("fire") && fire_timer <= 0.0:
+	if (1==1||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
-		bullet.speed = 6
+		bullet.speed = 10
 		bullet.from_enemy= false
 		var mouse_position = get_global_mouse_position()
 		var direction = (mouse_position - global_position).normalized()

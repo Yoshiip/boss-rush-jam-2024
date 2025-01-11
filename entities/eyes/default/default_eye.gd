@@ -4,7 +4,7 @@ extends Area2D
 @export var max_health := 3
 @onready var health := max_health
 
-@export var max_shoot_timer := 0.5
+@export var max_shoot_timer := 0.01
 @onready var shoot_timer := max_shoot_timer
 
 @export_range(0.0, 1.0) var special_chance = 0.2
@@ -42,7 +42,7 @@ func _do_special() -> void:
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 func _shoot_bullet(rotation_offset: float) -> void:
-	if is_instance_valid(spaceship):
+	if !is_instance_valid(spaceship):
 		return
 	var bullet := BULLET.instantiate()
 	bullet.from_enemy = true

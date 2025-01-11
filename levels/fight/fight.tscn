@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=22 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -8,10 +8,13 @@
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="5_g487y"]
 [ext_resource type="Texture2D" uid="uid://bx5s0b3tainfp" path="res://assets/utils/pixel.png" id="5_ihacb"]
 [ext_resource type="Texture2D" uid="uid://cnkyxiwscusub" path="res://assets/utils/circle_256.png" id="6_8icnl"]
+[ext_resource type="PackedScene" uid="uid://cspf4ul0wm7g" path="res://entities/Obstacle/obstacle.tscn" id="7_2ry6r"]
 [ext_resource type="Script" path="res://levels/fight/fight_transition.gd" id="9_2s53k"]
+[ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="9_o456l"]
 [ext_resource type="AudioStream" uid="uid://biiev7vdjo7js" path="res://audios/musics/fight.mp3" id="9_rbswc"]
 [ext_resource type="AudioStream" uid="uid://d3cl0e5lotj3g" path="res://audios/effects/ui/game-start2.wav" id="10_i2648"]
 [ext_resource type="Script" path="res://levels/fight/game_over.gd" id="11_kn4rb"]
+[ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="13_1nrcg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pg6c"]
 bg_color = Color(0.156863, 0.156863, 0.156863, 0.247059)
@@ -169,7 +172,6 @@ _data = {
 
 [node name="Fight" type="Node2D"]
 script = ExtResource("1_5kee0")
-planet_radius = 284.0
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -181,17 +183,18 @@ texture = ExtResource("5_ihacb")
 [node name="Circle256" type="Sprite2D" parent="Background"]
 modulate = Color(0.105882, 0.105882, 0.219608, 1)
 position = Vector2(2, 6)
-scale = Vector2(2.4, 2.4)
+scale = Vector2(3.14, 3.14)
 texture = ExtResource("6_8icnl")
 
 [node name="Circle257" type="Sprite2D" parent="Background"]
 modulate = Color(0, 0.00392157, 0.027451, 1)
 position = Vector2(2, 6)
-scale = Vector2(2.2, 2.2)
+scale = Vector2(2.925, 2.925)
 texture = ExtResource("6_8icnl")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
-position = Vector2(0, 125)
+position = Vector2(598, 166)
+rotation = -6.28319
 
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -200,8 +203,51 @@ script = ExtResource("5_g487y")
 metadata/_edit_lock_ = true
 
 [node name="Core" parent="." instance=ExtResource("5_6undx")]
+max_health = 60
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["Obstacle"]]
+tile_map_data = PackedByteArray("AAARAPv/AAAAAAQAAAARAPz/AAACAAUAAAARAP3/AAACAAYAAAARAP7/AAADAAYAAAASAPv/AAABAAQAAAASAPz/AAABAAUAAAASAP3/AAABAAYAAAASAP7/AAABAAcAAAATAPv/AAACAAQAAAATAPz/AAACAAUAAAATAP3/AAACAAYAAAATAP7/AAACAAcAAAAUAPv/AAADAAQAAAAUAPz/AAADAAUAAAAUAP3/AAADAAYAAAAUAP7/AAADAAcAAADw/woAAAAAAAQAAADw/wsAAAAAAAUAAADw/wwAAAAAAAYAAADw/w0AAAAAAAcAAADx/woAAAABAAQAAADx/wsAAAABAAUAAADx/wwAAAABAAYAAADx/w0AAAABAAMAAADy/woAAAACAAQAAADy/wsAAAACAAUAAADy/wwAAAACAAYAAADy/w0AAAACAAMAAADz/woAAAADAAQAAADz/wsAAAADAAUAAADz/wwAAAADAAYAAADz/w0AAAADAAcAAADr/wQAAAAAAAQAAADr/wUAAAAAAAUAAADr/wYAAAAAAAYAAADr/wcAAAAAAAcAAADs/wQAAAABAAQAAADs/wUAAAABAAUAAADs/wYAAAABAAYAAADs/wcAAAABAAcAAADt/wQAAAACAAQAAADt/wUAAAACAAUAAADt/wYAAAACAAYAAADt/wcAAAACAAcAAADu/wQAAAADAAQAAADu/wUAAAADAAUAAADu/wYAAAADAAYAAADu/wcAAAADAAcAAADq//3/AAAAAAUAAADq//7/AAAAAAYAAADq////AAAAAAYAAADq/wAAAAAAAAcAAADr//3/AAACAAUAAADr//7/AAACAAUAAADr////AAABAAYAAADr/wAAAAABAAMAAADs//3/AAACAAUAAADs//7/AAACAAYAAADs////AAACAAYAAADs/wAAAAACAAMAAADt//3/AAADAAQAAADt//7/AAADAAEAAADt////AAADAAEAAADt/wAAAAADAAcAAADq//n/AAAAAAQAAADq//r/AAAAAAUAAADq//v/AAAAAAYAAADq//z/AAAAAAcAAADr//n/AAABAAQAAADr//r/AAABAAUAAADr//v/AAABAAUAAADr//z/AAACAAUAAADs//n/AAACAAQAAADs//r/AAABAAUAAADs//v/AAACAAUAAADs//z/AAACAAUAAADt//n/AAADAAQAAADt//r/AAABAAUAAADt//v/AAABAAYAAADt//z/AAADAAcAAADu//n/AAAAAAQAAADu//X/AAAAAAQAAADu//b/AAAAAAUAAADu//f/AAAAAAYAAADu//j/AAAAAAcAAADv//X/AAABAAQAAAD1/+//AAAAAAQAAAD1//D/AAAAAAUAAAD1//H/AAAAAAYAAAD1//L/AAAAAAcAAAD2/+//AAABAAQAAAD2//D/AAABAAUAAAD2//H/AAABAAYAAAD2//L/AAABAAcAAAD3/+//AAACAAQAAAD3//D/AAACAAUAAAD3//H/AAACAAYAAAD3//L/AAACAAcAAAD4/+//AAADAAQAAAD4//D/AAADAAUAAAD4//H/AAADAAYAAAD4//L/AAADAAcAAAD//+3/AAAAAAQAAAD//+7/AAAAAAUAAAD//+//AAAAAAYAAAD///D/AAAAAAcAAAAAAO3/AAABAAQAAAAAAO7/AAABAAUAAAAAAO//AAABAAYAAAAAAPD/AAABAAcAAAABAO3/AAACAAQAAAABAO7/AAACAAUAAAABAO//AAACAAYAAAABAPD/AAACAAcAAAACAO3/AAADAAQAAAACAO7/AAADAAUAAAACAO//AAADAAYAAAACAPD/AAADAAcAAAAFAO//AAAAAAQAAAAFAPD/AAAAAAUAAAAFAPH/AAAAAAYAAAAFAPL/AAAAAAcAAAAGAO//AAABAAQAAAAGAPD/AAABAAUAAAAGAPH/AAABAAYAAAAGAPL/AAABAAcAAAAHAO//AAACAAQAAAAHAPD/AAACAAUAAAAHAPH/AAACAAYAAAAHAPL/AAACAAcAAAAIAO//AAADAAQAAAAIAPD/AAADAAUAAAAIAPH/AAADAAYAAAAIAPL/AAADAAcAAAANAPP/AAAAAAQAAAANAPT/AAAAAAUAAAANAPX/AAAAAAYAAAANAPb/AAAAAAcAAAAOAPP/AAABAAQAAAAOAPT/AAABAAUAAAAOAPX/AAABAAYAAAAOAPb/AAABAAcAAAAPAPP/AAACAAQAAAAPAPT/AAACAAUAAAAPAPX/AAACAAYAAAAPAPb/AAACAAcAAAAQAPP/AAADAAQAAAAQAPT/AAADAAEAAAAQAPX/AAADAAEAAAAQAPb/AAADAAcAAAD7/w8AAAAAAAQAAAD7/xAAAAAAAAUAAAD7/xEAAAAAAAYAAAD7/xIAAAAAAAcAAAD8/w8AAAABAAQAAAD8/xAAAAABAAUAAAD8/xEAAAABAAYAAAD8/xIAAAABAAcAAAD9/w8AAAACAAQAAAD9/xAAAAACAAUAAAD9/xEAAAACAAYAAAD9/xIAAAABAAMAAAD+/w8AAAABAAQAAAD+/xAAAAABAAUAAAD+/xEAAAABAAYAAAD+/xIAAAACAAMAAAD//w8AAAACAAQAAAD//xAAAAACAAUAAAD//xEAAAACAAYAAAD//xIAAAACAAMAAAAAAA8AAAACAAQAAAAAABAAAAACAAUAAAAAABEAAAACAAYAAAAAABIAAAACAAcAAAABAA8AAAADAAQAAAABABAAAAADAAUAAAABABEAAAADAAYAAAABABIAAAADAAcAAAAFAA8AAAAAAAQAAAAFABAAAAAAAAUAAAAFABEAAAAAAAYAAAAFABIAAAAAAAcAAAAGAA8AAAABAAQAAAAGABAAAAABAAUAAAAGABEAAAABAAYAAAAGABIAAAABAAMAAAAHAA8AAAACAAQAAAAHABAAAAACAAUAAAAHABEAAAACAAYAAAAHABIAAAACAAMAAAAIAA8AAAADAAQAAAAIABAAAAADAAUAAAAIABEAAAADAAYAAAAIABIAAAADAAcAAADv//b/AAABAAUAAADv//f/AAABAAYAAADw//b/AAACAAEAAADw//f/AAACAAYAAADv//j/AAABAAUAAADv//n/AAABAAYAAADw//j/AAACAAUAAADw//n/AAACAAYAAADv//r/AAABAAUAAADv//v/AAABAAYAAADw//r/AAACAAUAAADw//v/AAACAAYAAADu//r/AAACAAUAAADu//v/AAACAAYAAADv//z/AAACAAMAAADw//z/AAACAAcAAADx//r/AAADAAYAAADx//v/AAADAAYAAADx//z/AAADAAcAAADw//X/AAACAAAAAADx//X/AAADAAAAAADx//b/AAADAAEAAADx//f/AAADAAEAAADx//j/AAADAAQAAADx//n/AAADAAUAAADu//z/AAACAAMAAAAPAAsAAAAAAAQAAAAQAAgAAAAAAAQAAAARAAQAAAAAAAQAAAAPAAwAAAAAAAUAAAAPAA0AAAAAAAYAAAAPAA4AAAAAAAcAAAAQAAkAAAAAAAUAAAAQAAoAAAAAAAYAAAAQAAsAAAAAAAcAAAAQAAwAAAABAAUAAAAQAA0AAAABAAYAAAAQAA4AAAABAAcAAAARAAUAAAAAAAUAAAARAAYAAAAAAAYAAAARAAcAAAAAAAcAAAARAAgAAAABAAQAAAARAAkAAAABAAUAAAARAAoAAAABAAUAAAARAAsAAAABAAYAAAARAAwAAAACAAUAAAARAA0AAAACAAYAAAARAA4AAAACAAcAAAASAAQAAAABAAQAAAASAAUAAAABAAUAAAASAAYAAAABAAUAAAASAAcAAAABAAYAAAASAAgAAAACAAUAAAASAAkAAAACAAUAAAASAAoAAAACAAUAAAASAAsAAAADAAcAAAASAAwAAAADAAUAAAASAA0AAAADAAYAAAASAA4AAAADAAcAAAATAAQAAAACAAQAAAATAAUAAAACAAUAAAATAAYAAAACAAUAAAATAAcAAAADAAcAAAATAAgAAAADAAQAAAATAAkAAAADAAUAAAATAAoAAAADAAYAAAATAAsAAAADAAcAAAAUAAQAAAADAAQAAAAUAAUAAAADAAUAAAAUAAYAAAADAAYAAAAUAAcAAAADAAcAAAD7/wkAAAAAAAAAAAD7/woAAAAAAAUAAAD7/wsAAAAAAAcAAAD8/wkAAAADAAAAAAD8/woAAAADAAYAAAD8/wsAAAADAAcAAAAOAPz/AAAAAAQAAAAOAP3/AAAAAAUAAAAOAP7/AAAAAAYAAAAOAP//AAAAAAcAAAAPAPz/AAABAAQAAAAPAP3/AAABAAUAAAAPAP7/AAABAAYAAAAPAP//AAABAAcAAAAQAPz/AAACAAQAAAAQAP3/AAACAAUAAAAQAP7/AAACAAYAAAAQAP//AAACAAcAAAARAP//AAADAAcAAAA=")
+tile_set = ExtResource("13_1nrcg")
 
 [node name="Planet" type="Node2D" parent="."]
+
+[node name="Obstacle" parent="Planet" instance=ExtResource("7_2ry6r")]
+process_physics_priority = -2
+z_index = 1
+position = Vector2(-68, -607)
+rotation = -8.16244
+scale = Vector2(6.2, 1)
+disable_mode = 2
+
+[node name="Obstacle2" parent="Planet" instance=ExtResource("7_2ry6r")]
+process_physics_priority = -2
+position = Vector2(-476, -41)
+rotation = -1.53026
+scale = Vector2(9.44544, 1)
+disable_mode = 2
+
+[node name="Obstacle3" parent="Planet" instance=ExtResource("7_2ry6r")]
+process_physics_priority = -2
+z_index = 1
+position = Vector2(179, 6)
+rotation = -1.92544
+scale = Vector2(4.69316, 3.27327)
+disable_mode = 2
+
+[node name="SpikeBall" parent="Planet" instance=ExtResource("9_o456l")]
+position = Vector2(-42, -647)
+
+[node name="SpikeBall2" parent="Planet" instance=ExtResource("9_o456l")]
+position = Vector2(30, -471)
+
+[node name="SpikeBall3" parent="Planet" instance=ExtResource("9_o456l")]
+position = Vector2(117, 152)
+
+[node name="SpikeBall4" parent="Planet" instance=ExtResource("9_o456l")]
+position = Vector2(284, 145)
+
+[node name="SpikeBall5" parent="Planet" instance=ExtResource("9_o456l")]
+position = Vector2(342, 112)
 
 [node name="Canvas" type="CanvasLayer" parent="."]
 
@@ -425,3 +471,5 @@ bus = &"Music"
 parameters/looping = true
 
 [connection signal="animation_finished" from="Canvas/Container/Transition/AnimationPlayer" to="Canvas/Container/Transition" method="_on_animation_player_animation_finished"]
+
+[editable path="Core"]

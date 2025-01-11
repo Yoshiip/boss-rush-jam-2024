@@ -1,7 +1,7 @@
 extends Node2D
 
-@export var spin_speed := 0.05
-@export var planet_radius := 200.0
+@export var spin_speed := 0.1
+@export var planet_radius := 400.0
 
 @onready var spaceship: Spaceship = $Spaceship
 @onready var core: Core = $Core
