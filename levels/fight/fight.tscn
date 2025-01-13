@@ -231,12 +231,21 @@ max_shoot_timer = 1.3
 special_chance = 0.0
 bullet_speed = 1
 
+[node name="SpikeBall6" parent="TileMapLayer" instance=ExtResource("9_o456l")]
+position = Vector2(-10, 256)
+rotation = 0.00577306
+scale = Vector2(1.445, 1.445)
+
+[node name="SpikeBall7" parent="TileMapLayer" instance=ExtResource("9_o456l")]
+position = Vector2(-45, -309)
+rotation = 0.00577306
+scale = Vector2(1.415, 1.415)
+
 [node name="Planet" type="Node2D" parent="."]
 
 [node name="SpikeBall7" parent="Planet" instance=ExtResource("9_o456l")]
 position = Vector2(-191, 198)
 rotation = 0.0115461
-scale = Vector2(1, 1)
 
 [node name="Obstacle" parent="Planet" instance=ExtResource("7_2ry6r")]
 process_physics_priority = -2

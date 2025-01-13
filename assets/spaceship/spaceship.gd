@@ -13,12 +13,14 @@ var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
 
+
 @export var max_health := 10
 @onready var health := max_health
 
 
 const FIRE_SPEED = 0.2
 @onready var fire_timer := FIRE_SPEED
+var weapon_toggle =false
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
@@ -33,10 +35,12 @@ func _handle_input(delta: float) -> void:
 		look_at(position+velocity)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
-
+	if Input.is_action_just_pressed("Weapon Toggle"):
+		weapon_toggle= !weapon_toggle
+		
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
-	if (1==1||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
+	if (weapon_toggle ||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
 		bullet.speed = 9
@@ -48,6 +52,13 @@ func _handle_weapon(delta: float) -> void:
 		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED
+		if Input.is_action_just_pressed("fire"):
+			bullet.speed =15
+			bullet.scale = Vector2(1.4,1.4)
+			bullet.bounce_number=-4
+		
+		
+		
 
 
 func _apply_force(delta: float) -> void:

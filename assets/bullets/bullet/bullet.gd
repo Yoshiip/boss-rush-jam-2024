@@ -59,8 +59,8 @@ func _on_area_entered(body: Node2D) -> void:
 		var collision_normal = (body.global_position - global_position).normalized()
 		velocity = velocity.bounce(collision_normal)
 		raycast.set_target_position(velocity.normalized()*30)
-		speed = 6
-		other_bullet.speed=6
+		speed *= 0.8 
+		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
 		other_bullet.bounce_number+=1
 	

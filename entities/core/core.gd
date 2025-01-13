@@ -32,20 +32,20 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
 		if health == floor(max_health * 0.90):
-			root.spawn_wave(5,10,1.4,0.2, 0.25,1)
+			root.spawn_wave(5,10,1.4,0.2, 0.35,1)
 			root.spin_speed += 0.12
 			_shoot_circle(25)
 		elif health == floor(max_health * 0.75):
-			root.spawn_wave(6,10,1.2,0.4,0.20,1)
+			root.spawn_wave(6,10,1.2,0.4,0.35,1)
 			root.spin_speed += 0.12
 			_shoot_circle(35)
 		elif health == floor(max_health * 0.50):
-			root.spawn_wave(5,10,1.2,0.6,0.10,1)
-			root.spin_speed += 0.12
+			root.spawn_wave(5,10,1,0.6,0.35,1)
+			root.spin_speed -= 0.4
 			_shoot_circle(45)
 		elif health == floor(max_health * 0.25):
-			root.spawn_wave(4,10,1.2,0.9,0.10,1)
-			root.spin_speed += 0.12
+			root.spawn_wave(4,10,1.2,0.9,0.35,1)
+			root.spin_speed += 0.5
 			_shoot_circle(55)
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
