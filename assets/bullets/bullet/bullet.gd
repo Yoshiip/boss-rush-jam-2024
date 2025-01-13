@@ -4,7 +4,7 @@ var from_enemy := false
 var damage := 1
 
 var velocity
-var speed = 8.0
+var speed = 1.5
 var bounce_number=0
 var raycast
 
@@ -18,7 +18,7 @@ func _ready() -> void:
 		# we'il probably make a special bullet for enemy later
 		modulate = Color.RED
 		
-		speed *= 0.2
+		#speed *= 0.2
 
 func _physics_process(delta: float) -> void:
 	position += velocity * speed

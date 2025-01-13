@@ -1,7 +1,7 @@
 class_name DefaultEye
 extends Area2D
 
-@export var max_health := 3
+@export var max_health := 10
 @onready var health := max_health
 
 @export var max_shoot_timer := 0.01
@@ -9,7 +9,7 @@ extends Area2D
 
 @export_range(0.0, 1.0) var special_chance = 0.2
 @export_range(0.0, PI/3) var accurracy = 0.2
-
+@export var bullet_speed = 2
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 
 var spaceship: Spaceship
@@ -50,12 +50,13 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	bullet.look_at(spaceship.global_position)
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
+	bullet.speed =bullet_speed
 	get_tree().current_scene.add_child(bullet)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") and not area.from_enemy:
 		health -= area.damage
-		camera.add_trauma(1)
+		camera.add_trauma(2)
 		if health <= 0:
 			queue_free()
 		else:

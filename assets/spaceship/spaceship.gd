@@ -17,7 +17,7 @@ var net_force := Vector2.ZERO
 @onready var health := max_health
 
 
-const FIRE_SPEED = 0.3
+const FIRE_SPEED = 0.2
 @onready var fire_timer := FIRE_SPEED
 
 func _ready() -> void:
@@ -39,7 +39,7 @@ func _handle_weapon(delta: float) -> void:
 	if (1==1||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
-		bullet.speed = 10
+		bullet.speed = 9
 		bullet.from_enemy= false
 		var mouse_position = get_global_mouse_position()
 		var direction = (mouse_position - global_position).normalized()
