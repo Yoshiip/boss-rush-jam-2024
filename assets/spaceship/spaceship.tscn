@@ -8,10 +8,11 @@
 shader = ExtResource("2_k6v8s")
 shader_parameter/whitening = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tye7f"]
-size = Vector2(24, 24)
+[sub_resource type="CircleShape2D" id="CircleShape2D_22uoe"]
+radius = 12.8571
 
 [node name="Spaceship" type="CharacterBody2D" groups=["Spaceship"]]
+position = Vector2(-1, 0)
 motion_mode = 1
 script = ExtResource("1_lprlc")
 
@@ -21,4 +22,6 @@ position = Vector2(6, 0)
 texture = ExtResource("2_dnahp")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_tye7f")
+scale = Vector2(0.7, 0.7)
+shape = SubResource("CircleShape2D_22uoe")
+one_way_collision_margin = 0.0

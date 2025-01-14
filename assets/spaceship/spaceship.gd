@@ -6,12 +6,13 @@ signal dead
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ACCELERATION_SPEED = 350.0
+const ACCELERATION_SPEED = 400.0
 const FRICTION_COEFF = 1.5
 
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
+var target_direction
 
 
 @export var max_health := 10
@@ -21,22 +22,38 @@ var net_force := Vector2.ZERO
 const FIRE_SPEED = 0.2
 @onready var fire_timer := FIRE_SPEED
 var weapon_toggle =false
+var switch_movemode = true
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
 func _handle_input(delta: float) -> void:
 	var axis = Vector2(
-		Input.get_axis("move_left", "move_right"),
-		Input.get_axis("move_up", "move_down")
-	)
+	Input.get_axis("move_left", "move_right"),
+	Input.get_axis("move_up", "move_down")
+)
+	#handle movement
 	if axis.length() > 0:
-		velocity = velocity.lerp(axis.normalized() * ACCELERATION_SPEED, 20.0 * delta)
-		look_at(position+velocity)
+		#smoothly change direction, instead of immediatly snapping to new direction
+		if switch_movemode:
+			var target_velocity = axis.normalized() * ACCELERATION_SPEED
+			
+			velocity = lerp(velocity, target_velocity, 20.0 * delta)
+			
+			var target_direction = position + velocity
+			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 8.0 * delta)
+		else: 
+			var goal_direction = axis.angle()
+			rotation =  lerp_angle(rotation, goal_direction, 15.0 * delta)
+			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 5.0 * delta)
+
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
+
 	if Input.is_action_just_pressed("Weapon Toggle"):
 		weapon_toggle= !weapon_toggle
+	if Input.is_action_just_pressed("Switch_Movement"):
+		switch_movemode= !switch_movemode
 		
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
@@ -52,6 +69,7 @@ func _handle_weapon(delta: float) -> void:
 		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED
+		#faster bullet is launched if you haven't been holding down fire,to encourage tactical play
 		if Input.is_action_just_pressed("fire"):
 			bullet.speed =15
 			bullet.scale = Vector2(1.4,1.4)
