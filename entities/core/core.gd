@@ -5,8 +5,14 @@ signal took_damage
 
 const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 
-@export var max_health := 40
+@export var max_health := 120
 @onready var health := max_health
+var last_health_threshold = max_health
+var starting_wave_args=[3,10,2,0, 0.35,1]
+var wave_args_adjust=[1,0,-0.1,0.4,-0.1,0.1]
+var wave_args=[0,0,0,0,0,0]
+var spin_speed_change =.12
+var circle_shoot_amount =15
 
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 
@@ -29,24 +35,16 @@ func _shoot_circle(number : float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
+	
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
-		if health == floor(max_health * 0.90):
-			root.spawn_wave(5,10,1.4,0.2, 0.35,1)
-			root.spin_speed += 0.12
-			_shoot_circle(25)
-		elif health == floor(max_health * 0.75):
-			root.spawn_wave(6,10,1.2,0.4,0.35,1)
-			root.spin_speed += 0.12
-			_shoot_circle(35)
-		elif health == floor(max_health * 0.50):
-			root.spawn_wave(5,10,1,0.6,0.35,1)
-			root.spin_speed -= 0.4
-			_shoot_circle(45)
-		elif health == floor(max_health * 0.25):
-			root.spawn_wave(4,10,1.2,0.9,0.35,1)
-			root.spin_speed += 0.5
-			_shoot_circle(55)
+		if health <= last_health_threshold-20:
+			last_health_threshold-=20
+			_adjust_wave()
+			root.spawn_wave(wave_args[0],wave_args[1],wave_args[2],wave_args[3],wave_args[4],wave_args[5])
+			root.spin_speed += spin_speed_change
+			_shoot_circle(circle_shoot_amount)
+		
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
 			$CollisionShape.disabled = true
@@ -59,9 +57,33 @@ func _on_area_entered(area: Area2D) -> void:
 		camera.add_trauma(3)
 		area.destroy_bullet()
 
-
-
 func _process(delta: float) -> void:
 	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1)
 	i += delta
+
+func _adjust_wave() -> void:
+	spin_speed_change =.12
+	circle_shoot_amount =15
+	if last_health_threshold==100:
+		circle_shoot_amount+=10
+		#default [5,10,1.4,0.2, 0.35,1]
+		wave_args_adjust=[2,0,-0.1,0.1,0,0]
+	elif last_health_threshold==80:
+		circle_shoot_amount+=10
+		wave_args_adjust=[1,0,-0.1,0.2,0,0]
+	elif last_health_threshold== 60:
+		wave_args_adjust=[1,0,-1,0.3,-0.2,0.2]
+		circle_shoot_amount+=20
+		spin_speed_change-=0.48
+	else:
+		wave_args=[0,0,0,0,0,0]
+		
+	wave_args = []
+	for i in range(starting_wave_args.size()):
+		wave_args.append(starting_wave_args[i] + wave_args_adjust[i])
+	
+	
+
+	
+	
 	

@@ -19,7 +19,7 @@ var target_direction
 @onready var health := max_health
 
 
-const FIRE_SPEED = 0.2
+const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 var weapon_toggle =false
 var switch_movemode = true
@@ -60,7 +60,7 @@ func _handle_weapon(delta: float) -> void:
 	if (weapon_toggle ||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
 		var bullet = BULLET.instantiate()
 		bullet.position = position
-		bullet.speed = 9
+		bullet.speed = 7
 		bullet.from_enemy= false
 		var mouse_position = get_global_mouse_position()
 		var direction = (mouse_position - global_position).normalized()
@@ -69,8 +69,9 @@ func _handle_weapon(delta: float) -> void:
 		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED
+		bullet.infection_bullet=true
 		#faster bullet is launched if you haven't been holding down fire,to encourage tactical play
-		if Input.is_action_just_pressed("fire"):
+		if Input.is_action_just_pressed("fire")&&1==0:
 			bullet.speed =15
 			bullet.scale = Vector2(1.4,1.4)
 			bullet.bounce_number=-4

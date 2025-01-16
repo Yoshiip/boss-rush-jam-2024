@@ -14,7 +14,7 @@ func _ready() -> void:
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
-	spawn_wave(4,10,2,0,0.35, 0.8)
+	spawn_wave(2,10,5,0,0.35, 0.8)
 	
 	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
 	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
@@ -37,9 +37,9 @@ func _core_took_damage() -> void:
 
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
 
-func spawn_wave(eye_num : int, hp : int, shoot_time : float, special :float,  acurracy : float, bullet_speed : float) -> void:
+func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  acc : float, speed : float) -> void:
 	$Camera.add_trauma(25.0)
-
+	
 	for i in eye_num:
 		var valid_position = false
 		var max_attempts = 50  # prevent infinite loops
@@ -62,19 +62,22 @@ func spawn_wave(eye_num : int, hp : int, shoot_time : float, special :float,  ac
 			eye.position = eye_position
 			$Planet.add_child(eye)
 			eye.max_health = hp
-			eye.max_shoot_timer = shoot_time
-			eye.special_chance = special
-			eye.accurracy = acurracy
-			eye.bullet_speed = bullet_speed
+			eye.max_shoot_timer = fire_rate
+			eye.special_chance = chance
+			eye.accurracy = acc
+			eye.bullet_speed = speed
 			
 		else:
 			print("failed to find valid position")
 
 func is_point_colliding(point: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsPointQueryParameters2D.new()
-	query.position = point
-	var result = space_state.intersect_point(query)
+	var query = PhysicsShapeQueryParameters2D.new()
+	var circle_shape = CircleShape2D.new()
+	circle_shape.radius = 48 
+	query.shape = circle_shape
+	query.transform.origin = point
+	var result = space_state.intersect_shape(query)
 	return result.size() > 0
 	
 func _on_player_dead() -> void:
