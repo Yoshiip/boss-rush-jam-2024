@@ -7,6 +7,8 @@ const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 
 @export var max_health := 120
 @onready var health := max_health
+@export var stats : boss_phase_info
+var boss_phase_num :=0
 var last_health_threshold = max_health
 var starting_wave_args=[3,10,2,0, 0.35,1]
 var wave_args_adjust=[1,0,-0.1,0.4,-0.1,0.1]
@@ -24,6 +26,10 @@ const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
+	# initials spawns
+	root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
+	root.spawn_spikes(stats.spike_num[boss_phase_num])
+	root.spin_speed = stats.spin_speed[boss_phase_num]
 
 func _shoot_circle(number : float) -> void:
 	for i in number:
@@ -31,6 +37,9 @@ func _shoot_circle(number : float) -> void:
 		bullet.position = position
 		bullet.from_enemy = true
 		bullet.rotation = (PI * 2.0) / number * i
+		bullet.bounce_powerup=true
+		bullet.bounce_number=-1
+		bullet.special_enemy_projectile=true
 		call_deferred("add_sibling", bullet)
 
 
@@ -38,12 +47,16 @@ func _on_area_entered(area: Area2D) -> void:
 	
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
-		if health <= last_health_threshold-20:
+		if health <= last_health_threshold-20&& boss_phase_num<5:
 			last_health_threshold-=20
-			_adjust_wave()
-			root.spawn_wave(wave_args[0],wave_args[1],wave_args[2],wave_args[3],wave_args[4],wave_args[5])
-			root.spin_speed += spin_speed_change
-			_shoot_circle(circle_shoot_amount)
+			boss_phase_num+=1
+			root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
+			root.spin_speed = stats.spin_speed[boss_phase_num]
+			_shoot_circle(stats.circle_bullet_fire[boss_phase_num])
+			root.spawn_spikes(stats.spike_num[boss_phase_num])
+			var random_angle = randf() * PI * 2
+			var random_distance = randi_range(-10,200)
+			position = Vector2(cos(random_angle), sin(random_angle)) * (root.planet_radius+ random_distance)
 		
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
@@ -61,6 +74,8 @@ func _process(delta: float) -> void:
 	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1)
 	i += delta
 
+
+#remove after stability confirmed
 func _adjust_wave() -> void:
 	spin_speed_change =.12
 	circle_shoot_amount =15

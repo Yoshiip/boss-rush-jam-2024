@@ -13,6 +13,7 @@ var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
 var target_direction
+#@export var stats : player_stats
 
 
 @export var max_health := 10
@@ -44,11 +45,12 @@ func _handle_input(delta: float) -> void:
 			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 8.0 * delta)
 		else: 
 			var goal_direction = axis.angle()
-			rotation =  lerp_angle(rotation, goal_direction, 15.0 * delta)
+			rotation =  lerp_angle(rotation, goal_direction, 5.0 * delta)
 			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 5.0 * delta)
 
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
+		
 
 	if Input.is_action_just_pressed("Weapon Toggle"):
 		weapon_toggle= !weapon_toggle
@@ -69,12 +71,33 @@ func _handle_weapon(delta: float) -> void:
 		
 		add_sibling(bullet)
 		fire_timer = FIRE_SPEED
-		bullet.infection_bullet=true
+		bullet.infection_bullet=false
 		#faster bullet is launched if you haven't been holding down fire,to encourage tactical play
 		if Input.is_action_just_pressed("fire")&&1==0:
 			bullet.speed =15
 			bullet.scale = Vector2(1.4,1.4)
 			bullet.bounce_number=-4
+	elif  fire_timer <= 0.0:
+		var axis_shoot = Vector2(
+		Input.get_axis("attack_left", "attack_right"),
+		Input.get_axis("attack_up", "attack_down")
+	)
+		if axis_shoot.length()>0:
+			var bullet = BULLET.instantiate()
+			bullet.position = position
+			bullet.speed = 7
+			bullet.from_enemy= false
+			
+			
+			
+			bullet.rotation = axis_shoot.angle()
+			bullet.velocity = axis_shoot
+			
+			add_sibling(bullet)
+			fire_timer = FIRE_SPEED
+			bullet.infection_bullet=false
+			bullet.bounce_powerup=true
+				
 		
 		
 		

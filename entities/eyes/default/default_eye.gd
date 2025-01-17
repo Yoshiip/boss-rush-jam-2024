@@ -51,6 +51,10 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	bullet.speed =bullet_speed
+	if bullet.speed>3:
+		bullet.modulate= Color.ORANGE_RED
+	else:
+		bullet.modulate= Color.RED
 	get_tree().current_scene.add_child(bullet)
 
 func _on_area_entered(area: Area2D) -> void:

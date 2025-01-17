@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://brl7hqa4uojyj"]
 
-[ext_resource type="Script" path="res://levels/fight/spikes.gd" id="1_novue"]
+[ext_resource type="Script" path="res://entities/Damaging Parts/spike_ball.gd" id="1_2bmvx"]
 [ext_resource type="Texture2D" uid="uid://ctkgcc4v0n21b" path="res://entities/Damaging Parts/place holder spike obstacle.png" id="2_6ppow"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i6d1g"]
@@ -8,7 +8,7 @@ radius = 20.0
 
 [node name="SpikeBall" type="Area2D"]
 position = Vector2(94, -66)
-script = ExtResource("1_novue")
+script = ExtResource("1_2bmvx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-2, 1)

@@ -14,7 +14,7 @@ func _ready() -> void:
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
-	spawn_wave(2,10,5,0,0.35, 0.8)
+	#spawn_wave(2,10,5,0,0.35, 0.8)
 	
 	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
 	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
@@ -36,6 +36,7 @@ func _core_took_damage() -> void:
 	$Canvas/Container/BossHealth/ProgressBar.value = core.health
 
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
+const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 
 func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  acc : float, speed : float) -> void:
 	$Camera.add_trauma(25.0)
@@ -50,7 +51,8 @@ func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  
 			attempt += 1
 			
 			var random_angle = randf() * PI * 2
-			eye_position = Vector2(cos(random_angle), sin(random_angle)) * planet_radius
+			var random_distance = randi_range(-350,30)
+			eye_position = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+ random_distance)
 
 			# checks if the position is clear
 			if not is_point_colliding(eye_position):
@@ -60,6 +62,8 @@ func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  
 		if valid_position:
 			var eye = DEFAULT_EYE.instantiate()
 			eye.position = eye_position
+			if fire_rate>3:
+				eye.modulate= Color.RED
 			$Planet.add_child(eye)
 			eye.max_health = hp
 			eye.max_shoot_timer = fire_rate
@@ -69,17 +73,55 @@ func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  
 			
 		else:
 			print("failed to find valid position")
+			
+func spawn_spikes(num : float) -> void:
+	$Camera.add_trauma(25.0)
+	
+	for i in num:
+		var valid_position = false
+		var max_attempts = 50  # prevent infinite loops
+		var attempt = 0
+		var spike_position = Vector2.ZERO
+	
+		while not valid_position and attempt < max_attempts:
+			attempt += 1
+			
+			var random_angle = randf() * PI * 2
+			var random_distance = randi_range(-150,150)
+			spike_position = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+random_distance)
+
+			# checks if the position is clear
+			if not is_point_colliding(spike_position):
+				valid_position = true
+
+		# If a valid position was found, instantiate the eye
+		if valid_position:
+			var spike = SPIKE_BALL.instantiate()
+			spike.position = spike_position
+			$Planet.add_child(spike)
+		
+			
+		else:
+			print("failed to find valid position")
+
 
 func is_point_colliding(point: Vector2) -> bool:
 	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsShapeQueryParameters2D.new()
-	var circle_shape = CircleShape2D.new()
-	circle_shape.radius = 48 
-	query.shape = circle_shape
-	query.transform.origin = point
-	var result = space_state.intersect_shape(query)
-	return result.size() > 0
+	var query_point = PhysicsPointQueryParameters2D.new()
+	var result = space_state.intersect_point(query_point)
+	query_point.position = point
 	
+	if result.size() == 0:
+		
+		var query = PhysicsShapeQueryParameters2D.new()
+		
+		var circle_shape = CircleShape2D.new()
+		circle_shape.radius = 60 
+		query.shape = circle_shape
+		query.transform.origin = point
+		var result2 = space_state.intersect_shape(query)
+		return result2.size() > 0
+	return result.size() > 0
 func _on_player_dead() -> void:
 	get_tree().paused = true
 	$Canvas/Container/GameOver.visible = true

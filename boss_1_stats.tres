@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="boss_phase_info" load_steps=2 format=3 uid="uid://wbnhj57knofl"]
+
+[ext_resource type="Script" path="res://boss_phase_info.gd" id="1_v2e1h"]
+
+[resource]
+script = ExtResource("1_v2e1h")
+eye_num = [2, 2, 2, 2, 2, 2]
+hp = [10, 10, 10, 10, 10, 10]
+fire_rate = [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]
+spc_chance = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+accur = [0.35, 0.35, 0.35, 0.35, 0.35, 0.35]
+bullet_speed = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+spin_speed = [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+circle_bullet_fire = [12, 12, 12, 12, 12, 12]
+spike_num = [0, 0, 0, 0, 0, 0]
