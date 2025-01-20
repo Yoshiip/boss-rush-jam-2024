@@ -3,11 +3,13 @@
 [ext_resource type="Texture2D" uid="uid://bgn2xnya0p5fq" path="res://Place holder Body Obstacle.png" id="1_pp3an"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cnx7y"]
+size = Vector2(17.5695, 17.5695)
 
 [node name="Obstacle" type="StaticBody2D" groups=["Obstacle"]]
 position = Vector2(598, 166)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
 scale = Vector2(3.415, 3.415)
 shape = SubResource("RectangleShape2D_cnx7y")
 

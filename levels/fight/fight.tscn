@@ -173,7 +173,7 @@ _data = {
 "intro": SubResource("Animation_3c4mq")
 }
 
-[node name="Fight" type="Node2D"]
+[node name="Node2D" type="Node2D"]
 script = ExtResource("1_5kee0")
 
 [node name="Background" type="Node2D" parent="."]
@@ -199,11 +199,11 @@ scale = Vector2(2.925, 2.925)
 texture = ExtResource("6_8icnl")
 
 [node name="Spaceship" parent="." instance=ExtResource("1_4fykx")]
-position = Vector2(-1749, 179)
+position = Vector2(-2014, 219)
 rotation = -6.28319
 
 [node name="Camera" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.4, 0.41)
 position_smoothing_enabled = true
 script = ExtResource("5_g487y")
 metadata/_edit_lock_ = true
@@ -252,17 +252,14 @@ bullet_speed = 1
 [node name="Sprite" parent="TileMapLayer/DefaultEye3" index="0"]
 texture = ExtResource("10_1ttbb")
 
-[node name="DefaultEye4" parent="TileMapLayer" instance=ExtResource("8_fi0s5")]
-position = Vector2(126, -117)
-max_shoot_timer = 3.0
-special_chance = 0.0
-bullet_speed = 1
-
 [node name="DefaultEye5" parent="TileMapLayer" instance=ExtResource("8_fi0s5")]
 position = Vector2(-116, 145)
 max_shoot_timer = 3.0
 special_chance = 0.0
 bullet_speed = 1
+
+[node name="DefaultEye4" parent="TileMapLayer" instance=ExtResource("8_fi0s5")]
+position = Vector2(-1514, 223)
 
 [node name="Planet" type="Node2D" parent="."]
 
@@ -618,3 +615,4 @@ parameters/looping = true
 [editable path="TileMapLayer/DefaultEye"]
 [editable path="TileMapLayer/DefaultEye2"]
 [editable path="TileMapLayer/DefaultEye3"]
+[editable path="Planet/Obstacle3"]

@@ -39,14 +39,14 @@ func _handle_input(delta: float) -> void:
 		if switch_movemode:
 			var target_velocity = axis.normalized() * ACCELERATION_SPEED
 			
-			velocity = lerp(velocity, target_velocity, 20.0 * delta)
+			velocity = lerp(velocity, target_velocity, 25.0 * delta)
 			
 			var target_direction = position + velocity
-			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 8.0 * delta)
+			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 5.0 * delta)
 		else: 
 			var goal_direction = axis.angle()
 			rotation =  lerp_angle(rotation, goal_direction, 5.0 * delta)
-			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 5.0 * delta)
+			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
 
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)

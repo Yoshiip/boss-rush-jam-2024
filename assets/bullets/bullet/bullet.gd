@@ -8,14 +8,22 @@ var velocity
 var speed = 1.5
 var bounce_number=0
 var raycast
+var raycast_homing
+var collider
+var homing_direction := Vector2(0,0)
 var infection_bullet =false
 var intangible_bullet = false
 var bounce_powerup = false
 func _ready() -> void:
 	velocity = Vector2.RIGHT.rotated(rotation)
 	set_rotation_degrees(360) 
+	
 	raycast =$RayCast2D
 	raycast.set_target_position(velocity.normalized()*30)
+	
+	if !from_enemy:
+		raycast_homing =$RayCast2D2
+		raycast_homing.set_target_position(velocity.normalized()*400)
 	
 	if special_enemy_projectile:
 		modulate = Color.WEB_PURPLE
@@ -26,7 +34,17 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	position += velocity * speed
-
+	
+	if from_enemy:
+		pass
+	elif raycast_homing.is_colliding():
+		collider = raycast_homing.get_collider()
+		if collider && collider.is_in_group("enemy"):
+			homing_direction = (collider.global_position - global_position).normalized()
+			velocity = homing_direction
+			
+			 
+			
 
 func destroy_bullet():
 	#add some sort of explosion effect
@@ -49,7 +67,8 @@ func _on_body_entered(body: Node2D) -> void:
 		#var collision_normal = (body.global_position - global_position).normalized()
 			velocity = velocity.bounce(collision_normal)
 			raycast.set_target_position(velocity.normalized()*30)
-		
+			if!from_enemy:
+				raycast_homing.set_target_position(velocity.normalized()*300)
 			bounce_number+=1
 			
 			if bounce_number>4:
@@ -66,6 +85,8 @@ func _on_area_entered(body: Node2D) -> void:
 		var collision_normal = (body.global_position - global_position).normalized()
 		velocity = velocity.bounce(collision_normal)
 		raycast.set_target_position(velocity.normalized()*30)
+		if!from_enemy:
+				raycast_homing.set_target_position(velocity.normalized()*300)
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)

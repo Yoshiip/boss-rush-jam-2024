@@ -9,9 +9,9 @@ shader = ExtResource("2_8iku6")
 shader_parameter/whitening = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
-radius = 40.0
+radius = 62.0
 
-[node name="DefaultEye" type="Area2D"]
+[node name="DefaultEye" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
 max_health = 6
 max_shoot_timer = 1.0
@@ -23,7 +23,7 @@ material = SubResource("ShaderMaterial_64cpk")
 position = Vector2(-8, -1)
 texture = ExtResource("3_5od7o")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="."]
+[node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
 position = Vector2(-12, -1)
 shape = SubResource("CircleShape2D_ufsgx")
 

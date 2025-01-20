@@ -87,7 +87,7 @@ func spawn_spikes(num : float) -> void:
 			attempt += 1
 			
 			var random_angle = randf() * PI * 2
-			var random_distance = randi_range(-150,150)
+			var random_distance = randi_range(-150,300)
 			spike_position = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+random_distance)
 
 			# checks if the position is clear
