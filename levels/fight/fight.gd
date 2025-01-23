@@ -11,7 +11,10 @@ const PAUSE = preload("res://ui/pause/pause.tscn")
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
 const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 
+const DIALOGUE = preload("res://ui/dialogue/dialogue.tscn")
+
 func _ready() -> void:
+	spaceship.allow_inputs.append("start")
 	spaceship.took_damage.connect(_player_took_damage)
 	spaceship.dead.connect(_on_player_dead)
 	core.took_damage.connect(_core_took_damage)
@@ -27,7 +30,20 @@ func _ready() -> void:
 	var pause := PAUSE.instantiate()
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
+	
 
+
+func transition_ended() -> void:
+	spaceship.allow_inputs.erase("start")
+	_spawn_dialogue()
+
+func _spawn_dialogue() -> void:
+	var dialogue := DIALOGUE.instantiate()
+	$Canvas/Container.add_child(dialogue)
+	spaceship.allow_inputs.append("dialogue")
+	dialogue.ended.connect(func ():
+		spaceship.allow_inputs.erase("dialogue")
+	)
 
 func _process(delta: float) -> void:
 	$Planet.rotation += delta * spin_speed

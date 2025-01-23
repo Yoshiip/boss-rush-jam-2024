@@ -1,0 +1,184 @@
+[gd_scene load_steps=10 format=3 uid="uid://cg6t65il15mfq"]
+
+[ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="1_28rdg"]
+[ext_resource type="Script" path="res://ui/dialogue/dialogue.gd" id="2_0b2e0"]
+[ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="2_6gjie"]
+[ext_resource type="Texture2D" uid="uid://b7ca404jr4ql0" path="res://assets/utils/circular_progress_bar.png" id="4_dkd36"]
+[ext_resource type="Texture2D" uid="uid://dyrprgmv2ahol" path="res://ui/dialogue/portraits/player.jpg" id="4_iw4j1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8f7mt"]
+bg_color = Color(0, 0, 0, 0.498039)
+border_width_top = 128
+border_color = Color(0, 0, 0, 0)
+border_blend = true
+
+[sub_resource type="Animation" id="Animation_kgiwn"]
+resource_name = "Open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Vector2(0, 368), Vector2(0, 240)]
+}
+
+[sub_resource type="Animation" id="Animation_cwo2b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Gradient:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Gradient:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 240)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jewyn"]
+_data = {
+"Open": SubResource("Animation_kgiwn"),
+"RESET": SubResource("Animation_cwo2b")
+}
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_28rdg")
+script = ExtResource("2_0b2e0")
+metadata/_edit_lock_ = true
+
+[node name="Gradient" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8f7mt")
+
+[node name="Name" type="RichTextLabel" parent="Gradient"]
+clip_contents = false
+layout_mode = 0
+offset_left = 162.0
+offset_top = 10.0
+offset_right = 211.0
+offset_bottom = 24.0
+theme_override_colors/default_color = Color(0.0823529, 0.607843, 0.866667, 1)
+bbcode_enabled = true
+text = "[wave]You[/wave]"
+fit_content = true
+scroll_active = false
+
+[node name="Content" type="RichTextLabel" parent="Gradient"]
+clip_contents = false
+layout_mode = 0
+offset_left = 130.0
+offset_top = 34.0
+offset_right = 594.0
+offset_bottom = 86.0
+bbcode_enabled = true
+text = "ytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSF"
+
+[node name="NextArrow" type="TextureRect" parent="Gradient"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -36.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_6gjie")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Portrait" type="TextureRect" parent="Gradient"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -56.0
+offset_right = 120.0
+offset_bottom = 56.0
+grow_vertical = 2
+texture = ExtResource("4_iw4j1")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jewyn")
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -94.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 56.0
+grow_horizontal = 0
+
+[node name="ProgressBar" type="TextureProgressBar" parent="HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("4_dkd36")
+texture_progress = ExtResource("4_dkd36")
+tint_under = Color(0, 0, 0, 1)
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "skip"

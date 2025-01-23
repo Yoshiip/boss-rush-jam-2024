@@ -20,43 +20,48 @@ var target_direction
 @export var max_health := 10
 @onready var health := max_health
 
+# Only allow inputs if is empty
+var allow_inputs: Array[String] = []
+
 
 const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 var weapon_toggle := false
 var switch_movemode := true
 
+func _is_allowed_inputs() -> bool:
+	return allow_inputs.is_empty()
+
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
 func _handle_input(delta: float) -> void:
-	var axis = Vector2(
+	var axis := Vector2(
 		Input.get_axis("move_left", "move_right"),
 		Input.get_axis("move_up", "move_down")
-	)
+	) if _is_allowed_inputs() else Vector2.ZERO
 	#handle movement
 	if axis.length() > 0:
 		#smoothly change direction, instead of immediatly snapping to new direction
 		if switch_movemode:
-			var target_velocity = axis.normalized() * ACCELERATION_SPEED
+			var target_velocity := axis.normalized() * ACCELERATION_SPEED
 			
 			velocity = lerp(velocity, target_velocity, 25.0 * delta)
 			
-			var target_direction = position + velocity
+			var target_direction := position + velocity
 			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 5.0 * delta)
 		else: 
-			var goal_direction = axis.angle()
+			var goal_direction := axis.angle()
 			rotation =  lerp_angle(rotation, goal_direction, 5.0 * delta)
 			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
-
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
-		
 
-	if Input.is_action_just_pressed("weapon_toggle"):
-		weapon_toggle= !weapon_toggle
-	if Input.is_action_just_pressed("switch_movement"):
-		switch_movemode= !switch_movemode
+	if _is_allowed_inputs():
+		if Input.is_action_just_pressed("weapon_toggle"):
+			weapon_toggle= !weapon_toggle
+		if Input.is_action_just_pressed("switch_movement"):
+			switch_movemode= !switch_movemode
 
 
 func _fire() -> Bullet:
@@ -64,7 +69,8 @@ func _fire() -> Bullet:
 	var bullet = BULLET.instantiate()
 	bullet.position = position
 	bullet.speed = 7
-	bullet.from_enemy= false
+	bullet.from_enemy = false
+	
 	var mouse_position := get_global_mouse_position()
 	var direction := (mouse_position - global_position).normalized()
 	bullet.rotation = direction.angle()
@@ -78,8 +84,9 @@ func _fire() -> Bullet:
 
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
+	if !_is_allowed_inputs():
+		return
 	if (weapon_toggle || Input.is_action_pressed("fire")) && fire_timer <= 0.0:
-
 		var bullet := _fire()
 
 		if Input.is_action_just_pressed("fire"):

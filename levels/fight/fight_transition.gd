@@ -1,4 +1,5 @@
 extends Control
+@onready var root: FightRoot = $"../../.."
 
 @onready var music: AudioStreamPlayer = $"../../../Music"
 @onready var title: RichTextLabel = $Title
@@ -9,4 +10,5 @@ func _ready() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	music.play()
+	root.transition_ended()
 	queue_free()
