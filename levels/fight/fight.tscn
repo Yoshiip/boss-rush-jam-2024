@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bx5s0b3tainfp" path="res://assets/utils/pixel.png" id="5_ihacb"]
 [ext_resource type="Texture2D" uid="uid://cnkyxiwscusub" path="res://assets/utils/circle_256.png" id="6_8icnl"]
 [ext_resource type="PackedScene" uid="uid://cspf4ul0wm7g" path="res://entities/Obstacle/obstacle.tscn" id="7_2ry6r"]
-[ext_resource type="Resource" uid="uid://dbl0fdky1g4v" path="res://3rd_boss_info.tres" id="7_bc2qi"]
+[ext_resource type="Resource" path="res://3rd_boss_info.tres" id="7_bc2qi"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_fi0s5"]
 [ext_resource type="Script" path="res://levels/fight/fight_transition.gd" id="9_2s53k"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="9_o456l"]
@@ -226,7 +226,12 @@ accurracy = 0.061
 bullet_speed = 1
 
 [node name="Sprite" parent="TileMapLayer/DefaultEye" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_1ttbb")
+
+[node name="CollisionShape" parent="TileMapLayer/DefaultEye" index="1"]
+position = Vector2(0, 0)
 
 [node name="DefaultEye2" parent="TileMapLayer" groups=["Obstacle"] instance=ExtResource("8_fi0s5")]
 position = Vector2(-288, -279)
@@ -238,7 +243,12 @@ accurracy = 0.061
 bullet_speed = 1
 
 [node name="Sprite" parent="TileMapLayer/DefaultEye2" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_1ttbb")
+
+[node name="CollisionShape" parent="TileMapLayer/DefaultEye2" index="1"]
+position = Vector2(0, 0)
 
 [node name="DefaultEye3" parent="TileMapLayer" groups=["Obstacle"] instance=ExtResource("8_fi0s5")]
 position = Vector2(402, -106)
@@ -250,7 +260,12 @@ accurracy = 0.061
 bullet_speed = 1
 
 [node name="Sprite" parent="TileMapLayer/DefaultEye3" index="0"]
+position = Vector2(0, 0)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("10_1ttbb")
+
+[node name="CollisionShape" parent="TileMapLayer/DefaultEye3" index="1"]
+position = Vector2(0, 0)
 
 [node name="DefaultEye5" parent="TileMapLayer" instance=ExtResource("8_fi0s5")]
 position = Vector2(-116, 145)
