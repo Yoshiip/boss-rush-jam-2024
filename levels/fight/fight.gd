@@ -1,3 +1,4 @@
+class_name FightRoot
 extends Node2D
 
 @export var spin_speed := 0.1
@@ -5,7 +6,11 @@ extends Node2D
 
 @onready var spaceship: Spaceship = $Spaceship
 @onready var core: Core = $Core
+
 const PAUSE = preload("res://ui/pause/pause.tscn")
+const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
+const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
+
 func _ready() -> void:
 	spaceship.took_damage.connect(_player_took_damage)
 	spaceship.dead.connect(_on_player_dead)
@@ -35,8 +40,6 @@ func _player_took_damage() -> void:
 func _core_took_damage() -> void:
 	$Canvas/Container/BossHealth/ProgressBar.value = core.health
 
-const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
-const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 
 func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  acc : float, speed : float) -> void:
 	$Camera.add_trauma(25.0)
@@ -122,6 +125,30 @@ func is_point_colliding(point: Vector2) -> bool:
 		var result2 = space_state.intersect_shape(query)
 		return result2.size() > 0
 	return result.size() > 0
+
+
 func _on_player_dead() -> void:
 	get_tree().paused = true
 	$Canvas/Container/GameOver.visible = true
+
+
+const EFFECTS_BUS = &"Effects"
+
+func _get_audio_player(at: Vector2) -> AudioStreamPlayer2D:
+	var audio := AudioStreamPlayer2D.new()
+	audio.position = at
+	audio.bus = EFFECTS_BUS
+	return audio;
+
+const PROJECTILE_BOUNCE_SFX = preload("res://audios/effects/bounce.wav")
+const PROJECTILE_SHOOT_SFX = preload("res://audios/effects/shoot1.wav")
+
+func spawn_bullet_sfx(at: Vector2) -> void:
+	var _audio := _get_audio_player(at)
+	_audio.stream = PROJECTILE_SHOOT_SFX
+	add_child(_audio)
+
+func spawn_bounce_sfx(at: Vector2) -> void:
+	var _audio := _get_audio_player(at)
+	_audio.stream = PROJECTILE_BOUNCE_SFX
+	add_child(_audio)

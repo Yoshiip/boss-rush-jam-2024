@@ -41,20 +41,23 @@ func _do_special() -> void:
 	
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
+
 func _shoot_bullet(rotation_offset: float) -> void:
 	if !is_instance_valid(spaceship):
 		return
 	var bullet := BULLET.instantiate()
+	if !is_instance_valid(bullet): return
+	
 	bullet.from_enemy = true
 	bullet.position = global_position
 	bullet.look_at(spaceship.global_position)
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	bullet.speed =bullet_speed
-	if bullet.speed>3:
-		bullet.modulate= Color.ORANGE_RED
+	bullet.speed = bullet_speed
+	if bullet.speed > 3:
+		bullet.modulate = Color.ORANGE_RED
 	else:
-		bullet.modulate= Color.RED
+		bullet.modulate = Color.RED
 	get_tree().current_scene.add_child(bullet)
 
 func _on_area_entered(area: Area2D) -> void:

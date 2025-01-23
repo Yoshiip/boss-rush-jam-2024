@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw0njmjruvdmf"]
+[gd_scene load_steps=9 format=3 uid="uid://cw0njmjruvdmf"]
 
 [ext_resource type="Script" path="res://assets/spaceship/spaceship.gd" id="1_lprlc"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_dnahp"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_k6v8s"]
+[ext_resource type="AudioStream" uid="uid://dofnyla65okqc" path="res://audios/effects/hit.wav" id="4_iu0yo"]
+[ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="5_cgrs7"]
+[ext_resource type="AudioStream" uid="uid://dthrhsmby65ko" path="res://audios/effects/shoot1.wav" id="6_bnv04"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmw7q"]
 shader = ExtResource("2_k6v8s")
@@ -25,3 +28,18 @@ texture = ExtResource("2_dnahp")
 scale = Vector2(0.7, 0.7)
 shape = SubResource("CircleShape2D_22uoe")
 one_way_collision_margin = 0.0
+
+[node name="Hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_iu0yo")
+volume_db = -2.0
+bus = &"Effects"
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_cgrs7")
+volume_db = -1.0
+bus = &"Effects"
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_bnv04")
+max_polyphony = 4
+bus = &"Effects"

@@ -1,5 +1,8 @@
 extends ColorRect
 
+const SETTINGS_MENU = preload("res://ui/settings/settings_menu.tscn")
+
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		visible = !visible
@@ -11,7 +14,6 @@ func _on_continue_button_pressed() -> void:
 	visible = false
 	
 
-const SETTINGS_MENU = preload("res://ui/settings/settings_menu.tscn")
 
 func _on_settings_button_pressed() -> void:
 	var settings := SETTINGS_MENU.instantiate()

@@ -4,6 +4,7 @@ extends CharacterBody2D
 signal took_damage
 signal dead
 
+
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 const ACCELERATION_SPEED = 400.0
@@ -14,7 +15,7 @@ var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
 var target_direction
 #@export var stats : player_stats
-
+@onready var root: FightRoot = get_tree().current_scene
 
 @export var max_health := 10
 @onready var health := max_health
@@ -22,17 +23,17 @@ var target_direction
 
 const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
-var weapon_toggle =false
-var switch_movemode = true
+var weapon_toggle := false
+var switch_movemode := true
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
 func _handle_input(delta: float) -> void:
 	var axis = Vector2(
-	Input.get_axis("move_left", "move_right"),
-	Input.get_axis("move_up", "move_down")
-)
+		Input.get_axis("move_left", "move_right"),
+		Input.get_axis("move_up", "move_down")
+	)
 	#handle movement
 	if axis.length() > 0:
 		#smoothly change direction, instead of immediatly snapping to new direction
@@ -56,57 +57,53 @@ func _handle_input(delta: float) -> void:
 		weapon_toggle= !weapon_toggle
 	if Input.is_action_just_pressed("Switch_Movement"):
 		switch_movemode= !switch_movemode
-		
+
+
+func _fire() -> Bullet:
+	$Shoot.play()
+	var bullet = BULLET.instantiate()
+	bullet.position = position
+	bullet.speed = 7
+	bullet.from_enemy= false
+	var mouse_position := get_global_mouse_position()
+	var direction := (mouse_position - global_position).normalized()
+	bullet.rotation = direction.angle()
+	bullet.velocity = Vector2.RIGHT.rotated(rotation)
+	
+	add_sibling(bullet)
+	fire_timer = FIRE_SPEED
+	bullet.infection_bullet = false
+	return bullet
+
+
 func _handle_weapon(delta: float) -> void:
 	fire_timer -= delta
-	if (weapon_toggle ||Input.is_action_pressed("fire")) && fire_timer <= 0.0:
-		var bullet = BULLET.instantiate()
-		bullet.position = position
-		bullet.speed = 7
-		bullet.from_enemy= false
-		var mouse_position = get_global_mouse_position()
-		var direction = (mouse_position - global_position).normalized()
-		bullet.rotation = direction.angle()
-		bullet.velocity = Vector2.RIGHT.rotated(rotation)
-		
-		add_sibling(bullet)
-		fire_timer = FIRE_SPEED
-		bullet.infection_bullet=false
-		#faster bullet is launched if you haven't been holding down fire,to encourage tactical play
-		if Input.is_action_just_pressed("fire")&&1==0:
-			bullet.speed =15
-			bullet.scale = Vector2(1.4,1.4)
-			bullet.bounce_number=-4
-	elif  fire_timer <= 0.0:
+	if (weapon_toggle || Input.is_action_pressed("fire")) && fire_timer <= 0.0:
+
+		var bullet := _fire()
+
+		if Input.is_action_just_pressed("fire"):
+			bullet.speed = 15
+			bullet.scale = Vector2(1.4, 1.4)
+			bullet.bounce_number = -4
+	elif fire_timer <= 0.0:
 		var axis_shoot = Vector2(
 		Input.get_axis("attack_left", "attack_right"),
 		Input.get_axis("attack_up", "attack_down")
 	)
-		if axis_shoot.length()>0:
-			var bullet = BULLET.instantiate()
-			bullet.position = position
-			bullet.speed = 7
-			bullet.from_enemy= false
+	
+		if axis_shoot.length() > 0:
+			$Shoot.play()
 			
-			
-			
-			bullet.rotation = axis_shoot.angle()
-			bullet.velocity = axis_shoot
-			
-			add_sibling(bullet)
-			fire_timer = FIRE_SPEED
-			bullet.infection_bullet=false
-			bullet.bounce_powerup=true
-				
-		
-		
-		
+			var bullet := _fire()
+			bullet.bounce_powerup = true
 
 
 func _apply_force(delta: float) -> void:
 	friction_force = -velocity.normalized() * velocity.length() * FRICTION_COEFF
 	net_force = acceleration_force + friction_force
 	velocity += net_force * delta
+
 
 func _physics_process(delta: float) -> void:
 	acceleration_force = Vector2.ZERO
@@ -117,6 +114,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
+
 func take_damage(amount: int) -> void:
 	health -= amount
 	took_damage.emit()
@@ -124,6 +122,8 @@ func take_damage(amount: int) -> void:
 		$Sprite.material.set_shader_parameter("whitening", 1.0)
 		var tween := get_tree().create_tween()
 		tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
+		$Hit.play()
 	else:
+		$GameOver.play()
 		dead.emit()
 		queue_free()

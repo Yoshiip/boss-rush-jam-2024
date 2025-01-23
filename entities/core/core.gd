@@ -48,6 +48,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
 		if health <= last_health_threshold-20&& boss_phase_num<5:
+			$BossAnger.play()
 			last_health_threshold-=20
 			boss_phase_num+=1
 			root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
