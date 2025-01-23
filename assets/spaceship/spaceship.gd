@@ -53,9 +53,9 @@ func _handle_input(delta: float) -> void:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 		
 
-	if Input.is_action_just_pressed("Weapon Toggle"):
+	if Input.is_action_just_pressed("weapon_toggle"):
 		weapon_toggle= !weapon_toggle
-	if Input.is_action_just_pressed("Switch_Movement"):
+	if Input.is_action_just_pressed("switch_movement"):
 		switch_movemode= !switch_movemode
 
 
