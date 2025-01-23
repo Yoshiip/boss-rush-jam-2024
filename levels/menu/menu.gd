@@ -57,7 +57,9 @@ func _ready() -> void:
 	credits_section.visible = false
 
 func _process(delta: float) -> void:
-	pass
+	$Camera.offset = $Camera.offset.lerp((get_global_mouse_position() + $Camera.position).normalized() * 25.0, delta)
+	$Core.rotation += delta * 0.2
+	$Core.scale = $Core.scale.lerp(Vector2.ONE, delta * 15.0)
 
 
 func _on_play_button_pressed() -> void:
@@ -78,3 +80,8 @@ func _on_go_back_button_pressed() -> void:
 	menu_section.visible = true
 	credits_section.visible = false
 	UiUtils.apply_transition(menu_section)
+
+
+func _on_hit_timer_timeout() -> void:
+	$Core.scale = Vector2(1.3, 1.3)
+	$Canvas/Container/Menu/VBoxContainer/Control/Title/AnimationPlayer.play("Bounce")

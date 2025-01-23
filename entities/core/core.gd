@@ -2,6 +2,7 @@ class_name Core
 extends Area2D
 
 signal took_damage
+signal dead
 
 const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 
@@ -44,7 +45,6 @@ func _shoot_circle(number : float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
 		if health <= last_health_threshold-20&& boss_phase_num<5:
@@ -61,8 +61,8 @@ func _on_area_entered(area: Area2D) -> void:
 		
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
+			dead.emit()
 			$CollisionShape.disabled = true
-			get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
 		else:
 			$Sprite.material.set_shader_parameter("whitening", 1.0)
 			var tween := get_tree().create_tween()

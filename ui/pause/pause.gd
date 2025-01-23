@@ -6,8 +6,11 @@ const SETTINGS_MENU = preload("res://ui/settings/settings_menu.tscn")
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		visible = !visible
-		print(visible)
 		get_tree().paused = visible
+		if visible:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _on_continue_button_pressed() -> void:
 	get_tree().paused = false

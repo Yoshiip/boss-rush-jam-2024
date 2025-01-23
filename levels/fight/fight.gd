@@ -18,6 +18,7 @@ func _ready() -> void:
 	spaceship.took_damage.connect(_player_took_damage)
 	spaceship.dead.connect(_on_player_dead)
 	core.took_damage.connect(_core_took_damage)
+	core.dead.connect(_on_core_dead)
 	$Canvas/Container/PlayerHealth/ProgressBar.max_value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
@@ -31,6 +32,10 @@ func _ready() -> void:
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
 	
+	
+func _on_core_dead() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
 
 
 func transition_ended() -> void:
@@ -93,7 +98,7 @@ func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  
 			
 		else:
 			print("failed to find valid position")
-			
+
 func spawn_spikes(num : float) -> void:
 	$Camera.add_trauma(25.0)
 	
@@ -145,6 +150,7 @@ func is_point_colliding(point: Vector2) -> bool:
 
 
 func _on_player_dead() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
 	$Canvas/Container/GameOver.visible = true
 

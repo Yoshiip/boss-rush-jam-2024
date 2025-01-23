@@ -37,6 +37,7 @@ func _next_text() -> void:
 	var text := dialogue[progress]
 	var from_other := text.begins_with("o:")
 	$Gradient/Portrait.visible = !from_other
+	$Gradient/Name.text = "Other" if from_other else "You"
 	$Gradient/Content.text = dialogue[progress].lstrip('o:')
 	spawning_text = false
 
@@ -74,6 +75,7 @@ func _process(delta: float) -> void:
 		text_timer -= delta
 		if text_timer <= 0.0:
 			text_timer = 0.05
+			# TODO: maybe add additional delay if it is punctuation
 			visible_characters += 1
 	
 	if progress < dialogue.size() - 1:

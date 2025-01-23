@@ -40,13 +40,12 @@ func _do_special() -> void:
 			await get_tree().create_timer(max_shoot_timer / 5.0).timeout
 	
 
-const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
+var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 func _shoot_bullet(rotation_offset: float) -> void:
 	if !is_instance_valid(spaceship):
 		return
-	var bullet := BULLET.instantiate()
-	if !is_instance_valid(bullet): return
+	var bullet: Bullet = BULLET.instantiate()
 	
 	bullet.from_enemy = true
 	bullet.position = global_position
