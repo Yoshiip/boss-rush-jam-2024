@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cw0njmjruvdmf"]
+[gd_scene load_steps=13 format=3 uid="uid://cw0njmjruvdmf"]
 
 [ext_resource type="Script" path="res://assets/spaceship/spaceship.gd" id="1_lprlc"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_dnahp"]
@@ -6,6 +6,28 @@
 [ext_resource type="AudioStream" uid="uid://dofnyla65okqc" path="res://audios/effects/hit.wav" id="4_iu0yo"]
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="5_cgrs7"]
 [ext_resource type="AudioStream" uid="uid://dthrhsmby65ko" path="res://audios/effects/shoot1.wav" id="6_bnv04"]
+[ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="7_hfrik"]
+
+[sub_resource type="Gradient" id="Gradient_vosyo"]
+colors = PackedColorArray(1, 0.533333, 0, 1, 0.117647, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ole3q"]
+gradient = SubResource("Gradient_vosyo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3g140"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(2, 8, 1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+angle_min = -180.0
+angle_max = 180.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = 25.0
+radial_accel_max = 25.0
+scale_min = 0.02
+scale_max = 0.22
+color_ramp = SubResource("GradientTexture1D_ole3q")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mmw7q"]
 shader = ExtResource("2_k6v8s")
@@ -18,6 +40,12 @@ radius = 12.8571
 position = Vector2(-1, 0)
 motion_mode = 1
 script = ExtResource("1_lprlc")
+
+[node name="CPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-10.82, 0)
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_3g140")
+texture = ExtResource("7_hfrik")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_mmw7q")
