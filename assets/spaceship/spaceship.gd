@@ -57,6 +57,8 @@ func _handle_input(delta: float) -> void:
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 
+	$EngineParticles.emitting = velocity.length() > 1.0
+
 	if _is_allowed_inputs():
 		if Input.is_action_just_pressed("weapon_toggle"):
 			weapon_toggle= !weapon_toggle
