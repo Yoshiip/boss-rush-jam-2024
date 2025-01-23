@@ -43,6 +43,7 @@ func _spawn_dialogue() -> void:
 	spaceship.allow_inputs.append("dialogue")
 	dialogue.ended.connect(func ():
 		spaceship.allow_inputs.erase("dialogue")
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	)
 
 func _process(delta: float) -> void:

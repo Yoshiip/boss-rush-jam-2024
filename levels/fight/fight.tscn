@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=26 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://levels/fight/game_over.gd" id="11_kn4rb"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="13_1nrcg"]
 [ext_resource type="Texture2D" uid="uid://cvj3g8utd2nb0" path="res://assets/utils/crosshair.png" id="17_x1b4e"]
+[ext_resource type="Script" path="res://ui/crosshair.gd" id="18_rnvd0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pg6c"]
 bg_color = Color(0.156863, 0.156863, 0.156863, 0.247059)
@@ -603,11 +604,18 @@ layout_mode = 2
 text = "(click to continue)"
 horizontal_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="Canvas/Container"]
+[node name="Crosshair" type="TextureRect" parent="Canvas/Container"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(20, 20)
 texture = ExtResource("17_x1b4e")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("18_rnvd0")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_rbswc")
