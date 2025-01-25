@@ -22,7 +22,7 @@ var bounce_powerup := false
 func _ready() -> void:
 	velocity = Vector2.RIGHT.rotated(rotation)
 	set_rotation_degrees(360) 
-	
+	ray_cast.set_target_position(velocity.normalized() * 26)
 	if !from_enemy:
 		ray_cast_homing.set_target_position(velocity.normalized() * 400)
 	

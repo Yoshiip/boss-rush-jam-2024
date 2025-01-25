@@ -10,6 +10,7 @@ extends Area2D
 @export_range(0.0, 1.0) var special_chance = 0.2
 @export_range(0.0, PI/3) var accurracy = 0.2
 @export var bullet_speed = 2
+@export var phase_activation : Array = [true,true,true,true,true,true]
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 
 var spaceship: Spaceship
@@ -17,17 +18,22 @@ var spaceship: Spaceship
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 	spaceship = get_tree().get_first_node_in_group("Spaceship")
+	if !phase_activation[0]:
+		$Sprite.visible = false
+		health=0
+		
 
 func _process(delta: float) -> void:
-	look_at(spaceship.global_position)
-	
-	shoot_timer -= delta
-	if shoot_timer <= 0.0:
-		shoot_timer = max_shoot_timer
-		if randf() < special_chance:
-			_do_special()
-		else:
-			_shoot_bullet(randf_range(-accurracy, accurracy))
+	if health>0:
+		look_at(spaceship.global_position)
+		
+		shoot_timer -= delta
+		if shoot_timer <= 0.0:
+			shoot_timer = max_shoot_timer
+			if randf() < special_chance:
+				_do_special()
+			else:
+				_shoot_bullet(randf_range(-accurracy, accurracy))
 
 func _do_special() -> void:
 	if randi() % 2 == 0:
@@ -58,15 +64,29 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	else:
 		bullet.modulate = Color.RED
 	get_tree().current_scene.add_child(bullet)
+		
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Bullet") and not area.from_enemy:
+	if area.is_in_group("Bullet") and health> 0 and not area.from_enemy:
 		health -= area.damage
 		camera.add_trauma(2)
+	
 		if health <= 0:
-			queue_free()
+			$Sprite.visible = false
 		else:
 			$Sprite.material.set_shader_parameter("whitening", 1.0)
 			var tween := get_tree().create_tween()
 			tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
 		area.destroy_bullet()
+
+
+func _on_core_new_phase(phase_num: int, new_health: int, fire_rate : float, chance :float,  acc : float, speed : float):
+	if phase_activation[phase_num]:
+		$Sprite.visible = true
+		if health<0:
+			health = 0
+		health+= new_health
+		max_shoot_timer= fire_rate
+		special_chance = chance
+		accurracy = acc
+		bullet_speed = speed

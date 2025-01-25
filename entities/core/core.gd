@@ -16,6 +16,7 @@ var wave_args_adjust=[1,0,-0.1,0.4,-0.1,0.1]
 var wave_args=[0,0,0,0,0,0]
 var spin_speed_change =.12
 var circle_shoot_amount =15
+signal new_phase
 
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 
@@ -51,14 +52,16 @@ func _on_area_entered(area: Area2D) -> void:
 			$BossAnger.play()
 			last_health_threshold-=20
 			boss_phase_num+=1
-			root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
+			#root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
+			emit_signal("new_phase",boss_phase_num,stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
 			root.spin_speed = stats.spin_speed[boss_phase_num]
 			_shoot_circle(stats.circle_bullet_fire[boss_phase_num])
-			root.spawn_spikes(stats.spike_num[boss_phase_num])
-			var random_angle = randf() * PI * 2
-			var random_distance = randi_range(-10,200)
-			position = Vector2(cos(random_angle), sin(random_angle)) * (root.planet_radius+ random_distance)
-		
+			position = stats.new_pos[boss_phase_num]
+			#root.spawn_spikes(stats.spike_num[boss_phase_num])
+			#var random_angle = randf() * PI * 2
+			#var random_distance = randi_range(-10,200)
+			#position = Vector2(cos(random_angle), sin(random_angle)) * (root.planet_radius+ random_distance)
+			
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
 			dead.emit()

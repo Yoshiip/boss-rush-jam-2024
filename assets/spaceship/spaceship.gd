@@ -13,6 +13,7 @@ const FRICTION_COEFF = 1.5
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
+var axis_shoot
 var target_direction
 #@export var stats : player_stats
 @onready var root: FightRoot = get_tree().current_scene
@@ -28,6 +29,9 @@ const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 var weapon_toggle := false
 var switch_movemode := true
+var infection_bullet := false
+var intangible_bullet := false
+var bounce_powerup := true
 
 func _is_allowed_inputs() -> bool:
 	return allow_inputs.is_empty()
@@ -73,11 +77,17 @@ func _fire() -> Bullet:
 	bullet.speed = 7
 	bullet.from_enemy = false
 	
-	var mouse_position := get_global_mouse_position()
-	var direction := (mouse_position - global_position).normalized()
-	bullet.rotation = direction.angle()
-	bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	
+	if axis_shoot.length() > 0:
+		bullet.rotation = axis_shoot.angle()
+		bullet.velocity = axis_shoot.angle()
+	else:
+		var mouse_position := get_global_mouse_position()
+		var direction := (mouse_position - global_position).normalized()
+		bullet.rotation = direction.angle()
+		bullet.velocity = Vector2.RIGHT.rotated(rotation)
+	bullet.infection_bullet = infection_bullet 
+	bullet.intangible_bullet = intangible_bullet 
+	bullet.bounce_powerup = bounce_powerup 
 	add_sibling(bullet)
 	fire_timer = FIRE_SPEED
 	bullet.infection_bullet = false
@@ -91,21 +101,18 @@ func _handle_weapon(delta: float) -> void:
 	if (weapon_toggle || Input.is_action_pressed("fire")) && fire_timer <= 0.0:
 		var bullet := _fire()
 
-		if Input.is_action_just_pressed("fire"):
+		if 0==1 && Input.is_action_just_pressed("fire"):
 			bullet.speed = 15
 			bullet.scale = Vector2(1.4, 1.4)
 			bullet.bounce_number = -4
 	elif fire_timer <= 0.0:
-		var axis_shoot = Vector2(
+		axis_shoot = Vector2(
 		Input.get_axis("attack_left", "attack_right"),
 		Input.get_axis("attack_up", "attack_down")
 	)
 	
 		if axis_shoot.length() > 0:
-			$Shoot.play()
-			
 			var bullet := _fire()
-			bullet.bounce_powerup = true
 
 
 func _apply_force(delta: float) -> void:
