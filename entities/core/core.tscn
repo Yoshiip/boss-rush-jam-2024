@@ -9,11 +9,12 @@
 shader = ExtResource("2_ln4ls")
 shader_parameter/whitening = 0.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ylx4l"]
-radius = 74.027
+[sub_resource type="CircleShape2D" id="CircleShape2D_yoglq"]
+radius = 64.0
 
 [node name="Core" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_rj2tk")
+max_health = 80
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_22eh7")
@@ -21,7 +22,7 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_1as07")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
-shape = SubResource("CircleShape2D_ylx4l")
+shape = SubResource("CircleShape2D_yoglq")
 
 [node name="BossAnger" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ko2nc")

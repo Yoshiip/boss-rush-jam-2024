@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="player_stats" load_steps=2 format=3 uid="uid://cqb1oscgmomvf"]
-
-[ext_resource type="Script" path="res://player_stats.gd" id="1_7xbto"]
-
-[resource]
-script = ExtResource("1_7xbto")
-infection = false
-bounce_power_up = false

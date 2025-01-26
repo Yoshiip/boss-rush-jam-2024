@@ -23,7 +23,6 @@ func _ready() -> void:
 
 func _on_mouse_entered() -> void:
 	if is_instance_valid(hover_sound):
-		print(hover_sound.volume_db)
 		hover_sound.pitch_scale = randf_range(0.9, 1.1)
 		hover_sound.play()
 

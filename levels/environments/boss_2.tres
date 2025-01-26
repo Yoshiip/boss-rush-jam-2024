@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BossEnvironment" load_steps=6 format=3 uid="uid://dxbjnudic7joa"]
+
+[ext_resource type="Texture2D" uid="uid://bvygpvs0bxpxr" path="res://assets/backgrounds/background_2.png" id="1_km1uo"]
+[ext_resource type="AudioStream" uid="uid://dfasdgipt5uhy" path="res://audios/musics/raw_mechanical/raw_mechanical.mp3" id="1_syh6p"]
+[ext_resource type="AudioStream" uid="uid://c5d50y4l3u8kc" path="res://audios/musics/raw_mechanical/raw_mechanical_pause.mp3" id="2_baf0h"]
+[ext_resource type="PackedScene" uid="uid://d2s17kwkybppe" path="res://levels/environments/boss_2_env.tscn" id="3_20x52"]
+[ext_resource type="Script" path="res://levels/environments/boss_environment.gd" id="4_ygapj"]
+
+[resource]
+script = ExtResource("4_ygapj")
+name = "Untitled Boss 2"
+background = ExtResource("1_km1uo")
+scene = ExtResource("3_20x52")
+main_stream = ExtResource("1_syh6p")
+pause_stream = ExtResource("2_baf0h")

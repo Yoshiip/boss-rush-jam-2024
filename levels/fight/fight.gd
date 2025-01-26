@@ -5,7 +5,7 @@ extends Node2D
 @export var planet_radius := 400.0
 
 @onready var spaceship: Spaceship = $Spaceship
-@onready var core: Core = $Core
+var core: Core
 
 const PAUSE = preload("res://ui/pause/pause.tscn")
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
@@ -13,7 +13,32 @@ const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 
 const DIALOGUE = preload("res://ui/dialogue/dialogue.tscn")
 
+const ENVIRONMENTS: Array[BossEnvironment] = [
+	preload("res://levels/environments/boss_1.tres"),
+	preload("res://levels/environments/boss_2.tres"),
+	preload("res://levels/environments/boss_3.tres"),
+]
+
+var planet: Node2D
+var env_resource: BossEnvironment
+var env: Node2D
+
+const CROSSFADE = preload("res://assets/utils/crossfade.tscn")
+
 func _ready() -> void:
+	var level: int = GameManager.save_data.level
+	
+	env_resource = ENVIRONMENTS[level]
+	$ParallaxBackground/ParallaxLayer/BackgroundSprite.texture = env_resource.background
+	crossfade = CROSSFADE.instantiate()
+	crossfade.db = -10
+	crossfade.a_stream = env_resource.main_stream
+	crossfade.b_stream = env_resource.pause_stream
+	add_child(crossfade)
+	env = env_resource.scene.instantiate()
+	planet = env.get_node("Planet")
+	core = env.get_node("Core")
+	add_child(env)
 	spaceship.allow_inputs.append("start")
 	spaceship.took_damage.connect(_player_took_damage)
 	spaceship.dead.connect(_on_player_dead)
@@ -29,16 +54,22 @@ func _ready() -> void:
 	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
 	
 	var pause := PAUSE.instantiate()
+	pause.crossfade = crossfade
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
-	
-	
+
+var crossfade: Crossfade
+
 func _on_core_dead() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
+	if GameManager.save_data.level == 2:
+		get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
+	else:
+		get_tree().change_scene_to_file("res://ui/computer/computer.tscn")
 
 
 func transition_ended() -> void:
+	crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
 	_spawn_dialogue()
 
@@ -52,7 +83,7 @@ func _spawn_dialogue() -> void:
 	)
 
 func _process(delta: float) -> void:
-	$Planet.rotation += delta * spin_speed
+	planet.rotation += delta * spin_speed
 
 func _player_took_damage() -> void:
 	$Camera.add_trauma(5.0)
@@ -89,7 +120,7 @@ func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  
 			eye.position = eye_position
 			if fire_rate>3:
 				eye.modulate= Color.RED
-			$Planet.add_child(eye)
+			planet.add_child(eye)
 			eye.max_health = hp
 			eye.max_shoot_timer = fire_rate
 			eye.special_chance = chance
@@ -123,7 +154,7 @@ func spawn_spikes(num : float) -> void:
 		if valid_position:
 			var spike = SPIKE_BALL.instantiate()
 			spike.position = spike_position
-			$Planet.add_child(spike)
+			planet.add_child(spike)
 		
 			
 		else:

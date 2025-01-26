@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://levels/menu/ui_button.gd" id="3_feo83"]
 [ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background.jpg" id="4_kpk66"]
 [ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="5_cwfcn"]
-[ext_resource type="AudioStream" uid="uid://c10d63lf8k1an" path="res://audios/musics/space_troubles_pause.ogg" id="6_4wonu"]
+[ext_resource type="PackedScene" uid="uid://cyeqr5ech8mwm" path="res://assets/utils/crossfade.tscn" id="6_tdn0y"]
 
 [sub_resource type="Animation" id="Animation_2qtne"]
 resource_name = "Bounce"
@@ -82,7 +82,31 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_qqqd8")
 
+[node name="Start" type="Control" parent="Canvas/Container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Canvas/Container/Start"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.5
+offset_top = -54.0
+offset_right = 53.5
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "(click to start)"
+
 [node name="Menu" type="Control" parent="Canvas/Container"]
+visible = false
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -114,7 +138,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -28.0
+offset_left = -0.5
+offset_top = -364.0
+offset_right = 0.5
 grow_horizontal = 2
 grow_vertical = 0
 pivot_offset = Vector2(148, 28)
@@ -199,15 +225,11 @@ editor_draw_limits = true
 position = Vector2(0, -80)
 texture = ExtResource("5_cwfcn")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_4wonu")
-volume_db = -7.0
-autoplay = true
-bus = &"Music"
-
 [node name="HitTimer" type="Timer" parent="."]
 wait_time = 2.528
 autostart = true
+
+[node name="Crossfade" parent="." instance=ExtResource("6_tdn0y")]
 
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

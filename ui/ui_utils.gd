@@ -14,7 +14,7 @@ func apply_transition(node: Node) -> void:
 		var child := node.get_child(i)
 		if !is_instance_valid(child): return
 		if is_instance_of(child, CanvasItem):
-			var tween := get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+			var tween := get_tree().create_tween().set_parallel(true).bind_node(node).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
 			if is_instance_of(child, Label) or is_instance_of(child, RichTextLabel):
 				child.visible_ratio = 0
 				child.modulate = TEXT_APPEAR_COLOR * Color.TRANSPARENT

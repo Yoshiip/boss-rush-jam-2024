@@ -6,15 +6,16 @@ extends Area2D
 @onready var root: FightRoot = get_tree().current_scene
 
 var from_enemy := false
-var special_enemy_projectile
+var special_enemy_projectile := false
 var damage := 1
 
-var velocity
-var speed = 1.5
-var bounce_number=0
+var velocity := Vector2.ZERO
+var homing_direction := Vector2.ZERO
+var speed := 1.5
+var bounce_number := 0
 @onready var ray_cast_homing: RayCast2D = $RayCastHoming
-var collider
-var homing_direction := Vector2(0,0)
+var collider : Object
+
 var infection_bullet := false
 var intangible_bullet := false
 var bounce_powerup := false

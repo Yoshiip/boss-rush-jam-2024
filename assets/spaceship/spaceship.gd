@@ -4,18 +4,19 @@ extends CharacterBody2D
 signal took_damage
 signal dead
 
-
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 const ACCELERATION_SPEED = 400.0
 const FRICTION_COEFF = 1.5
 
+const BULLETS_SPEED := [7, 10, 13, 16]
+
+
 var acceleration_force := Vector2.ZERO
 var friction_force := Vector2.ZERO
 var net_force := Vector2.ZERO
-var axis_shoot
-var target_direction
-#@export var stats : player_stats
+var axis_shoot := Vector2.ZERO
+
 @onready var root: FightRoot = get_tree().current_scene
 
 @export var max_health := 10
@@ -24,9 +25,10 @@ var target_direction
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
+const FIRE_RATES := [0.25, 0.2, 0.15]
 
-const FIRE_SPEED = 0.25
-@onready var fire_timer := FIRE_SPEED
+var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate_level]
+var fire_timer := fire_rate
 var weapon_toggle := false
 var switch_movemode := false
 var infection_bullet := false
@@ -40,10 +42,11 @@ func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
 func _handle_input(delta: float) -> void:
-	var axis := Vector2(
-		Input.get_axis("move_left", "move_right"),
-		Input.get_axis("move_up", "move_down")
-	) if _is_allowed_inputs() else Vector2.ZERO
+	var axis := Input.get_vector(
+		"move_left", "move_right", "move_up", "move_down") if _is_allowed_inputs() else Vector2.ZERO
+	
+	
+	$EngineParticles.emitting = axis.length() > 0.25
 	#handle movement
 	if axis.length() > 0:
 		#smoothly change direction, instead of immediatly snapping to new direction
@@ -64,9 +67,6 @@ func _handle_input(delta: float) -> void:
 				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED * dot_product, 10.0 * delta)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
-
-	$EngineParticles.emitting = velocity.length() > 1.0
-
 	if _is_allowed_inputs():
 		if Input.is_action_just_pressed("weapon_toggle"):
 			weapon_toggle= !weapon_toggle
@@ -78,7 +78,7 @@ func _fire() -> Bullet:
 	$Shoot.play()
 	var bullet = BULLET.instantiate()
 	bullet.position = position
-	bullet.speed = 7
+	bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed_level]
 	bullet.from_enemy = false
 	
 	if axis_shoot && axis_shoot.length() > 0:
@@ -89,11 +89,11 @@ func _fire() -> Bullet:
 		var direction := (mouse_position - global_position).normalized()
 		bullet.rotation = direction.angle()
 		bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	bullet.infection_bullet = infection_bullet 
 	bullet.intangible_bullet = intangible_bullet 
-	bullet.bounce_powerup = bounce_powerup 
+	bullet.infection_bullet = GameManager.save_data.infection_level > 0
+	bullet.bounce_powerup = GameManager.save_data.bounce_level > 0
 	add_sibling(bullet)
-	fire_timer = FIRE_SPEED
+	fire_timer = fire_rate
 	bullet.infection_bullet = false
 	return bullet
 
@@ -110,10 +110,9 @@ func _handle_weapon(delta: float) -> void:
 			bullet.scale = Vector2(1.4, 1.4)
 			bullet.bounce_number = -4
 	elif fire_timer <= 0.0:
-		axis_shoot = Vector2(
-		Input.get_axis("attack_left", "attack_right"),
-		Input.get_axis("attack_up", "attack_down")
-	)
+		axis_shoot = Input.get_vector(
+			"attack_left", "attack_right", "attack_up", "attack_down"
+		)
 	
 		if axis_shoot.length() > 0:
 			var bullet := _fire()

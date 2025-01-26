@@ -42,6 +42,7 @@ const AUTHORS = [
 
 @onready var credits_container: VBoxContainer = $Canvas/Container/Credits/Container
 
+var started := false
 
 
 
@@ -51,16 +52,22 @@ func _build_credits() -> void:
 		card.get_node("Name").text = author.name
 		card.get_node("Role").text = author.role
 		credits_container.add_child(card)
-
 func _ready() -> void:
 	_build_credits()
 	credits_section.visible = false
+	$Crossfade.start_a()
 
 func _process(delta: float) -> void:
 	$Camera.offset = $Camera.offset.lerp((get_global_mouse_position() + $Camera.position).normalized() * 25.0, delta)
 	$Core.rotation += delta * 0.2
 	$Core.scale = $Core.scale.lerp(Vector2.ONE, delta * 15.0)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("fire") && !started:
+		started = true
+		$Crossfade.to_b()
+		$Canvas/Container/Start.visible = false
+		$Canvas/Container/Menu.visible = true
 
 func _on_play_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")

@@ -6,7 +6,7 @@ signal dead
 
 const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 
-@export var max_health := 120
+@export var max_health := 100
 @onready var health := max_health
 @export var stats : boss_phase_info
 var boss_phase_num :=0
@@ -22,9 +22,9 @@ signal new_phase
 
 var i := 0.0
 
-@onready var root: Node2D = $".."
+@onready var root: FightRoot = get_tree().current_scene
 
-const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
+var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
@@ -35,7 +35,8 @@ func _ready() -> void:
 
 func _shoot_circle(number : float) -> void:
 	for i in number:
-		var bullet := BULLET.instantiate()
+		var bullet: Bullet = BULLET.instantiate()
+		if !is_instance_valid(bullet): return
 		bullet.position = position
 		bullet.from_enemy = true
 		bullet.rotation = (PI * 2.0) / number * i

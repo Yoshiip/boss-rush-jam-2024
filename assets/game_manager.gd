@@ -6,11 +6,23 @@ const UI_SOUNDS = {
 	"hover": preload("res://audios/effects/ui/hover1.wav")
 }
 
-var save_data := {}
+var save_data = {
+	"money": 0,
+	"level": 0,
+	"fire_rate_level": 0,
+	"bounce_level": 0,
+	"bullet_speed_level": 0,
+	"infection_level": 0,
+}
 
 func clear_save_data() -> void:
 	save_data = {
-		"level": 0
+		"money": 0,
+		"level": 0,
+		"fire_rate_level": 0,
+		"bounce_level": 0,
+		"bullet_speed_level": 0,
+		"infection_level": 0,
 	}
 
 func _ready() -> void:
