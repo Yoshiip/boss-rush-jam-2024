@@ -28,7 +28,7 @@ var allow_inputs: Array[String] = []
 const FIRE_SPEED = 0.25
 @onready var fire_timer := FIRE_SPEED
 var weapon_toggle := false
-var switch_movemode := true
+var switch_movemode := false
 var infection_bullet := false
 var intangible_bullet := false
 var bounce_powerup := true
@@ -56,8 +56,12 @@ func _handle_input(delta: float) -> void:
 			rotation =  lerp_angle(rotation, (target_direction - position).angle(), 5.0 * delta)
 		else: 
 			var goal_direction := axis.angle()
-			rotation =  lerp_angle(rotation, goal_direction, 5.0 * delta)
-			velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
+			var dot_product = Vector2(cos(rotation), sin(rotation)).dot(axis)
+			rotation =  lerp_angle(rotation, goal_direction, 10.0 * delta)
+			if dot_product >=0.6:
+				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
+			else:
+				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED * dot_product, 10.0 * delta)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 
