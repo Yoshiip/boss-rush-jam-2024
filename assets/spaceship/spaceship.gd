@@ -77,7 +77,7 @@ func _fire() -> Bullet:
 	bullet.speed = 7
 	bullet.from_enemy = false
 	
-	if axis_shoot.length() > 0:
+	if axis_shoot && axis_shoot.length() > 0:
 		bullet.rotation = axis_shoot.angle()
 		bullet.velocity = axis_shoot.angle()
 	else:
