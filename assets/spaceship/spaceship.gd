@@ -83,7 +83,7 @@ func _fire() -> Bullet:
 	
 	if axis_shoot && axis_shoot.length() > 0:
 		bullet.rotation = axis_shoot.angle()
-		bullet.velocity = axis_shoot.angle()
+		bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	else:
 		var mouse_position := get_global_mouse_position()
 		var direction := (mouse_position - global_position).normalized()

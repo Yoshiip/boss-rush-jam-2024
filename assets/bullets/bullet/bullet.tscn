@@ -7,6 +7,7 @@
 radius = 8.0
 
 [node name="Bullet" type="Area2D" groups=["Bullet"]]
+z_index = 3
 script = ExtResource("1_hfwx6")
 
 [node name="Sprite" type="Sprite2D" parent="."]

@@ -86,7 +86,11 @@ func _on_area_entered(body: Node2D) -> void:
 		velocity = velocity.bounce(collision_normal)
 		ray_cast.set_target_position(velocity.normalized()*30)
 		if!from_enemy:
-				ray_cast_homing.set_target_position(velocity.normalized()*300)
+			ray_cast_homing.set_target_position(velocity.normalized()*300)
+			if infection_bullet:
+				modulate =Color.DARK_CYAN
+				other_bullet.from_enemy= false
+				other_bullet.modulate = Color.DARK_CYAN
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
@@ -95,7 +99,7 @@ func _on_area_entered(body: Node2D) -> void:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
 			
-		if infection_bullet && bounce_number<2:
+		if infection_bullet:
 			modulate =Color.DARK_CYAN
 			other_bullet.from_enemy= false
 			other_bullet.modulate = Color.DARK_CYAN

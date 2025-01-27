@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=4 uid="uid://bghxpvu310g7t"]
+[gd_scene load_steps=7 format=4 uid="uid://bghxpvu310g7t"]
 
+[ext_resource type="Script" path="res://levels/environments/boss_env_root.gd" id="1_50c0e"]
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="2_gq8jr"]
-[ext_resource type="Resource" path="res://3rd_boss_info.tres" id="3_3ipbr"]
+[ext_resource type="Resource" uid="uid://c0rjtd05150ou" path="res://3rd_boss_info.tres" id="3_3ipbr"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="4_pp6ke"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="5_uhiy2"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="6_5exqq"]
 
 [node name="Boss1Env" type="Node2D"]
+script = ExtResource("1_50c0e")
 
 [node name="Core" parent="." instance=ExtResource("2_gq8jr")]
 z_index = 5
@@ -26,7 +28,8 @@ tile_map_data = PackedByteArray("AAD2//j/AQACAAMAAAD2//n/AQACAAMAAAD3//n/AQABAAE
 tile_set = ExtResource("4_pp6ke")
 
 [node name="SpikeBall2" parent="Planet" instance=ExtResource("5_uhiy2")]
-position = Vector2(7, -806)
+position = Vector2(15, -761)
+scale = Vector2(2, 2)
 
 [node name="SpikeBall3" parent="Planet" instance=ExtResource("5_uhiy2")]
 position = Vector2(51, 514)
@@ -38,6 +41,7 @@ position = Vector2(780, -20)
 position = Vector2(-497, 550)
 
 [node name="SpikeBall6" parent="Planet" instance=ExtResource("5_uhiy2")]
+visible = false
 position = Vector2(410, -725)
 
 [node name="SpikeBall7" parent="Planet" instance=ExtResource("5_uhiy2")]
@@ -74,5 +78,13 @@ phase_activation = [false, false, true, true, true, true]
 [node name="DefaultEye7" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(-567, 99)
 phase_activation = [false, false, true, true, true, true]
+
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye2" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye3" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye4" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye5" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye6" method="_on_core_new_phase"]
+[connection signal="new_phase" from="Core" to="Planet/DefaultEye7" method="_on_core_new_phase"]
 
 [editable path="Core"]

@@ -10,9 +10,9 @@ var save_data = {
 	"money": 0,
 	"level": 0,
 	"fire_rate_level": 0,
-	"bounce_level": 0,
+	"bounce_level": 1,
 	"bullet_speed_level": 0,
-	"infection_level": 0,
+	"infection_level": 1,
 }
 
 func clear_save_data() -> void:
@@ -20,9 +20,9 @@ func clear_save_data() -> void:
 		"money": 0,
 		"level": 0,
 		"fire_rate_level": 0,
-		"bounce_level": 0,
+		"bounce_level": 1,
 		"bullet_speed_level": 0,
-		"infection_level": 0,
+		"infection_level": 1,
 	}
 
 func _ready() -> void:

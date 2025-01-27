@@ -12,10 +12,13 @@ extends Area2D
 @export var bullet_speed = 2
 @export var phase_activation : Array = [true,true,true,true,true,true]
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
+const INACTIVE_TEXTURE = preload("res://entities/eyes/default/eye defeat.png")
+const ACTIVE_TEXTURE = preload("res://entities/eyes/default/place holder shooting part vuln2.png")
 
 var spaceship: Spaceship
 
 func _ready() -> void:
+	
 	$Sprite.material = $Sprite.material.duplicate()
 	spaceship = get_tree().get_first_node_in_group("Spaceship")
 	if !phase_activation[0]:
@@ -59,6 +62,7 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	bullet.speed = bullet_speed
+	
 	if bullet.speed > 3:
 		bullet.modulate = Color.ORANGE_RED
 	else:
@@ -72,7 +76,7 @@ func _on_area_entered(area: Area2D) -> void:
 		camera.add_trauma(2)
 	
 		if health <= 0:
-			$Sprite.visible = false
+			$Sprite.texture =INACTIVE_TEXTURE
 		else:
 			$Sprite.material.set_shader_parameter("whitening", 1.0)
 			var tween := get_tree().create_tween()
@@ -83,6 +87,7 @@ func _on_area_entered(area: Area2D) -> void:
 func _on_core_new_phase(phase_num: int, new_health: int, fire_rate : float, chance :float,  acc : float, speed : float):
 	if phase_activation[phase_num]:
 		$Sprite.visible = true
+		$Sprite.texture =ACTIVE_TEXTURE
 		if health<0:
 			health = 0
 		health+= new_health
