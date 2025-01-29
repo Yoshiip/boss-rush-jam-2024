@@ -71,7 +71,7 @@ func _on_core_dead() -> void:
 func transition_ended() -> void:
 	crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
-	_spawn_dialogue()
+	#_spawn_dialogue()
 
 func _spawn_dialogue() -> void:
 	var dialogue := DIALOGUE.instantiate()

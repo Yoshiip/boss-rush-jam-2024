@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=4 uid="uid://ddlnyadocharv"]
 
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="2_p36jx"]
-[ext_resource type="Resource" path="res://3rd_boss_info.tres" id="3_62dmf"]
+[ext_resource type="Resource" uid="uid://c0rjtd05150ou" path="res://3rd_boss_info.tres" id="3_62dmf"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="4_edifn"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="5_so0cy"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="6_i232v"]

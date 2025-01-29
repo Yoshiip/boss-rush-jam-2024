@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dxyl7w8icelrq"]
+
+[ext_resource type="Texture2D" uid="uid://b7ca404jr4ql0" path="res://assets/utils/circular_progress_bar.png" id="1_sfwbn"]
+[ext_resource type="Script" path="res://entities/explosion/explosion.gd" id="1_ylg4u"]
+[ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="2_6s5bj"]
+
+[sub_resource type="Curve" id="Curve_xbo8c"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.22172, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_85n6f"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.254902)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i725r"]
+radius = 128.0
+
+[node name="Explosion" type="Area2D"]
+script = ExtResource("1_ylg4u")
+
+[node name="Circle" type="Sprite2D" parent="."]
+texture = ExtResource("1_sfwbn")
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 100
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+texture = ExtResource("2_6s5bj")
+emission_shape = 1
+emission_sphere_radius = 16.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 400.0
+linear_accel_min = -400.0
+linear_accel_max = -100.0
+angle_max = 360.0
+scale_amount_curve = SubResource("Curve_xbo8c")
+color_ramp = SubResource("Gradient_85n6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i725r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

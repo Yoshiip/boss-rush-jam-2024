@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=18 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="5_g487y"]
 [ext_resource type="Script" path="res://levels/fight/fight_transition.gd" id="9_2s53k"]
 [ext_resource type="AudioStream" uid="uid://d3cl0e5lotj3g" path="res://audios/effects/ui/game-start2.wav" id="10_i2648"]
+[ext_resource type="PackedScene" uid="uid://cy71ee6yb0t0w" path="res://entities/bomber/bomber.tscn" id="11_42lp2"]
 [ext_resource type="Script" path="res://levels/fight/game_over.gd" id="11_kn4rb"]
 [ext_resource type="Texture2D" uid="uid://cvj3g8utd2nb0" path="res://assets/utils/crosshair.png" id="17_x1b4e"]
 [ext_resource type="Script" path="res://ui/crosshair.gd" id="18_rnvd0"]
@@ -376,5 +377,8 @@ texture = ExtResource("19_cu2gn")
 region_enabled = true
 region_rect = Rect2(0, 0, 8192, 8192)
 metadata/_edit_lock_ = true
+
+[node name="Bomber" parent="." instance=ExtResource("11_42lp2")]
+position = Vector2(-2387, 192)
 
 [connection signal="animation_finished" from="Canvas/Container/Transition/AnimationPlayer" to="Canvas/Container/Transition" method="_on_animation_player_animation_finished"]
