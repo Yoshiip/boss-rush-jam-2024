@@ -22,6 +22,9 @@ var axis_shoot := Vector2.ZERO
 @export var max_health := 10
 @onready var health := max_health
 
+@onready var shoot_point: Marker2D = $ShootPoint
+
+
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
@@ -67,6 +70,7 @@ func _handle_input(delta: float) -> void:
 				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED * dot_product, 10.0 * delta)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
+		
 	if _is_allowed_inputs():
 		if Input.is_action_just_pressed("weapon_toggle"):
 			weapon_toggle= !weapon_toggle
@@ -77,7 +81,7 @@ func _handle_input(delta: float) -> void:
 func _fire() -> Bullet:
 	$Shoot.play()
 	var bullet = BULLET.instantiate()
-	bullet.position = position
+	bullet.position = $ShootPoint.global_position
 	bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed_level]
 	bullet.from_enemy = false
 	
@@ -132,6 +136,9 @@ func _physics_process(delta: float) -> void:
 	_apply_force(delta)
 	
 	move_and_slide()
+	#var coll := move_and_collide(velocity * delta)
+	#if coll:
+		#for object in coll.get_collider()
 
 
 func take_damage(amount: int) -> void:

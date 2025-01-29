@@ -82,8 +82,15 @@ func _spawn_dialogue() -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	)
 
+
+@onready var background_sprite: Sprite2D = $ParallaxBackground/ParallaxLayer/BackgroundSprite
+
 func _process(delta: float) -> void:
 	planet.rotation += delta * spin_speed
+	
+	background_sprite.position += Vector2.ONE * delta * 4.0
+	if background_sprite.position.x > 512:
+		background_sprite.position -= Vector2.ONE * 512
 
 func _player_took_damage() -> void:
 	$Camera.add_trauma(5.0)

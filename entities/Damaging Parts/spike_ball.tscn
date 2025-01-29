@@ -3,18 +3,18 @@
 [ext_resource type="Script" path="res://entities/Damaging Parts/spike_ball.gd" id="1_2bmvx"]
 [ext_resource type="Texture2D" uid="uid://hp6sf4clhlbp" path="res://entities/Damaging Parts/New spike ball.png" id="2_m3bjf"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_i6d1g"]
-radius = 20.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_hhrhn"]
+radius = 28.0
 
 [node name="SpikeBall" type="Area2D" groups=["enemy"]]
-position = Vector2(94, -66)
 script = ExtResource("1_2bmvx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(-2, 1)
-shape = SubResource("CircleShape2D_i6d1g")
-
-[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 texture = ExtResource("2_m3bjf")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 1)
+shape = SubResource("CircleShape2D_hhrhn")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
