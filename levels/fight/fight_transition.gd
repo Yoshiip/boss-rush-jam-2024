@@ -9,7 +9,8 @@ func _ready() -> void:
 	
 	# skip animation
 	
-	$AnimationPlayer.speed_scale = 10.0
+	if OS.is_debug_build():
+		$AnimationPlayer.speed_scale = 10.0
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	root.transition_ended()

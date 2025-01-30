@@ -12,7 +12,7 @@ const START_TEXT := """Mission Complete!
 ----------
 
 [SYSTEM] Congratulations on completing your mission.
-Your efforts have been instrumental to the company's success.
+To reward you for your efforts, you have been credited with 5 research points for your ship. Use them as you see fit!
 A new contract will soon be assigned to you. Until then, take this time to rest and recover.
 (click to continue)
 """
@@ -30,7 +30,6 @@ Deductions:
 - Ship Maintenance............$10,000
 - Decontamination Fees........$67,900
 
-- Net Balance....................$100
 (click to continue)
 """
 

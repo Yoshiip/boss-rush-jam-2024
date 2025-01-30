@@ -17,6 +17,5 @@ func _process(delta: float) -> void:
 		var coll := ray_cast.get_collider()
 		$Sprite.position = -ray_cast.get_collision_point() / 2
 		$Sprite.scale.y = ray_cast.get_collision_point().length()
-		print(ray_cast.get_collision_point().length())
 	$Sprite.scale.x = thickness / max_thickness + cos(i * 20.0) * 0.08
 	i += delta

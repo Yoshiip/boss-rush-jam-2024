@@ -2,8 +2,10 @@ class_name Bullet
 extends Area2D
 
 @onready var ray_cast: RayCast2D = $RayCast
+@onready var ray_cast_homing: RayCast2D = $RayCastHoming
 
 @onready var root: FightRoot = get_tree().current_scene
+
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 var from_enemy := false
@@ -13,17 +15,16 @@ var damage := 1
 var velocity := Vector2.ZERO
 var homing_direction := Vector2.ZERO
 var speed := 1.5
-var bounce_number_bullet := 0
-var bounce_number := 0
-@onready var ray_cast_homing: RayCast2D = $RayCastHoming
-var collider : Object
+var bounces_count_bullet := 0
+var bounces_count := 0
 
 var deflection_bullet := false
-var infection_bullet_lvl = 0
+var infection_bullet_lvl := 0
 var bounce_powerup := false
-var bounce_lvl =2
-var pierce_lvl =0
-var split_bounce_lvl =0 
+
+var max_bounces := 2
+var max_splits := 0
+var max_pierces := 0
 
 func _ready() -> void:
 	velocity = Vector2.RIGHT.rotated(rotation)
@@ -41,12 +42,10 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += velocity * speed
 	
-	if from_enemy:
-		pass
-	elif ray_cast_homing.is_colliding():
-		collider = ray_cast_homing.get_collider()
-		if collider && collider.is_in_group("enemy"):
-			homing_direction = (collider.global_position - global_position).normalized()
+	if ray_cast_homing.is_colliding():
+		var coll := ray_cast_homing.get_collider()
+		if coll && coll.is_in_group("enemy"):
+			homing_direction = (coll.global_position - global_position).normalized()
 			velocity = homing_direction
 
 
@@ -61,24 +60,23 @@ func _on_body_entered(body: Node2D) -> void:
 		destroy_bullet()
 		#bullets bounce off of obstacles a number of times. player bullets bounce fewer times
 	elif body.is_in_group("Obstacle"):
-	
 		if bounce_powerup:
-			speed*=1.1
-			scale = Vector2(scale.x*1.2,scale.y*1.2)
+			speed *= 1.1
+			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
 			damage += 1
 		if ray_cast.is_colliding():
 			var collision_normal = ray_cast.get_collision_normal()
 		#var collision_normal = (body.global_position - global_position).normalized()
 			velocity = velocity.bounce(collision_normal)
-			ray_cast.set_target_position(velocity.normalized()*30)
-			if!from_enemy:
-				ray_cast_homing.set_target_position(velocity.normalized()*300)
-				if split_bounce_lvl>0:
+			ray_cast.set_target_position(velocity.normalized() * 30)
+			if not from_enemy:
+				ray_cast_homing.set_target_position(velocity.normalized() * 300)
+				if max_bounces > 0:
 					var bullet := _fire()
-					split_bounce_lvl-=1
-			bounce_number+=1
+					max_bounces -= 1
+			bounces_count += 1
 			
-			if bounce_number>= bounce_lvl:
+			if bounces_count>= max_bounces:
 				destroy_bullet()
 		else:
 			destroy_bullet()
@@ -86,53 +84,53 @@ func _on_body_entered(body: Node2D) -> void:
 		#lets enemy and player bullets bounce off of eachother
 func _on_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && deflection_bullet:
-		var other_bullet = body
-		bounce_number+=1
+		var other_bullet := body
+		bounces_count+=1
 			
 		var collision_normal = (body.global_position - global_position).normalized()
-		if !pierce_lvl> bounce_number_bullet:
+		if !max_pierces > bounces_count_bullet:
 			velocity = velocity.bounce(collision_normal)
 			ray_cast.set_target_position(velocity.normalized()*30)
 			ray_cast_homing.set_target_position(velocity.normalized()*300)
-		if infection_bullet_lvl> bounce_number_bullet:
-			modulate =Color.DARK_CYAN
+		if infection_bullet_lvl> bounces_count_bullet:
+			modulate = Color.DARK_CYAN
 			other_bullet.from_enemy= false
 			other_bullet.modulate = Color.DARK_CYAN
-		bounce_number_bullet+=1
+		bounces_count_bullet+=1
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
-		other_bullet.bounce_number+=1
+		other_bullet.bounces_count+=1
 		if other_bullet.bounce_powerup:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
 			
-	
-	
+
+
+const MIN_ANGLE = deg_to_rad(-45)
+const MAX_ANGLE = deg_to_rad(45)
+
 func _fire() -> Bullet:
-	
-	var bullet = BULLET.instantiate()
+	var bullet := BULLET.instantiate()
 	bullet.position = position
 	bullet.speed = speed
 	bullet.from_enemy = false
-	var min_angle = deg_to_rad(-45)  # Convert -30 degrees to radians
-	var max_angle = deg_to_rad(45)   # Convert 30 degrees to radians
 
-	var random_rotation = randf_range(min_angle+ rotation, max_angle+rotation)
-	
+	var random_rotation := randf_range(MIN_ANGLE + rotation, MAX_ANGLE + rotation)
 	bullet.rotation = random_rotation
 
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	if GameManager.save_data.deflection_bullet:
-		bullet.deflection_bullet = true
-		bullet.infection_bullet_lvl =  GameManager.save_data.infection_level
-		bullet.pierce_lvl = GameManager.save_data.pierce_level
-	bullet.bounce_lvl = GameManager.save_data.bounce_level
-	bullet.bounce_number = bounce_number
-	bullet.split_bounce_lvl = 0
-	bullet.scale = Vector2(scale.x*GameManager.save_data.bullet_size,scale.y*GameManager.save_data.bullet_size)
+	
+	if GameManager.is_deflect():
+		bullet.deflection_bullet = GameManager.is_deflect()
+		bullet.infection_bullet_lvl = GameManager.get_infection_bullet()
+		bullet.pierce_lvl = GameManager.get_pierces()
 
+	bullet.max_bounces = GameManager.get_bounces()
+	bullet.bounces_count = bounces_count
+	bullet.max_splits = GameManager.get_splits()
+	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
+	
 	add_sibling(bullet)
 
-	
 	return bullet

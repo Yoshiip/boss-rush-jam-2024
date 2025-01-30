@@ -71,16 +71,16 @@ func _on_core_dead() -> void:
 func transition_ended() -> void:
 	crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
-	#_spawn_dialogue()
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
-func _spawn_dialogue() -> void:
-	var dialogue := DIALOGUE.instantiate()
-	$Canvas/Container.add_child(dialogue)
-	spaceship.allow_inputs.append("dialogue")
-	dialogue.ended.connect(func ():
-		spaceship.allow_inputs.erase("dialogue")
-		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	)
+#func _spawn_dialogue() -> void:
+	#var dialogue := DIALOGUE.instantiate()
+	#$Canvas/Container.add_child(dialogue)
+	#spaceship.allow_inputs.append("dialogue")
+	#dialogue.ended.connect(func ():
+		#spaceship.allow_inputs.erase("dialogue")
+		#Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	#)
 
 
 @onready var background_sprite: Sprite2D = $ParallaxBackground/ParallaxLayer/BackgroundSprite
@@ -213,3 +213,10 @@ func spawn_bounce_sfx(at: Vector2) -> void:
 	var _audio := _get_audio_player(at)
 	_audio.stream = PROJECTILE_BOUNCE_SFX
 	add_child(_audio)
+
+const BULLET_PARTICLES = preload("res://assets/bullets/bullet_particles.tscn")
+
+func spawn_bullet_bounce_particles(at: Vector2) -> void:
+	var particles := BULLET_PARTICLES.instantiate()
+	particles.position = at
+	add_child(particles)

@@ -17,10 +17,14 @@ func _update_ui() -> void:
 	
 	$Container/Title.text = title
 	$Container/Container/Level/Current.text = str(current_level)
+	
 
 func _ready() -> void:
 	$Container/Container/Level/Max.text = str(max_level)
 	_update_ui()
+	
+	#if arrows:
+		#custom_minimum_size.y += 24
 
 
 func _on_add_button_pressed() -> void:

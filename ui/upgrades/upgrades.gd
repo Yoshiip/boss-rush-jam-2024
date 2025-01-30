@@ -1,10 +1,10 @@
 extends Control
-@onready var points_label: Label = $Canvas/Container/Points
+@onready var points_label: Label = $Canvas/Container/Boxes/Footer/Points
 
 
 
 func _update_ui() -> void:
-	points_label.text = str("tech points: ", GameManager.save_data.points)
+	points_label.text = str("research points: ", GameManager.save_data.points)
 
 func _ready() -> void:
 	_update_ui()
@@ -19,3 +19,7 @@ func _upgrade_added_point() -> void:
 
 func _upgrade_removed_point() -> void:
 	_update_ui()
+
+
+func _on_continue_pressed() -> void:
+	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")

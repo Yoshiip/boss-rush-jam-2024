@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bu7ko47q37y5q"
-path="res://.godot/imported/eye defeat.png-a57d8be87ca4f0ec558627df48dfe8fd.ctex"
+uid="uid://dl5s8j61bgfly"
+path="res://.godot/imported/arrow_upgrade_down.png-f4f90294268c4b8ddf97036d65085207.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/eyes/default/eye defeat.png"
-dest_files=["res://.godot/imported/eye defeat.png-a57d8be87ca4f0ec558627df48dfe8fd.ctex"]
+source_file="res://ui/arrow_upgrade_down.png"
+dest_files=["res://.godot/imported/arrow_upgrade_down.png-f4f90294268c4b8ddf97036d65085207.ctex"]
 
 [params]
 

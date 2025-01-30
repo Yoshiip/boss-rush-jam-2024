@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" path="res://entities/eyes/default/default_eye.gd" id="1_gfg3s"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_8iku6"]
-[ext_resource type="Texture2D" uid="uid://cr014glk1f4dj" path="res://entities/eyes/default/place holder shooting part vuln2.png" id="3_k64pc"]
+[ext_resource type="Texture2D" uid="uid://cr014glk1f4dj" path="res://entities/eyes/default/eye_default.png" id="3_k64pc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64cpk"]
 shader = ExtResource("2_8iku6")
 shader_parameter/whitening = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
-radius = 34.0
+radius = 32.0
 
 [node name="DefaultEye" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")

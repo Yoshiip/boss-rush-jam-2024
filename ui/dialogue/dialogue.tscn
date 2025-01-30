@@ -90,7 +90,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -120.0
+offset_top = 8.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8f7mt")
@@ -100,7 +101,7 @@ clip_contents = false
 layout_mode = 0
 offset_left = 162.0
 offset_top = 10.0
-offset_right = 211.0
+offset_right = 358.0
 offset_bottom = 24.0
 theme_override_colors/default_color = Color(0.0823529, 0.607843, 0.866667, 1)
 bbcode_enabled = true
@@ -153,7 +154,7 @@ libraries = {
 "": SubResource("AnimationLibrary_jewyn")
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="Skip" type="HBoxContainer" parent="."]
 visible = false
 layout_mode = 1
 anchors_preset = 1
@@ -165,7 +166,7 @@ offset_right = -16.0
 offset_bottom = 56.0
 grow_horizontal = 0
 
-[node name="ProgressBar" type="TextureProgressBar" parent="HBoxContainer"]
+[node name="ProgressBar" type="TextureProgressBar" parent="Skip"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -178,7 +179,7 @@ texture_under = ExtResource("4_dkd36")
 texture_progress = ExtResource("4_dkd36")
 tint_under = Color(0, 0, 0, 1)
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="Skip"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "skip"

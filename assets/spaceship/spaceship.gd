@@ -6,7 +6,6 @@ signal dead
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
-const ACCELERATION_SPEED = 400.0
 const FRICTION_COEFF = 1.5
 
 const BULLETS_SPEED := [7, 10, 13, 16]
@@ -19,7 +18,7 @@ var axis_shoot := Vector2.ZERO
 
 @onready var root: FightRoot = get_tree().current_scene
 
-@export var max_health := 10
+@export var max_health := GameManager.get_health()
 @onready var health := max_health
 
 @onready var shoot_point: Marker2D = $ShootPoint
@@ -28,16 +27,17 @@ var axis_shoot := Vector2.ZERO
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
-const FIRE_RATES := [0.25, 0.2, 0.15]
+const FIRE_RATES := [0.25, 0.22, 0.19, 0.16]
+@onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
-var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate_level]
+
+const SPEEDS := [400, 500, 600, 700, 800]
+@onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
+
 var fire_timer := fire_rate
 var weapon_toggle := false
 var switch_movemode := false
 var deflection_bullet := false
-var infection_bullet_lvl := 0
-var bounce_lvl :=1
-var bounce_powerup := true
 
 
 func _is_allowed_inputs() -> bool:
@@ -56,7 +56,7 @@ func _handle_input(delta: float) -> void:
 	if axis.length() > 0:
 		#smoothly change direction, instead of immediatly snapping to new direction
 		if switch_movemode:
-			var target_velocity := axis.normalized() * ACCELERATION_SPEED
+			var target_velocity := axis.normalized() * acceleration_speed
 			
 			velocity = lerp(velocity, target_velocity, 25.0 * delta)
 			
@@ -67,9 +67,9 @@ func _handle_input(delta: float) -> void:
 			var dot_product = Vector2(cos(rotation), sin(rotation)).dot(axis)
 			rotation =  lerp_angle(rotation, goal_direction, 7.0 * delta)
 			if dot_product >=0.7:
-				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
+				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed, 10.0 * delta)
 			else:
-				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED * dot_product, 10.0 * delta)
+				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed * dot_product, 10.0 * delta)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 		
@@ -84,7 +84,8 @@ func _fire() -> Bullet:
 	$Shoot.play()
 	var bullet = BULLET.instantiate()
 	bullet.position = $ShootPoint.global_position
-	bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed_level]
+	bullet.speed = 7
+	#bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed]
 	bullet.from_enemy = false
 	
 	if axis_shoot && axis_shoot.length() > 0:
@@ -99,9 +100,9 @@ func _fire() -> Bullet:
 		bullet.deflection_bullet = true
 		bullet.infection_bullet_lvl =  GameManager.save_data.infection_level
 		bullet.pierce_lvl = GameManager.save_data.pierce_level
-	bullet.bounce_lvl = GameManager.save_data.bounce_level
-	bullet.split_bounce_lvl = GameManager.save_data.split_bounce_level
-	bullet.scale = Vector2(scale.x*GameManager.save_data.bullet_size,scale.y*GameManager.save_data.bullet_size)
+	bullet.max_bounces = GameManager.get_bounces()
+	bullet.max_splits = GameManager.get_splits()
+	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
 
 	add_sibling(bullet)
 	fire_timer = fire_rate

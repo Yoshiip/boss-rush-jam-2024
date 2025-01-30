@@ -7,9 +7,17 @@ signal ended
 # o: stands for "other"
 
 var dialogue: Array[String] = []
+var other_name := "Other"
+var other_texture: CompressedTexture2D
+
 var progress := 0
 
 var skip_progress := 0.0
+const PLAYER_PORTRAIT = preload("res://ui/dialogue/portraits/player.jpg")
+
+func set_other(other_name: String, texture: CompressedTexture2D) -> void:
+	self.other_name = other_name
+	other_texture = texture
 
 
 func _ready() -> void:
@@ -53,8 +61,9 @@ func _next_text() -> void:
 		event.emit(text.lstrip('#'))
 		_next_text()
 		return
-	$Gradient/Portrait.visible = !from_other
-	$Gradient/Name.text = "Other" if from_other else "You"
+	$Gradient/Portrait.texture = other_texture if from_other else PLAYER_PORTRAIT
+	
+	$Gradient/Name.text = other_name if from_other else "You"
 	$Gradient/Content.text = dialogue[progress].lstrip('o:')
 	spawning_text = false
 
@@ -72,7 +81,7 @@ func _process(delta: float) -> void:
 		skip_progress += delta * 0.5
 	else:
 		skip_progress -= delta * 0.75
-	$HBoxContainer/ProgressBar.value = skip_progress
+	$Skip/ProgressBar.value = skip_progress
 	if skip_progress >= 1.0:
 		_close_dialogue()
 	i += delta

@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcgdrodgl21lg"]
+[gd_scene load_steps=8 format=3 uid="uid://bcgdrodgl21lg"]
 
 [ext_resource type="PackedScene" uid="uid://dfymr03ncw1dg" path="res://ui/upgrades/upgrades_box/upgrade_box.tscn" id="1_gvm2u"]
 [ext_resource type="Script" path="res://ui/upgrades/upgrades.gd" id="1_jhpx4"]
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="2_es30p"]
 [ext_resource type="Shader" path="res://ui/computer/vhs.gdshader" id="4_66ru2"]
+[ext_resource type="AudioStream" uid="uid://cy8tte6pogyh5" path="res://audios/musics/up_n_grades.mp3" id="5_1n8pf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyu4o"]
+bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_352sm"]
 shader = ExtResource("4_66ru2")
@@ -58,111 +62,115 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Points" type="Label" parent="Canvas/Container"]
+[node name="Boxes" type="VBoxContainer" parent="Canvas/Container"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -39.0
-offset_bottom = -16.0
+offset_left = 32.0
+offset_right = -32.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "TECH POINTS: 10"
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Canvas/Container/Boxes"]
+layout_mode = 2
+text = "Upgrades"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Boxes" type="Control" parent="Canvas/Container"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="VBoxContainer" parent="Canvas/Container/Boxes"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 64
-alignment = 1
-
-[node name="GridContainer" type="HBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer"]
+[node name="Top" type="HBoxContainer" parent="Canvas/Container/Boxes"]
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
-[node name="hull_health" parent="Canvas/Container/Boxes/HBoxContainer/GridContainer" instance=ExtResource("1_gvm2u")]
+[node name="hull_health" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 max_level = 5
 
-[node name="agility" parent="Canvas/Container/Boxes/HBoxContainer/GridContainer" instance=ExtResource("1_gvm2u")]
+[node name="thrusters" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Agility"
+title = "Thrusters"
 
-[node name="fire_rate" parent="Canvas/Container/Boxes/HBoxContainer/GridContainer" instance=ExtResource("1_gvm2u")]
+[node name="fire_rate" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Fire Rate"
 
-[node name="bullet_size" parent="Canvas/Container/Boxes/HBoxContainer/GridContainer" instance=ExtResource("1_gvm2u")]
+[node name="bullet_size" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Bullet Size"
 
-[node name="VBoxContainer" type="HBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer"]
+[node name="Separator" type="Control" parent="Canvas/Container/Boxes"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Bottom" type="HBoxContainer" parent="Canvas/Container/Boxes"]
 layout_mode = 2
 theme_override_constants/separation = 64
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer"]
+[node name="Left" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom"]
 layout_mode = 2
 
-[node name="bullet_bounce" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_gvm2u")]
-custom_minimum_size = Vector2(120, 80)
+[node name="bullet_bounce" parent="Canvas/Container/Boxes/Bottom/Left" instance=ExtResource("1_gvm2u")]
+custom_minimum_size = Vector2(160, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "Bullet Bounce"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer"]
+[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left"]
 layout_mode = 2
 
-[node name="damage_on_bounce" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_gvm2u")]
+[node name="damage_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "+DMG on Bounce"
 
-[node name="split_on_bounce" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_gvm2u")]
+[node name="split_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Split on Bounce"
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer"]
+[node name="Right" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom"]
 layout_mode = 2
 
-[node name="deflection_bullet" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer2" instance=ExtResource("1_gvm2u")]
+[node name="deflection_bullet" parent="Canvas/Container/Boxes/Bottom/Right" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "Deflection"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer2"]
+[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right"]
 layout_mode = 2
 
-[node name="bullet_pierce" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer2" instance=ExtResource("1_gvm2u")]
+[node name="bullet_pierce" parent="Canvas/Container/Boxes/Bottom/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Bullet Pierce"
 
-[node name="infection_bullet" parent="Canvas/Container/Boxes/HBoxContainer/VBoxContainer/VBoxContainer2/HBoxContainer2" instance=ExtResource("1_gvm2u")]
+[node name="infection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Infection Bullet"
+
+[node name="Footer" type="HBoxContainer" parent="Canvas/Container/Boxes"]
+layout_mode = 2
+
+[node name="Points" type="Label" parent="Canvas/Container/Boxes/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_nyu4o")
+text = "Research Points: 10"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="Continue" type="Button" parent="Canvas/Container/Boxes/Footer"]
+layout_mode = 2
+text = "Continue"
 
 [node name="Shader" type="ColorRect" parent="Canvas/Container"]
 material = SubResource("ShaderMaterial_352sm")
@@ -174,3 +182,11 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_1n8pf")
+volume_db = -4.0
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="Canvas/Container/Boxes/Footer/Continue" to="." method="_on_continue_pressed"]

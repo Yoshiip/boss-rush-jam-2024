@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/environments/boss_env_root.gd" id="1_50c0e"]
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="2_gq8jr"]
-[ext_resource type="Resource" uid="uid://c0rjtd05150ou" path="res://3rd_boss_info.tres" id="3_3ipbr"]
+[ext_resource type="Resource" uid="uid://dbl0fdky1g4v" path="res://3rd_boss_info.tres" id="3_3ipbr"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="4_pp6ke"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="5_uhiy2"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="6_5exqq"]
@@ -51,33 +51,26 @@ position = Vector2(-9, -211)
 position = Vector2(-171, -302)
 max_shoot_timer = 3.0
 bullet_speed = 1
-phase_activation = [true, false, true, false, true, true]
 
 [node name="DefaultEye2" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(166, 273)
 max_shoot_timer = 3.0
 bullet_speed = 1
-phase_activation = [true, false, false, true, true, true]
 
 [node name="DefaultEye3" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(-174, 558)
-phase_activation = [false, true, true, true, true, true]
 
 [node name="DefaultEye4" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(-135, -671)
-phase_activation = [false, true, true, true, true, true]
 
 [node name="DefaultEye5" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(419, -174)
-phase_activation = [false, true, true, true, true, true]
 
 [node name="DefaultEye6" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(500, 309)
-phase_activation = [false, false, true, true, true, true]
 
 [node name="DefaultEye7" parent="Planet" instance=ExtResource("6_5exqq")]
 position = Vector2(-567, 99)
-phase_activation = [false, false, true, true, true, true]
 
 [connection signal="new_phase" from="Core" to="Planet/DefaultEye" method="_on_core_new_phase"]
 [connection signal="new_phase" from="Core" to="Planet/DefaultEye2" method="_on_core_new_phase"]

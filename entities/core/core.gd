@@ -40,16 +40,16 @@ func _shoot_circle(number : float) -> void:
 		bullet.position = position
 		bullet.from_enemy = true
 		bullet.rotation = (PI * 2.0) / number * i
-		bullet.bounce_powerup=true
-		bullet.bounce_number=-1
-		bullet.special_enemy_projectile=true
+		bullet.bounce_powerup = true
+		bullet.bounces_count = -1
+		bullet.special_enemy_projectile = true
 		call_deferred("add_sibling", bullet)
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
-		if health <= last_health_threshold-20&& boss_phase_num<5:
+		if health <= last_health_threshold -20 && boss_phase_num < 5:
 			$BossAnger.play()
 			last_health_threshold-=20
 			boss_phase_num+=1
