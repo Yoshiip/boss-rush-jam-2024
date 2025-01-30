@@ -62,6 +62,8 @@ func _process(delta: float) -> void:
 				char_timer = 0.1
 			_:
 				char_timer = 0.05
+		if Input.is_action_pressed("fire"):
+			char_timer *= 0.1
 			
 	if Input.is_action_just_pressed("fire") && terminal_text.visible_characters == terminal_text.text.length():
 		if phase == 0:

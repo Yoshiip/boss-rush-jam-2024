@@ -1,5 +1,6 @@
 extends Control
 
+signal event(id: String)
 signal ended
 
 
@@ -12,7 +13,6 @@ var skip_progress := 0.0
 
 
 func _ready() -> void:
-	dialogue = GameDialogues.TEST_DIALOGUE
 	$AnimationPlayer.play("Open")
 	
 	$Gradient/Content.text = dialogue[progress]
@@ -26,6 +26,8 @@ func _close_dialogue() -> void:
 	queue_free()
 
 
+var locked := false
+
 func _next_text() -> void:
 	visible_characters = 0
 	progress += 1
@@ -33,9 +35,24 @@ func _next_text() -> void:
 		set_process(false)
 		_close_dialogue()
 		return
+	
 	$Gradient/NextArrow.visible = progress <= dialogue.size() - 2
 	var text := dialogue[progress]
+	
 	var from_other := text.begins_with("o:")
+	if text.begins_with("i:"):
+		locked = true
+		$AnimationPlayer.play("Open", -1, -1.0, true)
+		
+		await get_tree().create_timer(float(text.split(':')[1])).timeout
+		$AnimationPlayer.play("Open")
+		locked = false
+		_next_text()
+		return
+	if text.begins_with("#"):
+		event.emit(text.lstrip('#'))
+		_next_text()
+		return
 	$Gradient/Portrait.visible = !from_other
 	$Gradient/Name.text = "Other" if from_other else "You"
 	$Gradient/Content.text = dialogue[progress].lstrip('o:')
@@ -50,6 +67,7 @@ var text_timer := 0.05
 var visible_characters := 0
 
 func _process(delta: float) -> void:
+	if locked: return
 	if Input.is_action_pressed("fire"):
 		skip_progress += delta * 0.5
 	else:
@@ -74,7 +92,7 @@ func _process(delta: float) -> void:
 	else:
 		text_timer -= delta
 		if text_timer <= 0.0:
-			text_timer = 0.05
+			text_timer = 0.03
 			# TODO: maybe add additional delay if it is punctuation
 			visible_characters += 1
 	

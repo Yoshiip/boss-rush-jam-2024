@@ -146,7 +146,7 @@ grow_vertical = 0
 pivot_offset = Vector2(148, 28)
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "[center][wave]UNTITLED GAME[/wave][/center]"
+text = "[center][wave]COSMICAPITAL[/wave][/center]"
 fit_content = true
 scroll_active = false
 

@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cb37w5ufo82h6"]
+[gd_scene load_steps=6 format=3 uid="uid://cb37w5ufo82h6"]
 
 [ext_resource type="Script" path="res://ui/computer/computer.gd" id="1_ocgst"]
 [ext_resource type="Shader" path="res://ui/computer/vhs.gdshader" id="2_na5mr"]
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="2_v1ig6"]
-[ext_resource type="Script" path="res://ui/upgrades/upgrades.gd" id="3_yt6ox"]
 [ext_resource type="AudioStream" uid="uid://c4137nah0hddm" path="res://audios/effects/ui/keyboard.wav" id="4_yxilj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_doowu"]
@@ -68,36 +67,6 @@ bbcode_enabled = true
 fit_content = true
 scroll_active = false
 
-[node name="Upgrades" type="VBoxContainer" parent="Canvas/Container"]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 32.0
-offset_top = 16.0
-offset_right = -32.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("3_yt6ox")
-
-[node name="Money" type="Label" parent="Canvas/Container/Upgrades"]
-layout_mode = 2
-text = "Net balance: $1,000"
-horizontal_alignment = 1
-
-[node name="Grid" type="GridContainer" parent="Canvas/Container/Upgrades"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 16
-columns = 2
-
-[node name="Continue" type="Button" parent="Canvas/Container/Upgrades"]
-layout_mode = 2
-text = "Continue"
-
 [node name="Shader" type="ColorRect" parent="Canvas/Container"]
 material = SubResource("ShaderMaterial_doowu")
 layout_mode = 1
@@ -113,5 +82,3 @@ metadata/_edit_lock_ = true
 stream = ExtResource("4_yxilj")
 volume_db = -4.0
 bus = &"Effects"
-
-[connection signal="pressed" from="Canvas/Container/Upgrades/Continue" to="." method="_on_continue_pressed"]

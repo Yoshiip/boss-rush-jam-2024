@@ -7,32 +7,39 @@ const UI_SOUNDS = {
 }
 
 var save_data = {
-	"money": 0,
 	"level": 0,
-	"hull health": 10,
+	"points": 0,
+	"hull_health": 10,
 	"fire_rate_level": 0,
-	"deflection_bullet": true,
+	"deflection_bullet": 0, # 1 == true
 	"bounce_level": 4,
 	"split_bounce_level":0,
 	"bullet_speed_level": 0,
 	"infection_level": 0,
 	"pierce_level": 0, 
-	"bullet_size" :1 
+	"bullet_size": 1 
 }
 
 func clear_save_data() -> void:
 	save_data = {
-		"money": 0,
+		"points": 10,
 		"level": 0,
-		"hull health": 10,
-		"fire_rate_level": 0,
-		"deflection_bullet": true,
-		"bounce_level": 2,
+		
+		# UPGRADES
+		"hull_health": 0,
+		"fire_rate": 0,
+		"agility": 0,
+		"bullet_size": 0,
+		
+		# BOUNCES UPGRADES
+		"deflection_bullet": 0,
+		"bullet_bounce": 2,
 		"bullet_speed_level": 0,
+		
+		# SPECIAL BULLETS
 		"split_bounce_level":0,
 		"infection_level": 0,
 		"pierce_level" : 0,
-		"bullet_size" :1 
 	}
 
 func _ready() -> void:

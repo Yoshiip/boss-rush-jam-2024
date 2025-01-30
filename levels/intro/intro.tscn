@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dw82gj4kuqgyv"]
+
+[ext_resource type="Script" path="res://levels/intro/intro.gd" id="1_6wgeg"]
+[ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="2_77im3"]
+[ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_p46tp"]
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_6wgeg")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="Container" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_77im3")
+
+[node name="Date" type="Label" parent="Canvas/Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -76.0
+offset_top = -15.5
+offset_right = 76.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "February 3nd 2082
+----   11:35 AM    ----"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Spaceship" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -72)
+scale = Vector2(4, 4)
+texture = ExtResource("2_p46tp")

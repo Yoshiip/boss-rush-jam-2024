@@ -70,8 +70,7 @@ func _input(event: InputEvent) -> void:
 		$Canvas/Container/Menu.visible = true
 
 func _on_play_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")
-
+	get_tree().change_scene_to_file("res://levels/intro/intro.tscn")
 
 func _on_credits_button_pressed() -> void:
 	menu_section.visible = false

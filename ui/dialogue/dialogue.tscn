@@ -116,7 +116,6 @@ offset_top = 34.0
 offset_right = 594.0
 offset_bottom = 86.0
 bbcode_enabled = true
-text = "ytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSFytfdgfdg	FDSF"
 
 [node name="NextArrow" type="TextureRect" parent="Gradient"]
 layout_mode = 1
