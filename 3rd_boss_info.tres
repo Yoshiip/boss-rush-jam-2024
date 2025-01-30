@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="boss_phase_info" load_steps=2 format=3 uid="uid://dbl0fdky1g4v"]
+[gd_resource type="Resource" script_class="boss_phase_info" load_steps=2 format=3 uid="uid://c0rjtd05150ou"]
 
 [ext_resource type="Script" path="res://boss_phase_info.gd" id="1_tnb28"]
 

@@ -30,7 +30,7 @@ var save_data = {
 func clear_save_data() -> void:
 	save_data = {
 		"points": 10,
-		"level": 0,
+		"level": 1,
 		
 		# UPGRADES
 		"hull_health": 0,

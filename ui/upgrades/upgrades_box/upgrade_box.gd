@@ -1,7 +1,7 @@
 class_name UpgradeBox
 extends Panel
 
-signal added_point
+signal added_point(new_level: int, max_level: int)
 signal removed_point
 
 
@@ -17,6 +17,7 @@ func _update_ui() -> void:
 	
 	$Container/Title.text = title
 	$Container/Container/Level/Current.text = str(current_level)
+	$Max.visible = current_level >= max_level
 	
 
 func _ready() -> void:
@@ -35,7 +36,7 @@ func _on_add_button_pressed() -> void:
 	GameManager.save_data.points -= 1
 	
 	_update_ui()
-	added_point.emit()
+	added_point.emit(current_level, max_level)
 
 
 func _on_remove_button_pressed() -> void:

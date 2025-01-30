@@ -8,8 +8,8 @@ extends Control
 
 func _ready() -> void:
 	UiUtils.apply_transition($Panel/Container)
-	var music_volume := AudioServer.get_bus_volume_db(1)
-	var effects_volume := AudioServer.get_bus_volume_db(2)
+	var music_volume := db_to_linear(AudioServer.get_bus_volume_db(1))
+	var effects_volume := db_to_linear(AudioServer.get_bus_volume_db(2))
 	
 	update_music_volume(music_volume)
 	update_effects_volume(effects_volume)

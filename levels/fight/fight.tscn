@@ -1,10 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=22 format=3 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="1_4fykx"]
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_5kee0"]
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="3_c44pw"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="5_g487y"]
+[ext_resource type="AudioStream" uid="uid://bu41dw2kqfu3l" path="res://audios/musics/game_over.mp3" id="8_r3fsk"]
 [ext_resource type="Script" path="res://levels/fight/fight_transition.gd" id="9_2s53k"]
+[ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="9_fpwsx"]
 [ext_resource type="AudioStream" uid="uid://d3cl0e5lotj3g" path="res://audios/effects/ui/game-start2.wav" id="10_i2648"]
 [ext_resource type="Script" path="res://levels/fight/game_over.gd" id="11_kn4rb"]
 [ext_resource type="Texture2D" uid="uid://cvj3g8utd2nb0" path="res://assets/utils/crosshair.png" id="17_x1b4e"]
@@ -161,6 +163,67 @@ _data = {
 "intro": SubResource("Animation_3c4mq")
 }
 
+[sub_resource type="Animation" id="Animation_80ekd"]
+resource_name = "GameOver"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Music:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.533333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Death:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_7iggc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Music:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Death:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_16f7o"]
+_data = {
+"GameOver": SubResource("Animation_80ekd"),
+"RESET": SubResource("Animation_7iggc")
+}
+
 [node name="Fight" type="Node2D"]
 script = ExtResource("1_5kee0")
 
@@ -263,6 +326,7 @@ fill_mode = 1
 show_percentage = false
 
 [node name="Transition" type="Control" parent="Canvas/Container"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -332,10 +396,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -276.0
+offset_top = -50.0
+offset_right = 276.0
+offset_bottom = 85.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("11_kn4rb")
@@ -348,8 +412,27 @@ uppercase = true
 
 [node name="Subtitle" type="Label" parent="Canvas/Container/GameOver"]
 layout_mode = 2
-text = "(click to continue)"
+text = "Your ship has been destroyed."
 horizontal_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Canvas/Container/GameOver"]
+libraries = {
+"": SubResource("AnimationLibrary_16f7o")
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="Canvas/Container/GameOver"]
+stream = ExtResource("8_r3fsk")
+volume_db = -4.0
+bus = &"Music"
+
+[node name="Death" type="AudioStreamPlayer" parent="Canvas/Container/GameOver"]
+stream = ExtResource("9_fpwsx")
+bus = &"Music"
+
+[node name="Restart" type="Button" parent="Canvas/Container/GameOver"]
+visible = false
+layout_mode = 2
+text = "Restart fight"
 
 [node name="Crosshair" type="TextureRect" parent="Canvas/Container"]
 layout_mode = 0
@@ -378,3 +461,5 @@ region_rect = Rect2(0, 0, 8192, 8192)
 metadata/_edit_lock_ = true
 
 [connection signal="animation_finished" from="Canvas/Container/Transition/AnimationPlayer" to="Canvas/Container/Transition" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="Canvas/Container/GameOver/AnimationPlayer" to="Canvas/Container/GameOver" method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="Canvas/Container/GameOver/Restart" to="Canvas/Container/GameOver" method="_on_restart_pressed"]

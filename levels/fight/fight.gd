@@ -190,7 +190,8 @@ func is_point_colliding(point: Vector2) -> bool:
 func _on_player_dead() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
-	$Canvas/Container/GameOver.visible = true
+	crossfade.stop_both()
+	$Canvas/Container/GameOver.start()
 
 
 const EFFECTS_BUS = &"Effects"

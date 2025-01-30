@@ -24,6 +24,6 @@ func apply_transition(node: Node) -> void:
 			await get_tree().create_timer(TRANSITION_DURATION * 1 / 4).timeout
 
 func smooth_queue_free(node: CanvasItem) -> void:
-	var tween := get_tree().create_tween()
+	var tween := get_tree().create_tween().bind_node(node)
 	tween.tween_property(node, "modulate", node.modulate * Color.TRANSPARENT, TRANSITION_DURATION)	
 	tween.tween_callback(node.queue_free)

@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://levels/menu/ui_button.gd" id="3_feo83"]
 [ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background.jpg" id="4_kpk66"]
 [ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="5_cwfcn"]
-[ext_resource type="PackedScene" path="res://assets/utils/crossfade.tscn" id="6_tdn0y"]
+[ext_resource type="PackedScene" uid="uid://cyeqr5ech8mwm" path="res://assets/utils/crossfade.tscn" id="6_tdn0y"]
 
 [sub_resource type="Animation" id="Animation_2qtne"]
 resource_name = "Bounce"
@@ -212,7 +212,7 @@ texture_repeat = 2
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_kpk66")
 region_enabled = true
-region_rect = Rect2(0, 0, 4096, 4096)
+region_rect = Rect2(0, 0, 16384, 16384)
 
 [node name="Camera" type="Camera2D" parent="."]
 limit_left = -400

@@ -172,3 +172,8 @@ func check_if_crushed() -> void:
 	if result.size() > 1:
 		take_damage(10)
 		
+
+
+func _on_crush_detection_body_entered(body: Node2D) -> void:
+	print("AIE!!")
+	take_damage(100)

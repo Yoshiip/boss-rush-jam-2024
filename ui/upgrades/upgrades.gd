@@ -13,13 +13,18 @@ func _ready() -> void:
 		upgrade.removed_point.connect(_upgrade_removed_point)
 
 
-func _upgrade_added_point() -> void:
+func _upgrade_added_point(new_level: int, max_level: int) -> void:
 	_update_ui()
+	$Upgrade.pitch_scale = 1.0 + float(new_level) / float(max_level)
+	$Upgrade.play()
 	
 
 func _upgrade_removed_point() -> void:
 	_update_ui()
+	$Upgrade.pitch_scale = 1.0
+	$Upgrade.play()
 
 
 func _on_continue_pressed() -> void:
+	GameManager.save_data.level += 1
 	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")

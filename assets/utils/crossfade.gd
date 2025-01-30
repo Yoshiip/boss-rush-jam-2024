@@ -31,6 +31,14 @@ func start_a() -> void:
 	a_player.volume_db = db
 	b_player.volume_db = -80
 
+func stop_both() -> void:
+	if last_tween != null:
+		last_tween.stop()
+	var tween := _default_tween()
+	tween.tween_property(a_player, "volume_db", -80, 5.0)
+	tween.tween_property(b_player, "volume_db", -80, 5.0)
+	last_tween = tween
+
 func to_a() -> void:
 	if last_tween != null:
 		last_tween.stop()

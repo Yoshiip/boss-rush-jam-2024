@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/raw_mechanical_pause.mp3-da272ff6375ac80f3764
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

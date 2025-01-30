@@ -1,10 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcgdrodgl21lg"]
+[gd_scene load_steps=10 format=3 uid="uid://bcgdrodgl21lg"]
 
 [ext_resource type="PackedScene" uid="uid://dfymr03ncw1dg" path="res://ui/upgrades/upgrades_box/upgrade_box.tscn" id="1_gvm2u"]
 [ext_resource type="Script" path="res://ui/upgrades/upgrades.gd" id="1_jhpx4"]
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="2_es30p"]
 [ext_resource type="Shader" path="res://ui/computer/vhs.gdshader" id="4_66ru2"]
 [ext_resource type="AudioStream" uid="uid://cy8tte6pogyh5" path="res://audios/musics/up_n_grades.mp3" id="5_1n8pf"]
+[ext_resource type="AudioStream" uid="uid://beqqkwikr1w4g" path="res://audios/effects/upgrade.wav" id="6_il4qi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61bwy"]
+draw_center = false
+border_width_left = 4
+border_width_top = 14
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0.498039, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyu4o"]
 bg_color = Color(0, 1, 0, 1)
@@ -71,6 +85,7 @@ offset_left = 32.0
 offset_right = -32.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 12
 alignment = 1
 
 [node name="Label" type="Label" parent="Canvas/Container/Boxes"]
@@ -104,58 +119,108 @@ custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Bullet Size"
 
-[node name="Separator" type="Control" parent="Canvas/Container/Boxes"]
-custom_minimum_size = Vector2(0, 32)
-layout_mode = 2
-
 [node name="Bottom" type="HBoxContainer" parent="Canvas/Container/Boxes"]
+custom_minimum_size = Vector2(0, 190)
 layout_mode = 2
-theme_override_constants/separation = 64
+size_flags_vertical = 3
+theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Left" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom"]
+[node name="Left" type="Panel" parent="Canvas/Container/Boxes/Bottom"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_61bwy")
 
-[node name="bullet_bounce" parent="Canvas/Container/Boxes/Bottom/Left" instance=ExtResource("1_gvm2u")]
-custom_minimum_size = Vector2(160, 80)
+[node name="Label" type="Label" parent="Canvas/Container/Boxes/Bottom/Left"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Bounces"
+horizontal_alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 14.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="bullet_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left" instance=ExtResource("1_gvm2u")]
+custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
-title = "Bullet Bounce"
+title = "Count"
 
-[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left"]
+[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left/Left"]
 layout_mode = 2
+alignment = 1
 
-[node name="damage_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Container" instance=ExtResource("1_gvm2u")]
+[node name="damage_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "+DMG on Bounce"
+title = "Damage"
 
-[node name="split_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Container" instance=ExtResource("1_gvm2u")]
+[node name="split_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Split on Bounce"
+title = "Split"
 
-[node name="Right" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom"]
+[node name="Right" type="Panel" parent="Canvas/Container/Boxes/Bottom"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_61bwy")
 
-[node name="deflection_bullet" parent="Canvas/Container/Boxes/Bottom/Right" instance=ExtResource("1_gvm2u")]
+[node name="Label" type="Label" parent="Canvas/Container/Boxes/Bottom/Right"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 10
+text = "Special Projectiles"
+horizontal_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 14.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="deflection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Right" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "Deflection"
 
-[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right"]
+[node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right/Right"]
 layout_mode = 2
+alignment = 1
 
-[node name="bullet_pierce" parent="Canvas/Container/Boxes/Bottom/Right/Container" instance=ExtResource("1_gvm2u")]
+[node name="bullet_pierce" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Bullet Pierce"
+title = "Pierce"
 
-[node name="infection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Container" instance=ExtResource("1_gvm2u")]
+[node name="infection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Infection Bullet"
+title = "Infection"
 
 [node name="Footer" type="HBoxContainer" parent="Canvas/Container/Boxes"]
 layout_mode = 2
@@ -183,10 +248,15 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_1n8pf")
 volume_db = -4.0
 autoplay = true
 bus = &"Music"
+
+[node name="Upgrade" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_il4qi")
+volume_db = -2.0
+bus = &"Effects"
 
 [connection signal="pressed" from="Canvas/Container/Boxes/Footer/Continue" to="." method="_on_continue_pressed"]

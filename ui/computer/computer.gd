@@ -72,11 +72,5 @@ func _process(delta: float) -> void:
 			
 		elif phase == 1:
 			phase += 1
-			await get_tree().create_timer(0.25).timeout
-			$Canvas/Container/TerminalText.visible = false
-			$Canvas/Container/Upgrades.visible = true
-
-
-func _on_continue_pressed() -> void:
-	GameManager.save_data.level += 1;
-	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")
+			
+			get_tree().change_scene_to_file("res://levels/upgrades/upgrades.tscn")
