@@ -51,6 +51,8 @@ func _physics_process(delta: float) -> void:
 
 func destroy_bullet():
 	#add some sort of explosion effect
+
+	root.spawn_bullet_destroy_particles(global_position, from_enemy)
 	queue_free() 
 
 
@@ -106,7 +108,6 @@ func _on_area_entered(body: Node2D) -> void:
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
 			
 
-
 const MIN_ANGLE = deg_to_rad(-45)
 const MAX_ANGLE = deg_to_rad(45)
 
@@ -131,6 +132,6 @@ func _fire() -> Bullet:
 	bullet.max_splits = GameManager.get_splits()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
 	
-	add_sibling(bullet)
-
+	call_deferred("add_child", bullet)
+	
 	return bullet

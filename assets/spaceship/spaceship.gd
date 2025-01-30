@@ -175,5 +175,4 @@ func check_if_crushed() -> void:
 
 
 func _on_crush_detection_body_entered(body: Node2D) -> void:
-	print("AIE!!")
 	take_damage(100)

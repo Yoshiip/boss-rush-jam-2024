@@ -31,7 +31,7 @@ func _ready() -> void:
 	env_resource = ENVIRONMENTS[level]
 	$ParallaxBackground/ParallaxLayer/BackgroundSprite.texture = env_resource.background
 	crossfade = CROSSFADE.instantiate()
-	crossfade.db = -10
+	crossfade.db = -16
 	crossfade.a_stream = env_resource.main_stream
 	crossfade.b_stream = env_resource.pause_stream
 	add_child(crossfade)
@@ -94,7 +94,7 @@ func _process(delta: float) -> void:
 
 func _player_took_damage() -> void:
 	$Camera.add_trauma(5.0)
-	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.health
+	$Canvas/Container/PlayerHealth/ProgressBar.value = max(spaceship.health, 0)
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 
 func _core_took_damage() -> void:
@@ -217,7 +217,8 @@ func spawn_bounce_sfx(at: Vector2) -> void:
 
 const BULLET_PARTICLES = preload("res://assets/bullets/bullet_particles.tscn")
 
-func spawn_bullet_bounce_particles(at: Vector2) -> void:
+func spawn_bullet_destroy_particles(at: Vector2, from_enemy: bool) -> void:
 	var particles := BULLET_PARTICLES.instantiate()
 	particles.position = at
+	particles.from_enemy = from_enemy
 	add_child(particles)
