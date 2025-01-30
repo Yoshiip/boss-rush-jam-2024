@@ -21,6 +21,7 @@ var upgrades := [
 		"name": "Infection Level",
 		"description": "",
 	},
+	
 ]
 
 @onready var grid: GridContainer = $Grid

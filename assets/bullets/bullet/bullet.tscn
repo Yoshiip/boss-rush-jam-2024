@@ -19,7 +19,7 @@ texture = ExtResource("2_l17vi")
 shape = SubResource("CircleShape2D_ks1eq")
 
 [node name="RayCast" type="RayCast2D" parent="."]
-target_position = Vector2(26, 0)
+target_position = Vector2(49, 0)
 
 [node name="RayCastHoming" type="RayCast2D" parent="."]
 target_position = Vector2(25, 0)

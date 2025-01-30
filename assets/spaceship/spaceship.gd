@@ -34,9 +34,11 @@ var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate_level]
 var fire_timer := fire_rate
 var weapon_toggle := false
 var switch_movemode := false
-var infection_bullet := false
-var intangible_bullet := false
+var deflection_bullet := false
+var infection_bullet_lvl := 0
+var bounce_lvl :=1
 var bounce_powerup := true
+
 
 func _is_allowed_inputs() -> bool:
 	return allow_inputs.is_empty()
@@ -63,8 +65,8 @@ func _handle_input(delta: float) -> void:
 		else: 
 			var goal_direction := axis.angle()
 			var dot_product = Vector2(cos(rotation), sin(rotation)).dot(axis)
-			rotation =  lerp_angle(rotation, goal_direction, 10.0 * delta)
-			if dot_product >=0.6:
+			rotation =  lerp_angle(rotation, goal_direction, 7.0 * delta)
+			if dot_product >=0.7:
 				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED, 10.0 * delta)
 			else:
 				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * ACCELERATION_SPEED * dot_product, 10.0 * delta)
@@ -93,12 +95,17 @@ func _fire() -> Bullet:
 		var direction := (mouse_position - global_position).normalized()
 		bullet.rotation = direction.angle()
 		bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	bullet.intangible_bullet = intangible_bullet 
-	bullet.infection_bullet = GameManager.save_data.infection_level > 0
-	bullet.bounce_powerup = GameManager.save_data.bounce_level > 0
+	if GameManager.save_data.deflection_bullet:
+		bullet.deflection_bullet = true
+		bullet.infection_bullet_lvl =  GameManager.save_data.infection_level
+		bullet.pierce_lvl = GameManager.save_data.pierce_level
+	bullet.bounce_lvl = GameManager.save_data.bounce_level
+	bullet.split_bounce_lvl = GameManager.save_data.split_bounce_level
+	bullet.scale = Vector2(scale.x*GameManager.save_data.bullet_size,scale.y*GameManager.save_data.bullet_size)
+
 	add_sibling(bullet)
 	fire_timer = fire_rate
-	bullet.infection_bullet = false
+	
 	return bullet
 
 
@@ -136,6 +143,7 @@ func _physics_process(delta: float) -> void:
 	_apply_force(delta)
 	
 	move_and_slide()
+	check_if_crushed()
 	#var coll := move_and_collide(velocity * delta)
 	#if coll:
 		#for object in coll.get_collider()
@@ -153,3 +161,13 @@ func take_damage(amount: int) -> void:
 		$GameOver.play()
 		dead.emit()
 		queue_free()
+		
+func check_if_crushed() -> void:
+	var space_state = get_world_2d().direct_space_state
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = position
+	var result = space_state.intersect_point(query)
+
+	if result.size() > 1:
+		take_damage(10)
+		
