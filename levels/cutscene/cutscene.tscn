@@ -16,6 +16,7 @@ colors = PackedColorArray(0.996078, 0.905882, 0.380392, 1, 0.996078, 0.682353, 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qy5ib"]
 shader = ExtResource("2_jpjum")
+shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
 [sub_resource type="Animation" id="Animation_oxw7g"]

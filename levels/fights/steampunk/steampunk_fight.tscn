@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://swbe71fh4smh"]
+
+[ext_resource type="Script" path="res://levels/fights/steampunk/steampunk_fight.gd" id="1_ydmgx"]
+[ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_ddxgr"]
+[ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="3_sbtjg"]
+[ext_resource type="PackedScene" uid="uid://c5l4hqhvbhlyj" path="res://ui/game_canvas.tscn" id="10_qhpgc"]
+[ext_resource type="Texture2D" uid="uid://bvygpvs0bxpxr" path="res://assets/backgrounds/background_2.png" id="13_8rye3"]
+[ext_resource type="Script" path="res://assets/utils/crossfade.gd" id="14_x6pyn"]
+[ext_resource type="AudioStream" uid="uid://dfasdgipt5uhy" path="res://audios/musics/raw_mechanical/raw_mechanical.mp3" id="15_fgmjv"]
+[ext_resource type="AudioStream" uid="uid://c5d50y4l3u8kc" path="res://audios/musics/raw_mechanical/raw_mechanical_pause.mp3" id="16_caw32"]
+
+[node name="SteampunkFight" type="Node2D"]
+script = ExtResource("1_ydmgx")
+
+[node name="Spaceship" parent="." instance=ExtResource("2_ddxgr")]
+position = Vector2(-2014, 219)
+rotation = -6.28319
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+position_smoothing_enabled = true
+script = ExtResource("3_sbtjg")
+metadata/_edit_lock_ = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.501407, 0.501406, 0.501406, 1)
+motion_scale = Vector2(0.25, 0.25)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture_repeat = 2
+texture = ExtResource("13_8rye3")
+region_enabled = true
+region_rect = Rect2(0, 0, 8192, 8192)
+metadata/_edit_lock_ = true
+
+[node name="Crossfade" type="Node2D" parent="."]
+script = ExtResource("14_x6pyn")
+a_stream = ExtResource("15_fgmjv")
+b_stream = ExtResource("16_caw32")
+
+[node name="Canvas" parent="." instance=ExtResource("10_qhpgc")]
+
+[node name="Hands" type="Node2D" parent="."]
+
+[node name="Big" type="StaticBody2D" parent="Hands"]
+
+[node name="Polygon2D" type="Polygon2D" parent="Hands/Big"]
+polygon = PackedVector2Array(0, 32, -32, 0, 0, -32, 990, -6, 1024, 0, 990, 6)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hands/Big"]
+polygon = PackedVector2Array(0, 32, -32, 0, 0, -32, 990, -6, 1024, 0, 990, 6)
+
+[node name="Small" type="StaticBody2D" parent="Hands"]
+rotation = 0.523599
+scale = Vector2(0.75, 0.75)
+
+[node name="Polygon2D" type="Polygon2D" parent="Hands/Small"]
+polygon = PackedVector2Array(0, 32, -32, 0, 0, -32, 990, -6, 1024, 0, 990, 6)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hands/Small"]
+polygon = PackedVector2Array(0, 32, -32, 0, 0, -32, 990, -6, 1024, 0, 990, 6)

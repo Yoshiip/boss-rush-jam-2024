@@ -9,6 +9,7 @@ var a_player: AudioStreamPlayer
 var b_player: AudioStreamPlayer
 
 func _ready() -> void:
+	add_to_group("Crossfade")
 	a_player = AudioStreamPlayer.new()
 	a_player.bus = &"Music"
 	a_player.stream = a_stream

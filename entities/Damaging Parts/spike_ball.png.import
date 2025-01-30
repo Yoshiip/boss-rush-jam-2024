@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctkgcc4v0n21b"
-path="res://.godot/imported/place holder spike obstacle.png-6a890ca790418ec968c83ecbe4f6af6f.ctex"
+uid="uid://hp6sf4clhlbp"
+path="res://.godot/imported/spike_ball.png-ba623c929890a52e01d68ef7bd7457a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/Damaging Parts/place holder spike obstacle.png"
-dest_files=["res://.godot/imported/place holder spike obstacle.png-6a890ca790418ec968c83ecbe4f6af6f.ctex"]
+source_file="res://entities/Damaging Parts/spike_ball.png"
+dest_files=["res://.godot/imported/spike_ball.png-ba623c929890a52e01d68ef7bd7457a8.ctex"]
 
 [params]
 

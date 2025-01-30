@@ -117,6 +117,30 @@ offset_right = 148.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="VBoxContainer2" type="VBoxContainer" parent="Canvas/Container/Menu"]
+layout_mode = 0
+offset_right = 112.0
+offset_bottom = 74.0
+
+[node name="Debug1" type="Button" parent="Canvas/Container/Menu/VBoxContainer2"]
+layout_mode = 2
+text = "debug boss 1"
+script = ExtResource("3_feo83")
+
+[node name="Debug2" type="Button" parent="Canvas/Container/Menu/VBoxContainer2"]
+layout_mode = 2
+text = "debug boss 2"
+script = ExtResource("3_feo83")
+
+[node name="Debug3" type="Button" parent="Canvas/Container/Menu/VBoxContainer2"]
+layout_mode = 2
+text = "debug boss 3"
+script = ExtResource("3_feo83")
+
+[node name="Label" type="Label" parent="Canvas/Container/Menu/VBoxContainer2"]
+layout_mode = 2
+text = "^ (this will be removed in the final game of course) ^"
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Canvas/Container/Menu"]
 layout_mode = 1
 anchors_preset = 15
@@ -125,6 +149,8 @@ anchor_bottom = 1.0
 offset_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(827, 169)
+mouse_filter = 2
 theme_override_constants/separation = 8
 alignment = 2
 
@@ -231,6 +257,9 @@ autostart = true
 
 [node name="Crossfade" parent="." instance=ExtResource("6_tdn0y")]
 
+[connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer2/Debug1" to="." method="_on_debug_1_pressed"]
+[connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer2/Debug2" to="." method="_on_debug_2_pressed"]
+[connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer2/Debug3" to="." method="_on_debug_3_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

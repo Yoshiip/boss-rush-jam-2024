@@ -5,10 +5,9 @@ signal took_damage
 signal dead
 
 const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
-
 const FRICTION_COEFF = 1.5
-
 const BULLETS_SPEED := [7, 10, 13, 16]
+const INVICIBILITY_TIME := 0.5
 
 
 var acceleration_force := Vector2.ZERO
@@ -30,6 +29,8 @@ var allow_inputs: Array[String] = []
 const FIRE_RATES := [0.25, 0.22, 0.19, 0.16]
 @onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
+var invicibility_timer := 0.0
+
 
 const SPEEDS := [400, 500, 600, 700, 800]
 @onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
@@ -46,12 +47,23 @@ func _is_allowed_inputs() -> bool:
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 
+
+var thruster_on := false
+
 func _handle_input(delta: float) -> void:
 	var axis := Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down") if _is_allowed_inputs() else Vector2.ZERO
 	
 	
 	$EngineParticles.emitting = axis.length() > 0.25
+	if axis.length() > 0.25 && !$Engine.playing:
+		if !thruster_on:
+			$EngineStart.play()
+			thruster_on = true
+		$Engine.play()
+	elif axis.length() < 0.25 && $Engine.playing:
+		thruster_on = false
+		$Engine.stop()
 	#handle movement
 	if axis.length() > 0:
 		#smoothly change direction, instead of immediatly snapping to new direction
@@ -135,22 +147,25 @@ func _apply_force(delta: float) -> void:
 	net_force = acceleration_force + friction_force
 	velocity += net_force * delta
 
+func _process(delta: float) -> void:
+	invicibility_timer -= delta
+	_handle_weapon(delta)
 
 func _physics_process(delta: float) -> void:
 	acceleration_force = Vector2.ZERO
 	
 	_handle_input(delta)
-	_handle_weapon(delta)
 	_apply_force(delta)
 	
 	move_and_slide()
 	check_if_crushed()
-	#var coll := move_and_collide(velocity * delta)
-	#if coll:
-		#for object in coll.get_collider()
+
 
 
 func take_damage(amount: int) -> void:
+	if invicibility_timer > 0.0:
+		return
+	invicibility_timer = INVICIBILITY_TIME
 	health -= amount
 	took_damage.emit()
 	if health > 0:

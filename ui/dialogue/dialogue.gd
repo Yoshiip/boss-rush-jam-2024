@@ -15,8 +15,8 @@ var progress := 0
 var skip_progress := 0.0
 const PLAYER_PORTRAIT = preload("res://ui/dialogue/portraits/player.jpg")
 
-func set_other(other_name: String, texture: CompressedTexture2D) -> void:
-	self.other_name = other_name
+func set_other(new_other_name: String, texture: CompressedTexture2D) -> void:
+	self.other_name = new_other_name
 	other_texture = texture
 
 

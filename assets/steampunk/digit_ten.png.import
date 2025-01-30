@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq1tpomatjxg4"
-path="res://.godot/imported/default_eye.png-a23cf01987307d133dad07ca621983ae.ctex"
+uid="uid://p74neoql1237"
+path="res://.godot/imported/digit_ten.png-3b6e1c6f20d3a4b5f587d8479ad299e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/eyes/default/default_eye.png"
-dest_files=["res://.godot/imported/default_eye.png-a23cf01987307d133dad07ca621983ae.ctex"]
+source_file="res://assets/steampunk/digit_ten.png"
+dest_files=["res://.godot/imported/digit_ten.png-3b6e1c6f20d3a4b5f587d8479ad299e0.ctex"]
 
 [params]
 

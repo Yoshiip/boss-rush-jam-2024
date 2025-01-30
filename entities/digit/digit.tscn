@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6y5hgo2rb6qq"]
+
+[ext_resource type="Script" path="res://entities/digit/digit.gd" id="1_e1lru"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2l5v3"]
+size = Vector2(64, 64)
+
+[node name="Digit" type="Area2D"]
+script = ExtResource("1_e1lru")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_2l5v3")
+
+[node name="Sprites" type="Node2D" parent="."]

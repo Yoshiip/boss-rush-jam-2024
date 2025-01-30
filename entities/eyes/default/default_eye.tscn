@@ -1,11 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfbwxs86sb8p1"]
+[gd_scene load_steps=7 format=3 uid="uid://cfbwxs86sb8p1"]
 
 [ext_resource type="Script" path="res://entities/eyes/default/default_eye.gd" id="1_gfg3s"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_8iku6"]
 [ext_resource type="Texture2D" uid="uid://cr014glk1f4dj" path="res://entities/eyes/default/eye_default.png" id="3_k64pc"]
+[ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="4_oeomp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64cpk"]
 shader = ExtResource("2_8iku6")
+shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
@@ -27,5 +29,9 @@ offset = Vector2(4, 0)
 [node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
 position = Vector2(6, 2)
 shape = SubResource("CircleShape2D_ufsgx")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_oeomp")
+bus = &"Effects"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

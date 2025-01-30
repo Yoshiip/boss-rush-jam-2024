@@ -39,7 +39,7 @@ func _ready() -> void:
 		
 		#speed *= 0.2
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	position += velocity * speed
 	
 	if ray_cast_homing.is_colliding():
@@ -74,7 +74,7 @@ func _on_body_entered(body: Node2D) -> void:
 			if not from_enemy:
 				ray_cast_homing.set_target_position(velocity.normalized() * 300)
 				if max_bounces > 0:
-					var bullet := _fire()
+					_fire()
 					max_bounces -= 1
 			bounces_count += 1
 			
@@ -111,7 +111,7 @@ func _on_area_entered(body: Node2D) -> void:
 const MIN_ANGLE = deg_to_rad(-45)
 const MAX_ANGLE = deg_to_rad(45)
 
-func _fire() -> Bullet:
+func _fire() -> void:
 	var bullet := BULLET.instantiate()
 	bullet.position = position
 	bullet.speed = speed
@@ -132,6 +132,4 @@ func _fire() -> Bullet:
 	bullet.max_splits = GameManager.get_splits()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
 	
-	call_deferred("add_child", bullet)
-	
-	return bullet
+	call_deferred("add_sibling", bullet)

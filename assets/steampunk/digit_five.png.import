@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hp6sf4clhlbp"
-path="res://.godot/imported/New spike ball.png-a88fc8ad8fa13e8e5cd76d18d7b202b8.ctex"
+uid="uid://b3as4glebia2o"
+path="res://.godot/imported/digit_five.png-c44784a7748af173533accf95c4d6d5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/Damaging Parts/New spike ball.png"
-dest_files=["res://.godot/imported/New spike ball.png-a88fc8ad8fa13e8e5cd76d18d7b202b8.ctex"]
+source_file="res://assets/steampunk/digit_five.png"
+dest_files=["res://.godot/imported/digit_five.png-c44784a7748af173533accf95c4d6d5f.ctex"]
 
 [params]
 

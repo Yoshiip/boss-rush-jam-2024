@@ -71,11 +71,13 @@ func _on_area_entered(area: Area2D) -> void:
 	
 		if health <= 0:
 			$Sprite.texture = DEAD_TEXTURE
-			print("rip")
+			$Death.play()
 			var tween := get_tree().create_tween().bind_node(self)
-			tween.tween_property($Sprite, "modulate", Color.DIM_GRAY, 0.5)
+			tween.tween_property($Sprite.material, "shader_parameter/modulate", Color.DIM_GRAY, 0.5)
 			camera.add_trauma(10)
 			set_process(false)
+			z_index = -10
+			reparent(get_tree().current_scene) # to disable rotation
 			
 		else:
 			$Sprite.material.set_shader_parameter("whitening", 1.0)

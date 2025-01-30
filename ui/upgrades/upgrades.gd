@@ -27,4 +27,12 @@ func _upgrade_removed_point() -> void:
 
 func _on_continue_pressed() -> void:
 	GameManager.save_data.level += 1
-	get_tree().change_scene_to_file("res://levels/fight/fight.tscn")
+	match GameManager.save_data.level:
+		1:
+			get_tree().change_scene_to_file("res://levels/fights/first/first_fight.tscn")
+		2:
+			get_tree().change_scene_to_file("res://levels/fights/steampunk/steampunk_fight.tscn")
+		3:
+			get_tree().change_scene_to_file("res://levels/fights/void/void_fight.tscn")
+		_:
+			get_tree().change_scene_to_file("res://levels/victory/victory.tscn")

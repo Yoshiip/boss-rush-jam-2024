@@ -37,6 +37,7 @@ Planet=""
 Damageable=""
 Obstacle=""
 enemy=""
+PlayerSpawnpoint=""
 
 [input]
 

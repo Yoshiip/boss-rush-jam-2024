@@ -36,6 +36,8 @@ Deductions:
 @onready var terminal_text: RichTextLabel = $Canvas/Container/TerminalText
 
 func _ready() -> void:
+	GameManager.save_data.points += 5
+	
 	terminal_text.text = START_TEXT
 	terminal_text.visible_characters = 0
 

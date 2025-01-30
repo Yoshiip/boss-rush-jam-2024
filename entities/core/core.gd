@@ -29,8 +29,8 @@ var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
 	# initials spawns
-	root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
-	root.spawn_spikes(stats.spike_num[boss_phase_num])
+	#root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
+	#root.spawn_spikes(stats.spike_num[boss_phase_num])
 	root.spin_speed = stats.spin_speed[boss_phase_num]
 
 func _shoot_circle(number : float) -> void:
@@ -66,7 +66,7 @@ func _on_area_entered(area: Area2D) -> void:
 		if health <= 0:
 			$Sprite.texture = CORE_DEAD_TEXTURE
 			dead.emit()
-			$CollisionShape.disabled = true
+			$CollisionShape.set_deferred("disabled", true)
 		else:
 			$Sprite.material.set_shader_parameter("whitening", 1.0)
 			var tween := get_tree().create_tween()

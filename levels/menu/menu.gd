@@ -91,3 +91,19 @@ func _on_go_back_button_pressed() -> void:
 func _on_hit_timer_timeout() -> void:
 	$Core.scale = Vector2(1.3, 1.3)
 	$Canvas/Container/Menu/VBoxContainer/Control/Title/AnimationPlayer.play("Bounce")
+
+
+func _on_debug_1_pressed() -> void:
+	GameManager.save_data.level = 1
+	get_tree().change_scene_to_file("res://levels/fights/first/first_fight.tscn")
+
+
+func _on_debug_2_pressed() -> void:
+	GameManager.save_data.level = 2
+	get_tree().change_scene_to_file("res://levels/fights/steampunk/steampunk_fight.tscn")
+
+
+
+func _on_debug_3_pressed() -> void:
+	GameManager.save_data.level = 3
+	get_tree().change_scene_to_file("res://levels/fights/void/void_fight.tscn")
