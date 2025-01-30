@@ -1,10 +1,10 @@
-[gd_scene load_steps=24 format=4 uid="uid://cipkxe3w35aso"]
+[gd_scene load_steps=24 format=4 uid="uid://swbe71fh4smh"]
 
 [ext_resource type="Script" path="res://levels/fight/fight.gd" id="1_bm0hd"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_ddxgr"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="3_sbtjg"]
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="4_smxse"]
-[ext_resource type="Resource" uid="uid://c0rjtd05150ou" path="res://3rd_boss_info.tres" id="5_mytrf"]
+[ext_resource type="Resource" uid="uid://dbl0fdky1g4v" path="res://3rd_boss_info.tres" id="5_mytrf"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="6_lyn1i"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="7_n75ny"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_80upr"]
