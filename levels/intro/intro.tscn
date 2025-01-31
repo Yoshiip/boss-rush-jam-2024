@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw82gj4kuqgyv"]
+[gd_scene load_steps=5 format=3 uid="uid://dw82gj4kuqgyv"]
 
 [ext_resource type="Script" path="res://levels/intro/intro.gd" id="1_6wgeg"]
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="2_77im3"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_p46tp"]
+[ext_resource type="AudioStream" uid="uid://1bpoxda1hh4h" path="res://audios/musics/intro.mp3" id="4_o52jr"]
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_6wgeg")
@@ -61,3 +62,9 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_o52jr")
+volume_db = -4.0
+autoplay = true
+bus = &"Music"

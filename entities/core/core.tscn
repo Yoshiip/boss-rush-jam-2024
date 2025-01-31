@@ -7,6 +7,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_22eh7"]
 shader = ExtResource("2_ln4ls")
+shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yoglq"]
@@ -30,3 +31,4 @@ volume_db = -4.0
 bus = &"Effects"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -16,9 +16,6 @@ radius = 32.0
 
 [node name="DefaultEye" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
-max_shoot_timer = 1.0
-special_chance = 0.15
-accurracy = 0.35
 max_health = 6
 dead_texture = ExtResource("2_uden6")
 
@@ -27,7 +24,7 @@ material = SubResource("ShaderMaterial_64cpk")
 texture = ExtResource("3_k64pc")
 offset = Vector2(4, 0)
 
-[node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ufsgx")
 
 [node name="Death" type="AudioStreamPlayer2D" parent="."]

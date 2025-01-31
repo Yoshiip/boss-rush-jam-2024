@@ -16,13 +16,17 @@ const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 func _ready() -> void:
 	super()
 	core = get_node("Core")
+	
 	core.dead.connect(_on_core_dead)
+	core.new_phase.connect(spawn_wave)
 	core.took_damage.connect(_core_took_damage)
 	$Canvas/Container/PlayerHealth/ProgressBar.max_value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
-	spawn_wave(2,10,5,0,0.35, 0.8)
+	
+	spawn_spikes(5)
+	spawn_wave(5)
 	
 	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
 	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
@@ -30,7 +34,7 @@ func _ready() -> void:
 	var pause := PAUSE.instantiate()
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
-	
+
 
 
 @onready var background_sprite: Sprite2D = $ParallaxBackground/ParallaxLayer/BackgroundSprite
@@ -50,68 +54,52 @@ func _on_core_dead() -> void:
 	await get_tree().create_timer(1.0).timeout
 	get_tree().change_scene_to_file("res://levels/cutscene/cutscene.tscn")
 
-func spawn_wave(eye_num : float, hp : float, fire_rate : float, chance :float,  acc : float, speed : float) -> void:
-	$Camera.add_trauma(25.0)
-	
-	for i in eye_num:
-		var valid_position = false
-		var max_attempts = 50  # prevent infinite loops
-		var attempt = 0
-		var eye_position = Vector2.ZERO
-	
-		while not valid_position and attempt < max_attempts:
-			attempt += 1
-			
-			var random_angle = randf() * PI * 2
-			var random_distance = randi_range(-350,30)
-			eye_position = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+ random_distance)
 
-			# checks if the position is clear
-			if not is_point_colliding(eye_position):
-				valid_position = true
+func spawn_enemy(enemy_id: String, pos: Vector2) -> void:
+	var enemy: PhysicsBody2D
+	match enemy_id:
+		"default_eye":
+			enemy = DEFAULT_EYE.instantiate()
+		"spike_ball":
+			enemy = SPIKE_BALL.instantiate()
+	enemy.global_position = pos
+	planet.add_child(enemy)
 
-		# If a valid position was found, instantiate the eye
-		if valid_position:
-			var eye = DEFAULT_EYE.instantiate()
-			eye.position = eye_position
-			if fire_rate>3:
-				eye.modulate= Color.RED
-			planet.add_child(eye)
-			eye.max_health = hp
-			eye.max_shoot_timer = fire_rate
-			eye.special_chance = chance
-			eye.accurracy = acc
-			eye.bullet_speed = speed
-			
-		else:
-			print("failed to find valid position")
 
-func spawn_spikes(num : float) -> void:
-	$Camera.add_trauma(25.0)
-	
-	for i in num:
-		var valid_position = false
-		var max_attempts = 50  # prevent infinite loops
-		var attempt = 0
-		var spike_position = Vector2.ZERO
+func spawn_wave(count: int) -> void:
+	for pos in _get_random_valid_positions(count):
+		var animation := ENEMY_SPAWN_ANIMATION.instantiate()
+		animation.position = pos
+		animation.done.connect(spawn_enemy.bind("default_eye", pos))
+		planet.add_child(animation)
+
+
+const ENEMY_SPAWN_ANIMATION = preload("res://entities/enemy_spawn_animation/enemy_spawn_animation.tscn")
+
+func _get_random_valid_positions(count: int) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	for i in range(count):
+		var valid_position := false
+		var max_attempts := 50
+		var attempt := 0
+		var pos := Vector2.ZERO
 	
 		while not valid_position and attempt < max_attempts:
 			attempt += 1
 			
 			var random_angle = randf() * PI * 2
 			var random_distance = randi_range(-150,300)
-			spike_position = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+random_distance)
+			pos = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+random_distance)
 
 			# checks if the position is clear
-			if not is_point_colliding(spike_position):
+			if not is_point_colliding(pos):
 				valid_position = true
-
-		# If a valid position was found, instantiate the eye
 		if valid_position:
-			var spike = SPIKE_BALL.instantiate()
-			spike.position = spike_position
-			planet.add_child(spike)
-		
-			
-		else:
-			print("failed to find valid position")
+			points.append(pos)
+	return points
+
+func spawn_spikes(num : float) -> void:
+	for pos in _get_random_valid_positions(num):
+		var spike = SPIKE_BALL.instantiate()
+		spike.position = pos
+		planet.add_child(spike)

@@ -6,6 +6,7 @@ signal removed_point
 
 
 @export var title: String
+@export_multiline var description: String
 @export var max_level := 3
 var current_level := 0
 

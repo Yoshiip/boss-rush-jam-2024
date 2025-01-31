@@ -2,7 +2,7 @@ class_name DefaultEye
 extends CharacterBodyEnemy
 
 
-@export var max_shoot_timer := 0.01
+@export var max_shoot_timer := 1.0
 @onready var shoot_timer := max_shoot_timer
 
 @export var speed := 60.0
@@ -14,7 +14,13 @@ extends CharacterBodyEnemy
 
 var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
-var spaceship: Spaceship
+@onready var spaceship: Spaceship = get_tree().get_first_node_in_group(&"Spaceship")
+
+
+func _ready() -> void:
+	super()
+	if randf() > 0.6:
+		speed = 0
 
 
 func _process(delta: float) -> void:
@@ -26,6 +32,7 @@ func _process(delta: float) -> void:
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:
 		shoot_timer = max_shoot_timer
+		print(shoot_timer)
 		if randf() < special_chance:
 			_do_special()
 		else:

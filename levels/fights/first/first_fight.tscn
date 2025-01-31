@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=13 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="Script" path="res://levels/fights/first/first_fight.gd" id="1_ivtg4"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_cpcr3"]
@@ -11,14 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="9_ash5l"]
 [ext_resource type="Resource" uid="uid://dbl0fdky1g4v" path="res://3rd_boss_info.tres" id="10_ljiaw"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_a8hgq"]
-[ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="12_45bm3"]
-[ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="13_0a6ti"]
+[ext_resource type="Script" path="res://entities/enemies_spawnpoint.gd" id="12_bjetn"]
 
 [node name="FirstFight" type="Node2D"]
 script = ExtResource("1_ivtg4")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_cpcr3")]
-position = Vector2(-1688, 197)
+position = Vector2(-162, -37)
 rotation = -6.28319
 
 [node name="Camera" parent="." instance=ExtResource("3_ib5v4")]
@@ -62,49 +61,52 @@ tile_set = ExtResource("11_a8hgq")
 tile_map_data = PackedByteArray("AAD2//j/AQACAAMAAAD2//n/AQACAAMAAAD3//n/AQABAAEAAAD4//n/AQADAAIAAAD4//r/AQABAAIAAAD5//r/AQABAAEAAAD3//j/AQABAAMAAAD2//f/AQABAAIAAAD3//f/AQACAAEAAAD1//j/AQABAAMAAAD1//n/AQACAAMAAAD1//r/AQAFAAEAAAD0//r/AQAHAAMAAAD0//v/AQAGAAgAAAD2//r/AQADAAQAAAD3//b/AAABAAUAAAD4//b/AAADAAUAAAD4//X/AQAFAAEAAAD4//f/AAADAAYAAAD4//j/AQAFAAMAAAD5//n/AQAFAAMAAAD6//n/AQAGAAMAAAD6//r/AQABAAMAAAD6//v/AQAFAAEAAAD5//v/AQADAAQAAAD3//r/AQAHAAEAAAD5//j/AQAHAAcAAAAEAP//AQADAAAAAAAFAP//AAACAAQAAAAGAP//AQAGAAMAAAAHAP//AAACAAQAAAAHAAAAAQADAAQAAAAGAAAAAQACAAQAAAAFAAAAAQABAAQAAAAEAAAAAQADAAQAAAADAAAAAQAGAAgAAAD9/wEAAQAHAAcAAAD8/wEAAQACAAMAAAD8/wIAAQACAAQAAAD7/wIAAQAFAAEAAAD7/wMAAQAHAAgAAAD6/wMAAQAFAAEAAAD5/wMAAAACAAUAAAD4/wMAAQAHAAMAAAD5/wIAAQADAAAAAAD6/wIAAQAHAAMAAAD7/wEAAQAHAAMAAAD8/wAAAQAHAAcAAAAKAAAAAQADAAEAAAAKAP//AQACAAIAAAAJAP//AQAGAAMAAAAIAP//AQABAAAAAAAIAAAAAQAHAAEAAAAJAAAAAQABAAIAAAADAPv/AQAGAAgAAAADAPr/AQABAAIAAAAEAPr/AQAFAAEAAAAEAPn/AAABAAUAAAAFAPn/AQAFAAEAAAAFAPj/AAACAAQAAAAGAPj/AQAEAAAAAAACAPr/AQAGAAgAAAADAPn/AQADAAIAAAAEAPj/AQAFAAMAAAAFAPr/AQAHAAgAAAAGAPn/AQAHAAgAAAACAAYAAAACAAQAAAACAAcAAQABAAQAAAADAAcAAQAGAAEAAAADAAYAAQACAAAAAAABAAcAAQAAAAQAAAD1//v/AQAHAAgAAAD1//f/AQAHAAMAAAD2//b/AQADAAIAAAD2//X/AQAHAAMAAAD1//b/AQAHAAIAAAD0//j/AQAHAAIAAAD0//n/AAAAAAUAAADz//r/AQABAAcAAAD2//T/AQAAAAAAAAD3//T/AAABAAQAAAD3//X/AAACAAUAAAD4//T/AQABAAAAAAD0//f/AQAAAAAAAAD1//X/AAAAAAQAAAD5/wQAAQAFAAEAAAD6/wQAAQAHAAgAAAD4/wQAAQADAAEAAAD3/wQAAQAHAAMAAAD3/wUAAQACAAQAAAD4/wUAAQADAAQAAAAEAAcAAQAHAAgAAAABAPn/AQAGAAgAAAACAPn/AQACAAIAAAD5//z/AQACAAcAAAD4//z/AQAAAAQAAAD4//v/AQACAAQAAAD7//n/AQAEAAAAAAD7//r/AAADAAUAAAD9/wIAAQAHAAgAAAADAAUAAQAAAAQAAAD6//z/AQAHAAgAAAD7//v/AQAHAAgAAAACAAUAAQAGAAcAAAABAAYAAQAGAAcAAAD+/wQAAQAGAAcAAAD+/wUAAQAGAAgAAAD//wQAAQAHAAcAAAD//wUAAQAHAAgAAAAEAAYAAQAFAAEAAAAEAAUAAQAFAAMAAAAEAAQAAQAHAAcAAAD5/wUAAQAEAAQAAAAIAAkAAAABAAUAAAAJAAkAAQAFAAEAAAAJAAgAAQAHAAMAAAAKAAgAAQAFAAEAAAAKAAcAAQAHAAMAAAAJAAcAAQAGAAcAAAAIAAgAAQAGAAcAAAALAAcAAAADAAUAAAALAAYAAQAEAAAAAAAHAAkAAQAGAAcAAAAKAAYAAAAAAAQAAAAHAAoAAQAAAAQAAAAIAAoAAQABAAQAAAALAAgAAQAEAAQAAAAKAAkAAQAEAAQAAAAJAAoAAQAHAAgAAAAEAPv/AQAHAAgAAAACAPj/AQAHAAMAAAADAPj/AQACAAMAAAD5//X/AQAHAAgAAAD5//T/AQAEAAAAAAD6//T/AQAHAAgAAAD6//P/AQADAAUAAAD5//P/AQABAAcAAAABAPj/AQAGAAcAAAACAPf/AQAGAAcAAAADAPf/AQAHAAMAAAAEAPb/AQAEAAAAAAAEAPf/AQAEAAIAAAADAPb/AQAGAAcAAAD3/wMAAQAGAAcAAAD4/wIAAQAGAAcAAAD6/wEAAQAGAAcAAAD7/wAAAQAGAAcAAAD3//v/AQAGAAgAAAADAP//AQAGAAcAAAADAAQAAQAGAAcAAAAJAP7/AQABAAUAAAAKAP3/AAAAAAQAAAAKAP7/AQAAAAMAAAD1////AQAHAAgAAAD2//7/AQAHAAgAAAD1//7/AQACAAYAAAD0////AQAAAAQAAAD2//3/AQADAAcAAAD0//7/AQACAAYAAAD1//3/AQABAAUAAAD0/wMAAQAEAAUAAAAIAAEAAQAGAAgAAAAJAAIAAQAGAAgAAAAJAAEAAQAHAAEAAAAKAAIAAQAGAAEAAAAKAAEAAQACAAMAAAAFAAYAAQAEAAQAAAAFAAUAAQAHAAcAAAD5/wkAAQAGAAcAAAD5/woAAQAGAAgAAAD6/wkAAQAHAAcAAAD6/woAAQAHAAgAAAD2/wQAAQAGAAcAAAD2/wUAAQAGAAgAAAALAP3/AAADAAQAAAALAP7/AQAEAAEAAAALAP//AQAEAAIAAAALAAAAAAADAAUAAAALAAEAAQAEAAIAAAALAAIAAQAEAAQAAAA=")
 tile_set = ExtResource("11_a8hgq")
 
-[node name="SpikeBall2" parent="Planet" instance=ExtResource("12_45bm3")]
-position = Vector2(15, -761)
-scale = Vector2(2, 2)
+[node name="EnemiesSpawnpoint" type="Node2D" parent="Planet"]
+script = ExtResource("12_bjetn")
 
-[node name="SpikeBall3" parent="Planet" instance=ExtResource("12_45bm3")]
-position = Vector2(51, 514)
+[node name="0" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(161, 278)
 
-[node name="SpikeBall4" parent="Planet" instance=ExtResource("12_45bm3")]
-position = Vector2(780, -20)
+[node name="1" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-174, 557)
 
-[node name="SpikeBall5" parent="Planet" instance=ExtResource("12_45bm3")]
-position = Vector2(-497, 550)
+[node name="2" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-503, 549)
 
-[node name="SpikeBall6" parent="Planet" instance=ExtResource("12_45bm3")]
-visible = false
-position = Vector2(410, -725)
+[node name="3" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-567, 93)
 
-[node name="SpikeBall7" parent="Planet" instance=ExtResource("12_45bm3")]
-position = Vector2(-9, -211)
+[node name="4" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(46, 513)
 
-[node name="DefaultEye" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(-171, -302)
-max_shoot_timer = 3.0
-bullet_speed = 1
+[node name="5" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(498, 311)
 
-[node name="DefaultEye2" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(166, 273)
-max_shoot_timer = 3.0
-bullet_speed = 1
+[node name="6" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(420, -172)
 
-[node name="DefaultEye3" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(-174, 558)
+[node name="7" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(559, -402)
 
-[node name="DefaultEye4" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(-135, -671)
+[node name="8" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-7, -213)
 
-[node name="DefaultEye5" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(419, -174)
+[node name="9" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-174, -305)
 
-[node name="DefaultEye6" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(500, 309)
+[node name="10" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-127, -667)
 
-[node name="DefaultEye7" parent="Planet" instance=ExtResource("13_0a6ti")]
-position = Vector2(-567, 99)
+[node name="11" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(6, -765)
+
+[node name="12" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(408, -725)
+
+[node name="13" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-300, -594)
+
+[node name="14" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
+position = Vector2(-367, -59)
 
 [editable path="Core"]

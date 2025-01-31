@@ -36,8 +36,8 @@ Spaceship="The player"
 Planet=""
 Damageable=""
 Obstacle=""
-enemy=""
 PlayerSpawnpoint=""
+EnemySpawnpoint=""
 
 [input]
 

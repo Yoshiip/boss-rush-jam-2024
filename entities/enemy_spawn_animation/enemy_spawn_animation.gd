@@ -1,0 +1,9 @@
+extends Node2D
+
+signal done
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	print("test")
+	queue_free()
+	done.emit()

@@ -8,12 +8,18 @@ extends CharacterBody2D
 @onready var camera: BetterCamera =get_viewport().get_camera_2d()
 @onready var player: Spaceship = get_tree().get_first_node_in_group("Spaceship")
 
+func _ready() -> void:
+	$Sprite.material = $Sprite.material.duplicate()
+	add_to_group(&"Enemy")
+
 
 @export var dead_texture: CompressedTexture2D
 
 func take_damage(amount: float) -> void:
 	health -= amount
 	camera.add_trauma(2)
+	
+	print("AIE!")
 
 	if health <= 0:
 		$Sprite.texture = dead_texture
@@ -23,7 +29,7 @@ func take_damage(amount: float) -> void:
 		camera.add_trauma(10)
 		set_process(false)
 		z_index = -10
-		$CollisionShape.disabled = true
+		$CollisionShape.queue_free()
 		reparent(get_tree().current_scene) # to disable rotation
 		
 	else:

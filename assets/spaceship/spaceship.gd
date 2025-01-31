@@ -26,15 +26,17 @@ var axis_shoot := Vector2.ZERO
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
-const FIRE_RATES := [0.25, 0.22, 0.19, 0.16]
+const FIRE_RATES := [0.5,0.4,0.3,0.2, 0.1]
 @onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
+var bullet_speed = GameManager.get_bullet_speed()
 var invicibility_timer := 0.0
 
 
 const SPEEDS := [400, 500, 600, 700, 800]
+const TURNING := [5,5,7,9,13]
 @onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
-
+@onready var turning_speed: float = TURNING[GameManager.save_data.thrusters]
 var fire_timer := fire_rate
 var weapon_toggle := false
 var switch_movemode := false
@@ -77,7 +79,7 @@ func _handle_input(delta: float) -> void:
 		else: 
 			var goal_direction := axis.angle()
 			var dot_product = Vector2(cos(rotation), sin(rotation)).dot(axis)
-			rotation =  lerp_angle(rotation, goal_direction, 7.0 * delta)
+			rotation =  lerp_angle(rotation, goal_direction, turning_speed * delta)
 			if dot_product >=0.7:
 				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed, 10.0 * delta)
 			else:
@@ -89,14 +91,15 @@ func _handle_input(delta: float) -> void:
 		if Input.is_action_just_pressed("weapon_toggle"):
 			weapon_toggle= !weapon_toggle
 		if Input.is_action_just_pressed("switch_movement"):
-			switch_movemode= !switch_movemode
+			pass
+			#switch_movemode= !switch_movemode
 
 
 func _fire() -> Bullet:
 	$Shoot.play()
 	var bullet = BULLET.instantiate()
 	bullet.position = $ShootPoint.global_position
-	bullet.speed = 7
+	bullet.speed = bullet_speed
 	#bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed]
 	bullet.from_enemy = false
 	
@@ -108,10 +111,10 @@ func _fire() -> Bullet:
 		var direction := (mouse_position - global_position).normalized()
 		bullet.rotation = direction.angle()
 		bullet.velocity = Vector2.RIGHT.rotated(rotation)
-	if GameManager.save_data.deflection_bullet:
-		bullet.deflection_bullet = true
-		bullet.infection_bullet_lvl =  GameManager.save_data.infection_level
-		bullet.pierce_lvl = GameManager.save_data.pierce_level
+	if GameManager.get_deflection():
+		bullet.max_deflects = GameManager.get_deflection()
+		bullet.max_infections =  GameManager.get_infection_bullet()
+		bullet.max_pierces = GameManager.get_pierces()
 	bullet.max_bounces = GameManager.get_bounces()
 	bullet.max_splits = GameManager.get_splits()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
@@ -162,7 +165,7 @@ func _physics_process(delta: float) -> void:
 
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: int, from := Vector2.INF) -> void:
 	if invicibility_timer > 0.0:
 		return
 	invicibility_timer = INVICIBILITY_TIME
@@ -177,7 +180,12 @@ func take_damage(amount: int) -> void:
 		$GameOver.play()
 		dead.emit()
 		queue_free()
-		
+	
+	print(from)
+	if from != Vector2.INF:
+		print(velocity)
+		velocity = (position - from).normalized() * 150.0 * amount
+		print(velocity)
 func check_if_crushed() -> void:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()
