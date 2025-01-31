@@ -108,6 +108,7 @@ max_level = 5
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Thrusters"
+max_level = 4
 
 [node name="fire_rate" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
@@ -118,6 +119,12 @@ title = "Fire Rate"
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Bullet Size"
+
+[node name="hull_health2" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
+custom_minimum_size = Vector2(120, 80)
+layout_mode = 2
+title = "Bullet Speed"
+max_level = 4
 
 [node name="Bottom" type="HBoxContainer" parent="Canvas/Container/Boxes"]
 custom_minimum_size = Vector2(0, 190)

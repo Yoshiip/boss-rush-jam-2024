@@ -18,13 +18,15 @@ var speed := 1.5
 var bounces_count_bullet := 0
 var bounces_count := 0
 
-var deflection_bullet := false
-var infection_bullet_lvl := 0
+
+
 var bounce_powerup := false
 
 var max_bounces := 2
 var max_splits := 0
 var max_pierces := 0
+var max_deflects :=0
+var max_infections := 0
 
 func _ready() -> void:
 	velocity = Vector2.RIGHT.rotated(rotation)
@@ -85,20 +87,22 @@ func _on_body_entered(body: Node2D) -> void:
 	
 		#lets enemy and player bullets bounce off of eachother
 func _on_area_entered(body: Node2D) -> void:
-	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && deflection_bullet:
+	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && max_deflects>0:
 		var other_bullet := body
 		bounces_count+=1
+		max_deflects-= 1
 			
 		var collision_normal = (body.global_position - global_position).normalized()
 		if !max_pierces > bounces_count_bullet:
 			velocity = velocity.bounce(collision_normal)
 			ray_cast.set_target_position(velocity.normalized()*30)
 			ray_cast_homing.set_target_position(velocity.normalized()*300)
-		if infection_bullet_lvl> bounces_count_bullet:
+			max_pierces -= 1
+		if max_infections > 0:
 			modulate = Color.DARK_CYAN
 			other_bullet.from_enemy= false
 			other_bullet.modulate = Color.DARK_CYAN
-		bounces_count_bullet+=1
+			max_infections -=1
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
@@ -123,13 +127,13 @@ func _fire() -> void:
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	
 	if GameManager.is_deflect():
-		bullet.deflection_bullet = GameManager.is_deflect()
-		bullet.infection_bullet_lvl = GameManager.get_infection_bullet()
-		bullet.pierce_lvl = GameManager.get_pierces()
+		bullet.max_deflects = GameManager.get_deflection()
+		bullet.max_infections = GameManager.get_infection_bullet()
+		bullet.max_pierces = GameManager.get_pierces()
 
 	bullet.max_bounces = GameManager.get_bounces()
 	bullet.bounces_count = bounces_count
-	bullet.max_splits = GameManager.get_splits()
+	bullet.max_splits = GameManager.get_splits()-1
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
 	
 	call_deferred("add_sibling", bullet)
