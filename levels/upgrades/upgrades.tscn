@@ -132,6 +132,7 @@ max_level = 4
 [node name="fire_rate" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
 title = "Fire Rate"
+max_level = 5
 
 [node name="bullet_size" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
@@ -165,6 +166,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
 text = "Bounces"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Left" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left"]
 layout_mode = 1
@@ -179,7 +181,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="bullet_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left" instance=ExtResource("1_gvm2u")]
+[node name="bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -195,12 +197,14 @@ custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Damage"
 description = "Increase the damage of the projectile each time it bounces."
+constraint = "bounce"
 
-[node name="split_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
+[node name="split" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Split"
 description = "Spawn addiotional projectile each time the projectile bounce."
+constraint = "bounce"
 
 [node name="Right" type="Panel" parent="Canvas/Container/Boxes/Bottom"]
 layout_mode = 2
@@ -214,8 +218,9 @@ anchor_right = 1.0
 offset_bottom = 20.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-text = "Special Projectiles"
+text = "Deflect"
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Right" type="VBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right"]
 layout_mode = 1
@@ -230,7 +235,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="deflection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Right" instance=ExtResource("1_gvm2u")]
+[node name="deflection" parent="Canvas/Container/Boxes/Bottom/Right/Right" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -240,17 +245,19 @@ title = "Deflection"
 layout_mode = 2
 alignment = 1
 
-[node name="bullet_pierce" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
+[node name="pierce" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Pierce"
 description = "Increase luck of shooting proojectiles"
+constraint = "deflection"
 
-[node name="infection_bullet" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
+[node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Infection"
 description = "Increase luck of shooting projectiles that cure Void projectiles"
+constraint = "deflection"
 
 [node name="Footer" type="HBoxContainer" parent="Canvas/Container"]
 custom_minimum_size = Vector2(0, 52)

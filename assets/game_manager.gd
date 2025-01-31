@@ -29,7 +29,7 @@ var save_data = {
 
 func clear_save_data() -> void:
 	save_data = {
-		"points": 10,
+		"points": 8,
 		"level": 0,
 		
 		# UPGRADES
@@ -39,25 +39,26 @@ func clear_save_data() -> void:
 		"bullet_size": 1,
 		"bullet_speed": 1,
 		
-		# BOUNCES UPGRADES
-		"bullet_bounce": 0,
+		# BOUNCES
+		"bounce": 0,
 		"damage_on_bounce": 0,
-		"split_on_bounce": 0,
+		"split": 0,
 		
 		# SPECIAL BULLETS
-		"deflection_bullet": 0,
-		"bullet_pierce": 0,
-		"infection_bullet" : 0,
+		"deflection": 0,
+		"pierce": 0,
+		"infection" : 0,
 	}
 
 # functions to return the max of each levels
 
-const BULLETS_SIZE := [ 1.0, 1.25, 1.5, 1.75,2]
+const BULLETS_SIZE := [1.0, 1.25, 1.5, 1.75, 2.0]
 const BULLETS_SPEED := [6,8,10,12,14]
+
 func get_health() -> int:
 	return 5 + GameManager.save_data.hull_health * 3
 
-func is_deflect() -> bool:
+func get_deflect() -> int:
 	return GameManager.save_data.deflection_bullet
 
 func get_bullet_size() -> float:
@@ -67,19 +68,19 @@ func get_bullet_speed() -> float:
 	return BULLETS_SPEED[GameManager.save_data.bullet_speed]
 
 func get_splits() -> int:
-	return GameManager.save_data.split_on_bounce
+	return GameManager.save_data.split
 
 func get_bounces() -> int:
-	return GameManager.save_data.bullet_bounce + 3
+	return GameManager.save_data.bounce
 
 func get_pierces() -> int:
-	return GameManager.save_data.bullet_pierce
+	return GameManager.save_data.pierce
 
 func get_infection_bullet() -> int:
-	return GameManager.save_data.infection_bullet
+	return GameManager.save_data.infection
 
 func get_deflection() -> int:
-	return GameManager.save_data.deflection_bullet
+	return GameManager.save_data.deflection
 
 
 

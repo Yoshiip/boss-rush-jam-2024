@@ -20,6 +20,7 @@ func _ready() -> void:
 	UiUtils.apply_transition($Canvas/Container/Boxes/Bottom/Right)
 	UiUtils.apply_transition($Canvas/Container/Footer)
 	$Canvas/Container/Boxes/Bottom.visible = GameManager.save_data.level >= 1
+
 func _upgrade_mouse_entered(upgrade: Panel) -> void:
 	description.text = upgrade.description
 

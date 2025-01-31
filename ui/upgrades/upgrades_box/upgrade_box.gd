@@ -8,6 +8,10 @@ signal removed_point
 @export var title: String
 @export_multiline var description: String
 @export var max_level := 3
+
+@export var constraint := ""
+var constraint_node: Panel
+
 var current_level := 0
 
 func _update_ui() -> void:
@@ -18,13 +22,32 @@ func _update_ui() -> void:
 	
 	$Container/Title.text = title
 	$Container/Container/Level/Current.text = str(current_level)
-	$Max.visible = current_level >= max_level
+	$Container/Container/Level/Max.text = str(max_level)
+	$Max.visible = current_level != 0 && current_level >= max_level
+	$Container/Container/RemoveButton.visible = max_level != 0
+	$Container/Container/AddButton.visible = max_level != 0
+	modulate.a = 0.5 if max_level == 0 else 1.0
 	
 
 func _ready() -> void:
-	$Container/Container/Level/Max.text = str(max_level)
 	_update_ui()
 	
+	if constraint != "":
+		for node in get_tree().get_nodes_in_group("UpgradesBox"):
+			if node.name == constraint:
+				constraint_node = node
+				constraint_node.added_point.connect(func(_new_level, _max_level):
+					_on_constraint_changed()
+				)
+				constraint_node.removed_point.connect(_on_constraint_changed)
+				_on_constraint_changed()
+
+func _on_constraint_changed() -> void:
+	max_level = constraint_node.current_level
+	print(max_level)
+	if current_level > max_level:
+		_on_remove_button_pressed()
+	_update_ui()
 	#if arrows:
 		#custom_minimum_size.y += 24
 

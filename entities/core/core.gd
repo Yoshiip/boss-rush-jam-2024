@@ -2,6 +2,7 @@ class_name Core
 extends Area2D
 
 signal took_damage
+signal new_phase(index: int)
 signal dead
 
 const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
@@ -9,30 +10,35 @@ const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 @export var max_health := 100
 @onready var health := max_health
 @export var stats : boss_phase_info
-var boss_phase_num :=0
-var last_health_threshold = max_health
+@export var contact_damage := 1
+
+
+## The number of phases the boss has. The float represents the ratio of speed required to trigger the phase.
+@export var phases: Array[float] = [
+	0.8,
+	0.6,
+	0.4,
+	0.2,
+]
+
+var phase := 0
 var starting_wave_args=[3,10,2,0, 0.35,1]
 var wave_args_adjust=[1,0,-0.1,0.4,-0.1,0.1]
 var wave_args=[0,0,0,0,0,0]
 var spin_speed_change =.12
 var circle_shoot_amount =15
 
-signal new_phase
-
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
+@onready var root: FightRoot = get_tree().current_scene
 
 var i := 0.0
 
-@onready var root: FightRoot = get_tree().current_scene
 
 var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
-	# initials spawns
-	#root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
-	#root.spawn_spikes(stats.spike_num[boss_phase_num])
-	root.spin_speed = stats.spin_speed[boss_phase_num]
+	root.spin_speed = stats.spin_speed[phase]
 
 func _shoot_circle(number : float) -> void:
 	for i in number:
@@ -50,17 +56,15 @@ func _shoot_circle(number : float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
-		if health <= last_health_threshold -20 && boss_phase_num < 5:
+		if  phase < phases.size() && health <= phases[phase] * max_health:
 			$BossAnger.play()
-			last_health_threshold-=20
-			boss_phase_num+=1
-			#root.spawn_wave(stats.eye_num[boss_phase_num],stats.hp[boss_phase_num],stats.fire_rate[boss_phase_num],stats.spc_chance[boss_phase_num],stats.accur[boss_phase_num],stats.bullet_speed[boss_phase_num])
-			new_phase.emit()
-			root.spin_speed = stats.spin_speed[boss_phase_num]
-			_shoot_circle(stats.circle_bullet_fire[boss_phase_num])
+			phase+=1
+			new_phase.emit(phase)
+			root.spin_speed = stats.spin_speed[phase]
+			_shoot_circle(stats.circle_bullet_fire[phase])
 			var tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).bind_node(self)
-			tween.tween_property(self, "position", stats.new_pos[boss_phase_num], 2.0)
-			#root.spawn_spikes(stats.spike_num[boss_phase_num])
+			tween.tween_property(self, "position", stats.new_pos[phase], 2.0)
+			#root.spawn_spikes(stats.spike_num[phase])
 			#var random_angle = randf() * PI * 2
 			#var random_distance = randi_range(-10,200)
 			#position = Vector2(cos(random_angle), sin(random_angle)) * (root.planet_radius+ random_distance)
@@ -81,34 +85,6 @@ func _process(delta: float) -> void:
 	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1)
 	i += delta
 
-
-#remove after stability confirmed
-func _adjust_wave() -> void:
-	spin_speed_change =.12
-	circle_shoot_amount =15
-	if last_health_threshold==100:
-		circle_shoot_amount+=10
-		#default [5,10,1.4,0.2, 0.35,1]
-		wave_args_adjust=[2,0,-0.1,0.1,0,0]
-	elif last_health_threshold==80:
-		circle_shoot_amount+=10
-		wave_args_adjust=[1,0,-0.1,0.2,0,0]
-	elif last_health_threshold== 60:
-		wave_args_adjust=[1,0,-1,0.3,-0.2,0.2]
-		circle_shoot_amount+=20
-		spin_speed_change-=0.48
-	else:
-		wave_args=[0,0,0,0,0,0]
-		
-	wave_args = []
-	for i in range(starting_wave_args.size()):
-		wave_args.append(starting_wave_args[i] + wave_args_adjust[i])
-	
-	
-
-	
-
-@export var contact_damage := 1
 
 
 func _on_body_entered(body: Node2D) -> void:

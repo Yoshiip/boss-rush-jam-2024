@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=15 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="Script" path="res://levels/fights/first/first_fight.gd" id="1_ivtg4"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_cpcr3"]
@@ -13,6 +13,10 @@
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_a8hgq"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="12_45bm3"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="13_0a6ti"]
+
+[sub_resource type="Environment" id="Environment_uqlg5"]
+background_mode = 3
+glow_enabled = true
 
 [node name="FirstFight" type="Node2D"]
 script = ExtResource("1_ivtg4")
@@ -123,3 +127,6 @@ position = Vector2(-567, 99)
 special_chance = 0.15
 accurracy = 0.35
 dead_texture = null
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_uqlg5")

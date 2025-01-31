@@ -32,6 +32,7 @@ script = ExtResource("1_lprlc")
 modulate = Color(1, 1, 1, 0.568627)
 position = Vector2(-14.82, 0)
 amount = 100
+randomness = 1.0
 fixed_fps = 30
 draw_order = 1
 texture = ExtResource("7_hfrik")
