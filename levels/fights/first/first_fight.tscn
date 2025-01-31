@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=14 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="Script" path="res://levels/fights/first/first_fight.gd" id="1_ivtg4"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_cpcr3"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://dbl0fdky1g4v" path="res://3rd_boss_info.tres" id="10_ljiaw"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_a8hgq"]
 [ext_resource type="Script" path="res://entities/enemies_spawnpoint.gd" id="12_bjetn"]
+[ext_resource type="PackedScene" uid="uid://lfxo8kfr2a6a" path="res://entities/eyes/laser_eye/laser_eye.tscn" id="13_xyf33"]
 
 [node name="FirstFight" type="Node2D"]
 script = ExtResource("1_ivtg4")
@@ -108,5 +109,8 @@ position = Vector2(-300, -594)
 
 [node name="14" type="Marker2D" parent="Planet/EnemiesSpawnpoint"]
 position = Vector2(-367, -59)
+
+[node name="LaserEye" parent="." instance=ExtResource("13_xyf33")]
+position = Vector2(-260, -160)
 
 [editable path="Core"]
