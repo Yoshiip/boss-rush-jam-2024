@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfbwxs86sb8p1"]
+[gd_scene load_steps=8 format=3 uid="uid://cfbwxs86sb8p1"]
 
 [ext_resource type="Script" path="res://entities/eyes/default/default_eye.gd" id="1_gfg3s"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_8iku6"]
+[ext_resource type="Texture2D" uid="uid://bu7ko47q37y5q" path="res://entities/eyes/default/eye_dead.png" id="2_uden6"]
 [ext_resource type="Texture2D" uid="uid://cr014glk1f4dj" path="res://entities/eyes/default/eye_default.png" id="3_k64pc"]
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="4_oeomp"]
 
@@ -13,25 +14,25 @@ shader_parameter/whitening = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
 radius = 32.0
 
-[node name="DefaultEye" type="Area2D" groups=["enemy"]]
+[node name="DefaultEye" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
-max_health = 6
 max_shoot_timer = 1.0
 special_chance = 0.15
 accurracy = 0.35
+max_health = 6
+dead_texture = ExtResource("2_uden6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_64cpk")
-position = Vector2(6, 2)
 texture = ExtResource("3_k64pc")
 offset = Vector2(4, 0)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
-position = Vector2(6, 2)
 shape = SubResource("CircleShape2D_ufsgx")
 
 [node name="Death" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_oeomp")
 bus = &"Effects"
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[node name="ShootPoint" type="Marker2D" parent="."]
+position = Vector2(32, 0)

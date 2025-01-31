@@ -1,31 +1,28 @@
 class_name DefaultEye
-extends Area2D
+extends CharacterBodyEnemy
 
-@export var max_health := 10
-@onready var health := max_health
 
 @export var max_shoot_timer := 0.01
 @onready var shoot_timer := max_shoot_timer
+
+@export var speed := 60.0
 
 @export_range(0.0, 1.0) var special_chance = 0.2
 @export_range(0.0, PI / 3) var accurracy = 0.2
 @export var bullet_speed = 2
 
-@onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 
 var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
-const DEAD_TEXTURE = preload("res://entities/eyes/default/eye_dead.png")
-
 var spaceship: Spaceship
 
-func _ready() -> void:
-	$Sprite.material = $Sprite.material.duplicate()
-	spaceship = get_tree().get_first_node_in_group("Spaceship")
 
 func _process(delta: float) -> void:
-	look_at(spaceship.global_position)
-	
+	if is_instance_valid(spaceship):
+		look_at(spaceship.global_position)
+		velocity = velocity.lerp((spaceship.global_position - global_position).normalized() * speed, 0.5 * delta)
+		move_and_slide()
+
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:
 		shoot_timer = max_shoot_timer
@@ -51,8 +48,8 @@ func _shoot_bullet(rotation_offset: float) -> void:
 		return
 	var bullet: Bullet = BULLET.instantiate()
 	bullet.from_enemy = true
-	bullet.position = global_position
-	bullet.look_at(spaceship.global_position)
+	bullet.position = $ShootPoint.global_position
+	bullet.look_at($ShootPoint.global_position)
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	bullet.speed = bullet_speed
@@ -62,25 +59,3 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	else:
 		bullet.modulate = Color.RED
 	get_tree().current_scene.add_child(bullet)
-		
-
-func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Bullet") and health > 0 and not area.from_enemy:
-		health -= area.damage
-		camera.add_trauma(2)
-	
-		if health <= 0:
-			$Sprite.texture = DEAD_TEXTURE
-			$Death.play()
-			var tween := get_tree().create_tween().bind_node(self)
-			tween.tween_property($Sprite.material, "shader_parameter/modulate", Color.DIM_GRAY, 0.5)
-			camera.add_trauma(10)
-			set_process(false)
-			z_index = -10
-			reparent(get_tree().current_scene) # to disable rotation
-			
-		else:
-			$Sprite.material.set_shader_parameter("whitening", 1.0)
-			var tween := get_tree().create_tween()
-			tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)
-		area.destroy_bullet()

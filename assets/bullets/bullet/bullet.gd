@@ -55,12 +55,21 @@ func destroy_bullet():
 	root.spawn_bullet_destroy_particles(global_position, from_enemy)
 	queue_free() 
 
+func bounce_of_position(pos: Vector2) -> void:
+	var collision_normal := (pos - global_position).normalized()
+	velocity = velocity.bounce(collision_normal)
+	ray_cast.set_target_position(velocity.normalized()*30)
+	ray_cast_homing.set_target_position(velocity.normalized()*300)
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Spaceship") && from_enemy:
 		body.take_damage(damage)
 		destroy_bullet()
 		#bullets bounce off of obstacles a number of times. player bullets bounce fewer times
+	elif body.is_in_group("Enemy") && !from_enemy:
+		body.take_damage(damage)
+		destroy_bullet()
 	elif body.is_in_group("Obstacle"):
 		if bounce_powerup:
 			speed *= 1.1
@@ -83,20 +92,19 @@ func _on_body_entered(body: Node2D) -> void:
 		else:
 			destroy_bullet()
 	
-		#lets enemy and player bullets bounce off of eachother
+#lets enemy and player bullets bounce off of eachother
 func _on_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && deflection_bullet:
 		var other_bullet := body
 		bounces_count+=1
 			
-		var collision_normal = (body.global_position - global_position).normalized()
+		var collision_normal := (body.global_position - global_position).normalized()
 		if !max_pierces > bounces_count_bullet:
-			velocity = velocity.bounce(collision_normal)
-			ray_cast.set_target_position(velocity.normalized()*30)
-			ray_cast_homing.set_target_position(velocity.normalized()*300)
-		if infection_bullet_lvl> bounces_count_bullet:
+			bounce_of_position(body.global_position)
+
+		if infection_bullet_lvl > bounces_count_bullet:
 			modulate = Color.DARK_CYAN
-			other_bullet.from_enemy= false
+			other_bullet.from_enemy = false
 			other_bullet.modulate = Color.DARK_CYAN
 		bounces_count_bullet+=1
 		speed *= 0.8 
@@ -106,7 +114,8 @@ func _on_area_entered(body: Node2D) -> void:
 		if other_bullet.bounce_powerup:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
-			
+	if body.is_in_group("Spikeball"):
+		bounce_of_position(body.global_position)
 
 const MIN_ANGLE = deg_to_rad(-45)
 const MAX_ANGLE = deg_to_rad(45)
