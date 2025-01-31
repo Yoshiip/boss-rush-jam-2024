@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfymr03ncw1dg"]
+[gd_scene load_steps=5 format=3 uid="uid://dfymr03ncw1dg"]
 
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="1_8e7sw"]
 [ext_resource type="Script" path="res://ui/upgrades/upgrades_box/upgrade_box.gd" id="1_uhm26"]
@@ -15,6 +15,15 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbdtb"]
+bg_color = Color(0, 0.498039, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_detail = 1
+expand_margin_top = 2.0
+anti_aliasing = false
 
 [node name="UpgradeBox" type="Panel" groups=["UpgradesBox"]]
 custom_minimum_size = Vector2(120, 72)
@@ -30,6 +39,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 2.0
+offset_right = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -37,6 +48,7 @@ alignment = 1
 
 [node name="Title" type="Label" parent="Container"]
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_fbdtb")
 text = "Hull Heath"
 horizontal_alignment = 1
 

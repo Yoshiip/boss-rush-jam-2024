@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bp0htss78w8tm"]
 
-[ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="1_1as07"]
 [ext_resource type="Script" path="res://entities/core/core.gd" id="1_rj2tk"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_ln4ls"]
+[ext_resource type="Texture2D" uid="uid://c73p6p42a6qel" path="res://entities/core/flesh_core.png" id="3_tp0o6"]
 [ext_resource type="AudioStream" uid="uid://b70rxpqdjv2vd" path="res://audios/effects/boss-anger.wav" id="4_ko2nc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_22eh7"]
@@ -10,8 +10,8 @@ shader = ExtResource("2_ln4ls")
 shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_yoglq"]
-radius = 64.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e1ylq"]
+size = Vector2(150, 150)
 
 [node name="Core" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_rj2tk")
@@ -19,11 +19,11 @@ max_health = 80
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_22eh7")
-scale = Vector2(2, 2)
-texture = ExtResource("1_1as07")
+position = Vector2(0, -2)
+texture = ExtResource("3_tp0o6")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="." groups=["enemy"]]
-shape = SubResource("CircleShape2D_yoglq")
+shape = SubResource("RectangleShape2D_e1ylq")
 
 [node name="BossAnger" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ko2nc")

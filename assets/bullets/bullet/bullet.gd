@@ -96,9 +96,9 @@ func _on_body_entered(body: Node2D) -> void:
 	
 #lets enemy and player bullets bounce off of eachother
 func _on_area_entered(body: Node2D) -> void:
-	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && max_deflects>0:
+	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && max_deflects > 0:
 		var other_bullet := body
-		bounces_count+=1
+		bounces_count += 1
 		max_deflects-= 1
 			
 		var collision_normal := (body.global_position - global_position).normalized()

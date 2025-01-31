@@ -17,15 +17,12 @@ func _ready() -> void:
 	pause.crossfade = $Crossfade
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
-	
-
 
 
 func transition_ended() -> void:
 	$Crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-
 
 
 func _player_took_damage() -> void:

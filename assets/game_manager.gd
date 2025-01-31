@@ -33,14 +33,14 @@ func clear_save_data() -> void:
 		"level": 0,
 		
 		# UPGRADES
-		"hull_health": 0,
-		"fire_rate": 0,
-		"thrusters": 0,
-		"bullet_size": 0,
-		"bullet_speed": 3,
+		"hull_health": 1,
+		"fire_rate": 1,
+		"thrusters": 1,
+		"bullet_size": 1,
+		"bullet_speed": 1,
 		
 		# BOUNCES UPGRADES
-		"bullet_bounce": 3,
+		"bullet_bounce": 0,
 		"damage_on_bounce": 0,
 		"split_on_bounce": 0,
 		
@@ -70,7 +70,7 @@ func get_splits() -> int:
 	return GameManager.save_data.split_on_bounce
 
 func get_bounces() -> int:
-	return GameManager.save_data.bullet_bounce + 2
+	return GameManager.save_data.bullet_bounce + 3
 
 func get_pierces() -> int:
 	return GameManager.save_data.bullet_pierce

@@ -11,6 +11,7 @@ func apply_transition(node: Node) -> void:
 			_base_modulates.push_front(child.modulate)
 		child.modulate = child.modulate * Color.TRANSPARENT
 	for i in range(node.get_child_count()):
+		if !is_instance_valid(node): return
 		var child := node.get_child(i)
 		if !is_instance_valid(child): return
 		if is_instance_of(child, CanvasItem):

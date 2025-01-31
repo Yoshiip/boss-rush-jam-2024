@@ -32,7 +32,6 @@ func _process(delta: float) -> void:
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:
 		shoot_timer = max_shoot_timer
-		print(shoot_timer)
 		if randf() < special_chance:
 			_do_special()
 		else:
@@ -56,7 +55,7 @@ func _shoot_bullet(rotation_offset: float) -> void:
 	var bullet: Bullet = BULLET.instantiate()
 	bullet.from_enemy = true
 	bullet.position = $ShootPoint.global_position
-	bullet.look_at($ShootPoint.global_position)
+	bullet.look_at(spaceship.global_position)
 	bullet.rotation += rotation_offset
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	bullet.speed = bullet_speed

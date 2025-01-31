@@ -1,18 +1,17 @@
 class_name Bomber
-extends CharacterBody2D
+extends CharacterBodyEnemy
 
-var player: Spaceship
 func _ready() -> void:
+	super()
 	player = get_tree().get_first_node_in_group("Spaceship")
-	
-	var tween := get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
+	var tween := get_tree().create_tween().set_parallel(true).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).bind_node(self)
 	$Circle.modulate.a = 0.0
 	tween.tween_property($Circle, "scale", Vector2.ONE, timer)
-	tween.tween_property($Circle, "modulate:a", 1.0, timer)
+	tween.tween_property($Circle, "modulate:a", 0.5, timer)
 
 const SPEED := 50.0
 
-var timer := 2.0
+@onready var timer := 2.0 + randf()
 
 
 const EXPLOSION = preload("res://entities/explosion/explosion.tscn")

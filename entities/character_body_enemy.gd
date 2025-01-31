@@ -18,8 +18,6 @@ func _ready() -> void:
 func take_damage(amount: float) -> void:
 	health -= amount
 	camera.add_trauma(2)
-	
-	print("AIE!")
 
 	if health <= 0:
 		$Sprite.texture = dead_texture

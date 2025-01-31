@@ -26,14 +26,14 @@ var axis_shoot := Vector2.ZERO
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
-const FIRE_RATES := [0.5,0.4,0.3,0.2, 0.1]
+const FIRE_RATES := [0.5, 0.45, 0.4, 0.35, 0.3]
 @onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
 var bullet_speed = GameManager.get_bullet_speed()
 var invicibility_timer := 0.0
 
 
-const SPEEDS := [400, 500, 600, 700, 800]
+const SPEEDS := [400, 475, 550, 625, 700]
 const TURNING := [5,5,7,9,13]
 @onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
 @onready var turning_speed: float = TURNING[GameManager.save_data.thrusters]
@@ -89,10 +89,7 @@ func _handle_input(delta: float) -> void:
 		
 	if _is_allowed_inputs():
 		if Input.is_action_just_pressed("weapon_toggle"):
-			weapon_toggle= !weapon_toggle
-		if Input.is_action_just_pressed("switch_movement"):
-			pass
-			#switch_movemode= !switch_movemode
+			weapon_toggle = !weapon_toggle
 
 
 func _fire() -> Bullet:
@@ -180,8 +177,6 @@ func take_damage(amount: int, from := Vector2.INF) -> void:
 		$GameOver.play()
 		dead.emit()
 		queue_free()
-	
-	print(from)
 	if from != Vector2.INF:
 		print(velocity)
 		velocity = (position - from).normalized() * 150.0 * amount

@@ -41,6 +41,7 @@ func stop_both() -> void:
 	last_tween = tween
 
 func to_a() -> void:
+	print("to_a")
 	if last_tween != null:
 		last_tween.stop()
 	var tween := _default_tween()
@@ -49,6 +50,7 @@ func to_a() -> void:
 	last_tween = tween
 	
 func to_b() -> void:
+	print("to_b")
 	if last_tween != null:
 		last_tween.stop()
 	var tween := _default_tween()

@@ -26,14 +26,26 @@ content_margin_top = 4.0
 content_margin_right = 4.0
 content_margin_bottom = 4.0
 bg_color = Color(0, 0.247059, 0, 1)
+border_width_left = 2
+border_width_top = 6
+border_width_right = 4
+border_color = Color(0, 0.793429, 0, 1)
+border_blend = true
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyu4o"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 1, 0, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nyu4o"]
-bg_color = Color(0, 1, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_352sm"]
 shader = ExtResource("4_66ru2")
@@ -93,8 +105,9 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 32.0
-offset_right = -32.0
+offset_left = 12.0
+offset_right = -12.0
+offset_bottom = -56.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 12
@@ -239,11 +252,19 @@ layout_mode = 2
 title = "Infection"
 description = "Increase luck of shooting projectiles that cure Void projectiles"
 
-[node name="Footer" type="HBoxContainer" parent="Canvas/Container/Boxes"]
+[node name="Footer" type="HBoxContainer" parent="Canvas/Container"]
 custom_minimum_size = Vector2(0, 52)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
 
-[node name="Description" type="Label" parent="Canvas/Container/Boxes/Footer"]
+[node name="Description" type="Label" parent="Canvas/Container/Footer"]
 custom_minimum_size = Vector2(0, 52)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -252,14 +273,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="Points" type="Label" parent="Canvas/Container/Boxes/Footer"]
+[node name="Points" type="Label" parent="Canvas/Container/Footer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_nyu4o")
 text = "Research Points: 10"
 horizontal_alignment = 1
 uppercase = true
 
-[node name="Continue" type="Button" parent="Canvas/Container/Boxes/Footer"]
+[node name="Continue" type="Button" parent="Canvas/Container/Footer"]
 layout_mode = 2
 size_flags_vertical = 4
 text = "Continue"
@@ -277,13 +298,12 @@ metadata/_edit_lock_ = true
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_1n8pf")
-volume_db = -4.0
 autoplay = true
 bus = &"Music"
 
 [node name="Upgrade" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_il4qi")
-volume_db = -2.0
+volume_db = -4.0
 bus = &"Effects"
 
-[connection signal="pressed" from="Canvas/Container/Boxes/Footer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Canvas/Container/Footer/Continue" to="." method="_on_continue_pressed"]

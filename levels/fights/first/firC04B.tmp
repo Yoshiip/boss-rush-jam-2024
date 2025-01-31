@@ -40,7 +40,6 @@ region_rect = Rect2(0, 0, 8192, 8192)
 metadata/_edit_lock_ = true
 
 [node name="Crossfade" type="Node2D" parent="."]
-process_mode = 3
 script = ExtResource("6_3ptaj")
 a_stream = ExtResource("7_cah8y")
 b_stream = ExtResource("8_0i2v7")

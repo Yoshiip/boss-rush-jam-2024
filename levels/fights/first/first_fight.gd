@@ -8,6 +8,7 @@ extends FightRoot
 var core: Core
 
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
+const BOMBER = preload("res://entities/bomber/bomber.tscn")
 const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 
 
@@ -16,26 +17,24 @@ const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 func _ready() -> void:
 	super()
 	core = get_node("Core")
-	
 	core.dead.connect(_on_core_dead)
-	core.new_phase.connect(spawn_wave)
+	core.new_phase.connect(_on_core_new_phase)
 	core.took_damage.connect(_core_took_damage)
-	$Canvas/Container/PlayerHealth/ProgressBar.max_value = spaceship.max_health
-	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
-	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
 	
 	spawn_spikes(5)
 	spawn_wave(5)
+	_on_core_new_phase()
 	
 	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
 	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
-	
-	var pause := PAUSE.instantiate()
-	pause.visible = false
-	$Canvas/Container.add_child(pause)
 
-
+func _on_core_new_phase() -> void:
+	for pos in _get_random_valid_positions(5):
+		var animation := ENEMY_SPAWN_ANIMATION.instantiate()
+		animation.position = pos
+		animation.done.connect(spawn_enemy.bind("bomber", pos))
+		planet.add_child(animation)
 
 @onready var background_sprite: Sprite2D = $ParallaxBackground/ParallaxLayer/BackgroundSprite
 
@@ -62,6 +61,8 @@ func spawn_enemy(enemy_id: String, pos: Vector2) -> void:
 			enemy = DEFAULT_EYE.instantiate()
 		"spike_ball":
 			enemy = SPIKE_BALL.instantiate()
+		"bomber":
+			enemy = BOMBER.instantiate()
 	enemy.global_position = pos
 	planet.add_child(enemy)
 
@@ -77,6 +78,17 @@ func spawn_wave(count: int) -> void:
 const ENEMY_SPAWN_ANIMATION = preload("res://entities/enemy_spawn_animation/enemy_spawn_animation.tscn")
 
 func _get_random_valid_positions(count: int) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	for node in get_tree().get_nodes_in_group("EnemySpawnpoint"):
+		if !is_point_colliding(node.global_position):
+			points.append(node.global_position)
+	if points.is_empty():
+		return _get_pure_random_points(count)
+	points.shuffle()
+	
+	return points.slice(0, count)
+
+func _get_pure_random_points(count: int) -> Array[Vector2]:
 	var points: Array[Vector2] = []
 	for i in range(count):
 		var valid_position := false
