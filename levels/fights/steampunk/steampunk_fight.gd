@@ -1,8 +1,6 @@
 class_name SteampunkFightRoot
 extends FightRoot
 
-@export var hands_speed := 0.2
-
 const DIGIT = preload("res://entities/digit/digit.tscn")
 
 func _add_digits() -> void:
@@ -26,12 +24,12 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	$Planet.rotation += spin_speed * delta
-	$Hands/Big.rotation += delta * -spin_speed
+	$Hands/Big.rotation += delta * -spin_speed * 30.0
 	$Hands/Small.rotation += delta * -spin_speed * 1/12
 
 func _on_digit_on(number: int) -> void:
-	if number == 1:
-		print(number)
+	print(number)
+	if number == 12:
 		var no_on := 0
 		for digit in $Digits.get_children():
 			if digit.on:
@@ -39,7 +37,11 @@ func _on_digit_on(number: int) -> void:
 			digit.on = false
 			digit.broken = false
 		
-		print(no_on)
-		core.heal(no_on * 5)
+		if no_on < 4:
+			core.take_damage(10)
+		elif no_on < 8:
+			core.heal(no_on * 2)
+		else:
+			core.heal(no_on * 4)
 	for pos in _get_random_valid_positions(3):
 		_spawn_enemy("", pos)

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=4 uid="uid://dturmkkjs4uyx"]
+[gd_scene load_steps=7 format=4 uid="uid://dturmkkjs4uyx"]
 
 [ext_resource type="Script" path="res://levels/fights/first/first_fight.gd" id="1_ivtg4"]
 [ext_resource type="Resource" uid="uid://bdjf6bo3amegy" path="res://resources/bosses/first_boss.tres" id="2_80g3i"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_cpcr3"]
 [ext_resource type="PackedScene" uid="uid://v04eq3pwsthx" path="res://assets/camera/default_camera.tscn" id="3_ib5v4"]
-[ext_resource type="PackedScene" uid="uid://dmom0ye3d0dpl" path="res://entities/laser_cannon/laser_cannon.tscn" id="9_jp44v"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_a8hgq"]
 [ext_resource type="PackedScene" uid="uid://dxd1rajk1renk" path="res://assets/door/door.tscn" id="14_rwjxp"]
 
@@ -14,7 +13,7 @@ planet_radius = 800.0
 boss = ExtResource("2_80g3i")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_cpcr3")]
-position = Vector2(-1352, 136)
+position = Vector2(-1696, 256)
 rotation = -6.28319
 
 [node name="Camera" parent="." instance=ExtResource("3_ib5v4")]
@@ -50,7 +49,3 @@ position = Vector2(-184, -616)
 
 [node name="5" type="Marker2D" parent="Planet/BossPositions"]
 position = Vector2(-280, 490)
-
-[node name="LaserCannon" parent="." instance=ExtResource("9_jp44v")]
-position = Vector2(-1856, 376)
-rotation = -0.785397

@@ -3,6 +3,7 @@ extends VBoxContainer
 func start() -> void:
 	visible = true
 	$AnimationPlayer.play("GameOver")
+	$Buttons.visible = false
 
 func _on_restart_pressed() -> void:
 	get_tree().paused = false
@@ -10,7 +11,7 @@ func _on_restart_pressed() -> void:
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	$Restart.visible = true
+	$Buttons.visible = true
 
 
 func _on_upgrades_pressed() -> void:

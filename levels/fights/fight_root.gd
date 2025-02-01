@@ -36,6 +36,7 @@ var background_sprite: Sprite2D
 
 var canvas: CanvasLayer
 var crossfade: Crossfade
+var compass: TextureRect
 
 func _add_core() -> void:
 	core = CORE.instantiate()
@@ -54,6 +55,8 @@ func _ready() -> void:
 	
 	canvas = GAME_CANVAS.instantiate()
 	add_child(canvas)
+	
+	compass = canvas.get_node("Container/Compass/Arrow")
 	
 	canvas.get_node("Container/PlayerHealth/ProgressBar").max_value = spaceship.max_health
 	canvas.get_node("Container/PlayerHealth/ProgressBar").value = spaceship.max_health
@@ -100,6 +103,11 @@ func _on_door_closing() -> void:
 	UiUtils.apply_transition(canvas.get_node("Container/BossHealth"))
 
 func _process(delta: float) -> void:
+	
+	if is_instance_valid(core) && is_instance_valid(spaceship):
+		var pos := core.global_position - spaceship.global_position
+		
+		compass.rotation = lerp_angle(compass.rotation, atan2(pos.y, pos.x), delta * 4.0)
 	background_sprite.position += Vector2.ONE * delta * 4.0
 	if background_sprite.position.x > 512:
 		background_sprite.position -= Vector2.ONE * 512

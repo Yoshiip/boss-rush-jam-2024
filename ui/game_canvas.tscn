@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c5l4hqhvbhlyj"]
+[gd_scene load_steps=20 format=3 uid="uid://c5l4hqhvbhlyj"]
 
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="1_jhfuf"]
 [ext_resource type="Script" path="res://levels/fights/fight_transition.gd" id="2_u1fc6"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="6_xt5t1"]
 [ext_resource type="Texture2D" uid="uid://cvj3g8utd2nb0" path="res://assets/utils/crosshair.png" id="7_3bnj0"]
 [ext_resource type="Script" path="res://ui/crosshair.gd" id="8_vlxcy"]
+[ext_resource type="Texture2D" uid="uid://cmy5636qxemtw" path="res://ui/compass_arrow.png" id="9_xpw7o"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwk67"]
 bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
@@ -237,6 +238,18 @@ _data = {
 "RESET": SubResource("Animation_7iggc")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5c4v"]
+bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.190384, 0.245154, 0.320473, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [node name="Canvas" type="CanvasLayer"]
 
 [node name="Container" type="Control" parent="."]
@@ -291,9 +304,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -216.0
+offset_left = -272.0
 offset_top = -42.0
-offset_right = -16.0
+offset_right = -72.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -386,6 +399,7 @@ autoplay = "intro"
 
 [node name="GameOver" type="VBoxContainer" parent="Container"]
 process_mode = 3
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -449,6 +463,38 @@ texture = ExtResource("7_3bnj0")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("8_vlxcy")
+
+[node name="Compass" type="Panel" parent="Container"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -52.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5c4v")
+
+[node name="Arrow" type="TextureRect" parent="Container/Compass"]
+modulate = Color(0.894118, 0.231373, 0.266667, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 10)
+texture = ExtResource("9_xpw7o")
 
 [connection signal="animation_finished" from="Container/Transition/AnimationPlayer" to="Container/Transition" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="Container/GameOver/AnimationPlayer" to="Container/GameOver" method="_on_animation_player_animation_finished"]
