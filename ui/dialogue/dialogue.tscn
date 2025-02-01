@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="1_28rdg"]
 [ext_resource type="Script" path="res://ui/dialogue/dialogue.gd" id="2_0b2e0"]
-[ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="2_6gjie"]
+[ext_resource type="Texture2D" uid="uid://dp81vx88ryrd7" path="res://assets/utils/dialogue_next.png" id="3_wua8h"]
 [ext_resource type="Texture2D" uid="uid://b7ca404jr4ql0" path="res://assets/utils/circular_progress_bar.png" id="4_dkd36"]
 [ext_resource type="Texture2D" uid="uid://dyrprgmv2ahol" path="res://ui/dialogue/portraits/player.jpg" id="4_iw4j1"]
 
@@ -131,7 +131,7 @@ offset_right = -16.0
 offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("2_6gjie")
+texture = ExtResource("3_wua8h")
 expand_mode = 1
 stretch_mode = 5
 

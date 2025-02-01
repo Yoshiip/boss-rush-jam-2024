@@ -23,7 +23,14 @@ func _on_dialogue_event(id: String) -> void:
 	match id:
 		"ship":
 			$Canvas/Container/Spaceship.visible = true
+			$Canvas/Container/Spaceship.modulate.a = 0.0
+			var tween := get_tree().create_tween()
+			tween.tween_property($Canvas/Container/Spaceship, "modulate:a", 1.0, 0.5)
 
 func _on_dialogue_ended() -> void:
 	get_tree().change_scene_to_file("res://levels/upgrades/upgrades.tscn")
 	
+
+
+func _on_skip_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://levels/upgrades/upgrades.tscn")

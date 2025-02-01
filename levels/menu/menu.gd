@@ -57,7 +57,11 @@ func _ready() -> void:
 	credits_section.visible = false
 	$Crossfade.start_a()
 
+var i := 0.0
+
 func _process(delta: float) -> void:
+	$Canvas/Container/Start/Label.modulate.a = 0.7 + cos(i * 2.0) * 0.3
+	i += delta
 	$Camera.offset = $Camera.offset.lerp((get_global_mouse_position() + $Camera.position).normalized() * 25.0, delta)
 	$Core.rotation += delta * 0.2
 	$Core.scale = $Core.scale.lerp(Vector2.ONE, delta * 15.0)

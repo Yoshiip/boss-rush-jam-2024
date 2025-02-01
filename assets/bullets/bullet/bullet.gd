@@ -36,7 +36,7 @@ func _ready() -> void:
 		ray_cast_homing.set_target_position(velocity.normalized() * 400)
 	
 	if special_enemy_projectile:
-		modulate = Color.WEB_PURPLE
+		$Sprite.modulate = Color.WEB_PURPLE
 		# we'il probably make a special bullet for enemy later
 		
 		#speed *= 0.2
@@ -109,9 +109,9 @@ func _on_area_entered(body: Node2D) -> void:
 			bounce_of_position(body.global_position)
 			max_pierces-=1
 		if max_infections > 0:
-			modulate = Color.DARK_CYAN
+			$Sprite.modulate = Color.DARK_CYAN
 			other_bullet.from_enemy = false
-			other_bullet.modulate = Color.DARK_CYAN
+			other_bullet.get_node("Sprite").modulate = Color.DARK_CYAN
 			max_infections -=1
 		speed *= 0.8 
 		other_bullet.speed*=2

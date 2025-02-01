@@ -24,4 +24,4 @@ texture = ExtResource("2_mfd6t")
 [node name="Explosion" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_iw57l")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

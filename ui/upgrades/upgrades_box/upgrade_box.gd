@@ -44,7 +44,6 @@ func _ready() -> void:
 
 func _on_constraint_changed() -> void:
 	max_level = constraint_node.current_level
-	print(max_level)
 	if current_level > max_level:
 		_on_remove_button_pressed()
 	_update_ui()

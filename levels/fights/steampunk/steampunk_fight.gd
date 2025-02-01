@@ -14,8 +14,11 @@ func _add_digits() -> void:
 		
 		digit.position = Vector2(cos(angle), sin(angle)) * radius
 		digit.digit = i+1
-		add_child(digit)
+		digit.digit_on.connect(_on_digit_on)
+		$Digits.add_child(digit)
 
+func _on_core_new_phase(index: int) -> void:
+	pass
 
 func _ready() -> void:
 	super()
@@ -23,5 +26,20 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	$Planet.rotation += spin_speed * delta
-	$Hands/Big.rotation += delta * hands_speed
-	$Hands/Small.rotation += delta * hands_speed * 1/12
+	$Hands/Big.rotation += delta * -spin_speed
+	$Hands/Small.rotation += delta * -spin_speed * 1/12
+
+func _on_digit_on(number: int) -> void:
+	if number == 1:
+		print(number)
+		var no_on := 0
+		for digit in $Digits.get_children():
+			if digit.on:
+				no_on += 1
+			digit.on = false
+			digit.broken = false
+		
+		print(no_on)
+		core.heal(no_on * 5)
+	for pos in _get_random_valid_positions(3):
+		_spawn_enemy("", pos)

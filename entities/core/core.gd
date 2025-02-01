@@ -55,7 +55,7 @@ func take_damage(amount: float) -> void:
 		root.spin_speed = stats.spin_speed[phase]
 		_shoot_circle(stats.circle_bullet_fire[phase])
 		var tween := get_tree().create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC).bind_node(self)
-		tween.tween_property(self, "position", positions.get_child(phase).global_position, 2.0)
+		tween.tween_property(self, "position", positions.get_child(phase).global_position, 4.0)
 		#root.spawn_spikes(stats.spike_num[phase])
 		#var random_angle = randf() * PI * 2
 		#var random_distance = randi_range(-10,200)

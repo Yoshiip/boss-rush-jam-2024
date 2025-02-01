@@ -11,7 +11,6 @@ func _input(event: InputEvent) -> void:
 func toggle() -> void:
 	visible = !visible
 	get_tree().paused = visible
-	print(str("VISIBLE", visible))
 	if visible:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		if is_instance_valid(crossfade): crossfade.to_b()

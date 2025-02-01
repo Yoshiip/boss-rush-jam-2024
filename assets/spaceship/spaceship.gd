@@ -178,9 +178,8 @@ func take_damage(amount: int, from := Vector2.INF) -> void:
 		dead.emit()
 		queue_free()
 	if from != Vector2.INF:
-		print(velocity)
 		velocity = (position - from).normalized() * 150.0 * amount
-		print(velocity)
+
 func check_if_crushed() -> void:
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsPointQueryParameters2D.new()

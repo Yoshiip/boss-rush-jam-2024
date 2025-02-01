@@ -36,6 +36,8 @@ Deductions:
 @onready var terminal_text: RichTextLabel = $Canvas/Container/TerminalText
 
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	GameManager.save_data.level += 1
 	GameManager.save_data.points += 5
 	
 	terminal_text.text = START_TEXT

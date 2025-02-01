@@ -33,16 +33,18 @@ func _process(delta: float) -> void:
 			$Stop.play()
 		thickness = lerp(thickness, 0.0, 8.0 * delta)
 	$Particles.emitting = on
+	
+	i += delta
+	var anim := cos(i * 20.0) * 0.08 if on else 0.0
+	$Sprite.scale.x = thickness / max_thickness + anim
+	
 	if thickness <= 0.1:
 		return
 	$RayCast.target_position = Vector2.RIGHT * length
 	
 	if ray_cast.is_colliding():
 		var coll := ray_cast.get_collider()
-		if coll.is_in_group("Spaceship"):
+		if is_instance_valid(coll) && coll.is_in_group("Spaceship") && laser_time + 0.5 < max_laser_timer:
 			coll.take_damage(2, global_position)
 		$Sprite.scale.y = (ray_cast.get_collision_point() - global_position).length()
 		$Particles.global_position = ray_cast.get_collision_point()
-	var anim := cos(i * 20.0) * 0.08 if on else 0.0
-	$Sprite.scale.x = thickness / max_thickness + anim
-	i += delta

@@ -4,5 +4,4 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	GameManager.save_data.level += 1
 	get_tree().change_scene_to_file("res://ui/computer/computer.tscn")

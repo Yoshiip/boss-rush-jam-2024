@@ -1,5 +1,7 @@
 extends Area2D
 
+signal digit_on(number: int)
+
 @export var digit := 1
 
 var digits_str: Array[String] = []
@@ -50,26 +52,26 @@ func _create_sprites() -> void:
 
 
 var i := 0.0
+
 func _process(delta: float) -> void:
-	
 	$Sprites.scale = $Sprites.scale.lerp(Vector2.ONE, 5.0 * delta)
 	$Light.scale = Vector2.ONE * (1.0 + cos(i * 2.0) * 0.2)
 	$Light.visible = on
-	$Sprites.modulate.a = 0.5 if broken > 0.0 else 1.0
+	$Sprites.modulate.a = 0.5 if broken else 1.0
 	i += delta
-	broken -= delta
 
 var on := false
-var broken := 0.0
+var broken := false
 
 func take_damage(_amount: float) -> void:
-	if on: return
+	if on or broken: return
 	$Sprites.scale = Vector2.ONE * 1.5
-	if broken < 0.0:
+	if not broken:
 		$Explosion.play()
-	broken = 5.0
+	broken = true
 
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group(&"HandClock") and not on and not broken:
+func _on_area_entered(area: Area2D) -> void:
+	if area.is_in_group(&"HandClock") and not on and not broken:
 		$Sprites.scale = Vector2.ONE * 1.5
 		on = true
+		digit_on.emit(digit)

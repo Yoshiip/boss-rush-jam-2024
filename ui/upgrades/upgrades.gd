@@ -19,7 +19,8 @@ func _ready() -> void:
 	UiUtils.apply_transition($Canvas/Container/Boxes/Bottom/Left)
 	UiUtils.apply_transition($Canvas/Container/Boxes/Bottom/Right)
 	UiUtils.apply_transition($Canvas/Container/Footer)
-	$Canvas/Container/Boxes/Bottom.visible = GameManager.save_data.level >= 1
+	$Canvas/Container/Boxes/Bottom/Left.visible = GameManager.save_data.level >= 1
+	$Canvas/Container/Boxes/Bottom/Right.visible = GameManager.save_data.level >= 2
 
 func _upgrade_mouse_entered(upgrade: Panel) -> void:
 	description.text = upgrade.description
@@ -40,12 +41,4 @@ func _upgrade_removed_point() -> void:
 
 
 func _on_continue_pressed() -> void:
-	match GameManager.save_data.level:
-		0:
-			get_tree().change_scene_to_file("res://levels/fights/first/first_fight.tscn")
-		1:
-			get_tree().change_scene_to_file("res://levels/fights/steampunk/steampunk_fight.tscn")
-		2:
-			get_tree().change_scene_to_file("res://levels/fights/void/void_fight.tscn")
-		_:
-			get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
+	GameManager.go_to_fight()

@@ -21,7 +21,7 @@ texture = ExtResource("2_g7icj")
 shape = SubResource("RectangleShape2D_xa15s")
 
 [node name="Trigger" type="Area2D" parent="."]
-position = Vector2(264, 0)
+position = Vector2(208, 0)
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Trigger"]
 shape = SubResource("RectangleShape2D_s0vxg")
