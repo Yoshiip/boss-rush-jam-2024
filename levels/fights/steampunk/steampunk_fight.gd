@@ -28,7 +28,6 @@ func _process(delta: float) -> void:
 	$Hands/Small.rotation += delta * -spin_speed * 1/12
 
 func _on_digit_on(number: int) -> void:
-	print(number)
 	if number == 12:
 		var no_on := 0
 		for digit in $Digits.get_children():

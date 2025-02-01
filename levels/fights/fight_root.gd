@@ -225,6 +225,9 @@ func _create_enemy(enemy_id := "", pos := Vector2.ZERO) -> void:
 			enemy = SPIKE_BALL.instantiate()
 		"bomber":
 			enemy = BOMBER.instantiate()
+			enemy.global_position = pos
+			add_child(enemy)
+			return
 		"laser_eye":
 			enemy = LASER_EYE.instantiate()
 	enemy.global_position = pos

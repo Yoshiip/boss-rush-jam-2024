@@ -1,9 +1,17 @@
-[gd_scene load_steps=8 format=3 uid="uid://dxyl7w8icelrq"]
+[gd_scene load_steps=10 format=3 uid="uid://dxyl7w8icelrq"]
 
 [ext_resource type="Script" path="res://entities/explosion/explosion.gd" id="1_ylg4u"]
 [ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="2_6s5bj"]
 [ext_resource type="Texture2D" uid="uid://fdghs4xd54o4" path="res://assets/utils/circle_256_16.png" id="2_kxrt7"]
 [ext_resource type="AudioStream" uid="uid://lgi7ddgnykd7" path="res://audios/effects/small-boom.wav" id="4_5ty8o"]
+
+[sub_resource type="Curve" id="Curve_wqh06"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ny0f2"]
+offsets = PackedFloat32Array(0, 0.131086, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="Curve" id="Curve_xbo8c"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.22172, 0.0, 0, 0]
@@ -18,8 +26,17 @@ radius = 128.0
 [node name="Explosion" type="Area2D"]
 script = ExtResource("1_ylg4u")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Ring" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 4
+one_shot = true
+preprocess = 0.5
+explosiveness = 0.5
+randomness = 1.0
 texture = ExtResource("2_kxrt7")
+gravity = Vector2(0, 0)
+scale_amount_curve = SubResource("Curve_wqh06")
+color_ramp = SubResource("Gradient_ny0f2")
 
 [node name="Particles" type="CPUParticles2D" parent="."]
 emitting = false

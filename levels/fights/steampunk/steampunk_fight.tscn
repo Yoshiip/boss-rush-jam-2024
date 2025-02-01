@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://swbe71fh4smh"]
+[gd_scene load_steps=9 format=4 uid="uid://swbe71fh4smh"]
 
 [ext_resource type="Script" path="res://levels/fights/steampunk/steampunk_fight.gd" id="1_ydmgx"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_ddxgr"]
 [ext_resource type="Resource" uid="uid://3ul7r0tla1yw" path="res://resources/bosses/steampunk.tres" id="2_qhn5i"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="3_sbtjg"]
+[ext_resource type="PackedScene" uid="uid://cy71ee6yb0t0w" path="res://entities/bomber/bomber.tscn" id="7_c04y2"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_gwwk4"]
 [ext_resource type="PackedScene" uid="uid://dxd1rajk1renk" path="res://assets/door/door.tscn" id="12_bmpm0"]
 
@@ -91,3 +92,6 @@ tile_set = ExtResource("11_gwwk4")
 metadata/_edit_lock_ = true
 
 [node name="Digits" type="Node2D" parent="."]
+
+[node name="Bomber" parent="." instance=ExtResource("7_c04y2")]
+position = Vector2(-2570, -27)
