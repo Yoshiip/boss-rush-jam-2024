@@ -90,8 +90,6 @@ func _ready() -> void:
 	clear_save_data()
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if event.is_action_pressed("restart"):
-		get_tree().reload_current_scene()
 	if event.is_action_pressed("fullscreen"):
 		get_window().mode = Window.MODE_WINDOWED if get_window().mode == Window.MODE_FULLSCREEN else Window.MODE_FULLSCREEN
 

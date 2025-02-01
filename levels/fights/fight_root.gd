@@ -9,6 +9,7 @@ extends Node2D
 @onready var planet := $Planet
 
 const ENEMIES_TYPE := ["default_eye", "laser_eye", "spike_ball", "bomber"]
+const BOSS_DEAD_ANIMATION = preload("res://entities/boss_dead_animation/boss_dead_animation.tscn")
 
 const CORE = preload("res://entities/core/core.tscn")
 var core: Core
@@ -120,9 +121,23 @@ func _on_core_health_changed() -> void:
 	canvas.get_node("Container/BossHealth/ProgressBar").value = core.health
 	canvas.get_node("Container/BossHealth/Text/Value").text = str(floor(core.health * 100.0 / core.max_health), "%")
 
+
 func _on_core_dead() -> void:
-	await get_tree().create_timer(1.0).timeout
+	crossfade.stop_both()
+	var tween := get_tree().create_tween().bind_node(self)
+	tween.tween_property(canvas.get_node("Container"), "modulate", Color.TRANSPARENT, 0.5)
+	spaceship.invicibility_timer = 10.0
+	spaceship.allow_inputs.append("end")
+	var animation := BOSS_DEAD_ANIMATION.instantiate()
+	animation.global_position = core.global_position
+	add_child(animation)
+	await get_tree().create_timer(5.0).timeout
 	get_tree().change_scene_to_file("res://ui/computer/computer.tscn")
+
+func _unhandled_key_input(event: InputEvent) -> void:
+	if event.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
+
 func transition_ended() -> void:
 	crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
@@ -133,12 +148,6 @@ func _player_took_damage() -> void:
 	$Camera.add_trauma(5.0)
 	canvas.get_node("Container/PlayerHealth/ProgressBar").value = max(spaceship.health, 0)
 	canvas.get_node("Container/PlayerHealth/Text/Value").text = str(spaceship.health, "/", spaceship.max_health)
-
-var dp := []
-func _draw() -> void:
-
-	for p in dp:
-		draw_circle(p, 10, Color.RED)
 
 
 func is_point_colliding(point: Vector2) -> bool:

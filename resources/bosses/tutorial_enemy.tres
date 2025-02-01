@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_acu21")
 name = "Tutorial"
-max_health = 30
+max_health = 1
 sprite = ExtResource("2_bp35w")
 background = ExtResource("1_buqmp")
 music = ExtResource("2_3kl7k")
