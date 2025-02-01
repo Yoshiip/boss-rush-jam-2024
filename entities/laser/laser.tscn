@@ -1,23 +1,61 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0d5c6hxwfual"]
+[gd_scene load_steps=9 format=3 uid="uid://d0d5c6hxwfual"]
 
 [ext_resource type="Gradient" uid="uid://detpnbs5lutih" path="res://entities/laser/laser_gradient_blue.tres" id="1_3rcri"]
 [ext_resource type="Script" path="res://entities/laser/laser.gd" id="1_8ai4k"]
+[ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="3_kbnxa"]
+[ext_resource type="AudioStream" uid="uid://t14xevw7lyth" path="res://audios/effects/laser/laser-shutdown.wav" id="4_xa630"]
+[ext_resource type="AudioStream" uid="uid://b5au3wywju3rl" path="res://audios/effects/laser/laser.wav" id="5_40uwf"]
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_48gi6"]
 gradient = ExtResource("1_3rcri")
-width = 64
+width = 20
+
+[sub_resource type="Curve" id="Curve_e6owe"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.333105), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1jgd7"]
+offsets = PackedFloat32Array(0, 0.33, 0.66, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.168627, 0.909804, 0.956863, 1, 0, 0.6, 0.858824, 1, 0.0666667, 0.301961, 0.537255, 1)
 
 [node name="Laser" type="Node2D"]
 script = ExtResource("1_8ai4k")
 on = true
 
 [node name="Sprite" type="Sprite2D" parent="."]
-position = Vector2(1, 0)
-rotation = 1.5708
+rotation = -1.5708
 scale = Vector2(1, 64)
 texture = SubResource("GradientTexture1D_48gi6")
-
-[node name="Marker2D" type="Marker2D" parent="."]
+centered = false
+offset = Vector2(-10, 0)
 
 [node name="RayCast" type="RayCast2D" parent="."]
 target_position = Vector2(1000, 0)
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+position = Vector2(34, 1.94704e-06)
+amount = 100
+texture = ExtResource("3_kbnxa")
+emission_shape = 3
+emission_rect_extents = Vector2(1, 10)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 24.0
+initial_velocity_max = 24.0
+scale_amount_min = 0.15
+scale_amount_max = 0.15
+scale_amount_curve = SubResource("Curve_e6owe")
+color = Color(0, 0.6, 0.858824, 1)
+color_ramp = SubResource("Gradient_1jgd7")
+
+[node name="Start" type="AudioStreamPlayer2D" parent="."]
+bus = &"Effects"
+
+[node name="Stop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_xa630")
+volume_db = 24.0
+bus = &"Effects"
+
+[node name="Active" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_40uwf")
+bus = &"Effects"

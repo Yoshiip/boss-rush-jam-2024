@@ -5,10 +5,8 @@ extends Control
 
 func _ready() -> void:
 	visible = true
-	title.text = str("[wave]Boss ", GameManager.save_data.level + 1, " [/wave]")
-	
-	# skip animation
-	
+		
+	# skip animation in editor
 	if OS.is_debug_build():
 		$AnimationPlayer.speed_scale = 10.0
 

@@ -15,7 +15,7 @@ var save_data = {
 	"fire_rate": 1,
 	"thrusters": 1,
 	"bullet_size": 0,
-	"bullet_speed": 1,	
+	"bullet_speed": 1,
 	# BOUNCES UPGRADES
 	"bullet_bounce": 0,
 	"damage_on_bounce": 0,

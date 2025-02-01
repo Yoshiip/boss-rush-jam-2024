@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://daf5muj7v4qex"
-path="res://.godot/imported/void thing skin 2.png-5fda2d1a22adc1b799f0a7147995425c.ctex"
+uid="uid://mlw141i6igc"
+path="res://.godot/imported/steampunk_core.png-a737a232aeed7892a5d9c8fa132b1ed2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://void thing skin 2.png"
-dest_files=["res://.godot/imported/void thing skin 2.png-5fda2d1a22adc1b799f0a7147995425c.ctex"]
+source_file="res://assets/steampunk/steampunk_core.png"
+dest_files=["res://.godot/imported/steampunk_core.png-a737a232aeed7892a5d9c8fa132b1ed2.ctex"]
 
 [params]
 

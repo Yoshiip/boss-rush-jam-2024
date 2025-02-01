@@ -1,65 +1,21 @@
-[gd_scene load_steps=15 format=4 uid="uid://c0w4rxhhyblam"]
+[gd_scene load_steps=7 format=4 uid="uid://c0w4rxhhyblam"]
 
 [ext_resource type="Script" path="res://levels/fights/terrain intro/terrain_intro.gd" id="1_gqsoa"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_a1kvg"]
+[ext_resource type="Resource" uid="uid://buoadylltd610" path="res://resources/bosses/tutorial_enemy_2.tres" id="2_afia8"]
 [ext_resource type="PackedScene" uid="uid://v04eq3pwsthx" path="res://assets/camera/default_camera.tscn" id="3_0s83p"]
-[ext_resource type="PackedScene" uid="uid://c5l4hqhvbhlyj" path="res://ui/game_canvas.tscn" id="4_mykd0"]
-[ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background_purple.jpg" id="5_r0g2b"]
-[ext_resource type="Script" path="res://assets/utils/crossfade.gd" id="6_dl6ha"]
-[ext_resource type="AudioStream" uid="uid://bccy34l1lvpta" path="res://audios/musics/space_troubles/space_troubles.ogg" id="7_4lqm8"]
-[ext_resource type="AudioStream" uid="uid://c10d63lf8k1an" path="res://audios/musics/space_troubles/space_troubles_pause.ogg" id="8_2xqrm"]
-[ext_resource type="PackedScene" uid="uid://bp0htss78w8tm" path="res://entities/core/core.tscn" id="9_a6mws"]
-[ext_resource type="Resource" uid="uid://c0rjtd05150ou" path="res://3rd_boss_info.tres" id="10_b4m7w"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_n2ax5"]
-[ext_resource type="Texture2D" uid="uid://bk3wvmw8jvk7m" path="res://entities/core/Rocky core.png" id="11_swidg"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="12_smwef"]
 
-[sub_resource type="Environment" id="Environment_uqlg5"]
-background_mode = 3
-glow_enabled = true
-
-[node name="Terrain_Intro" type="Node2D"]
+[node name="TerrainIntro" type="Node2D"]
 script = ExtResource("1_gqsoa")
+boss = ExtResource("2_afia8")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_a1kvg")]
 position = Vector2(-2467, 293)
 rotation = -6.28319
 
 [node name="Camera" parent="." instance=ExtResource("3_0s83p")]
-
-[node name="Canvas" parent="." instance=ExtResource("4_mykd0")]
-
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-modulate = Color(0.501407, 0.501406, 0.501406, 1)
-z_index = -100
-motion_scale = Vector2(0.25, 0.25)
-
-[node name="BackgroundSprite" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-texture_repeat = 2
-texture = ExtResource("5_r0g2b")
-region_enabled = true
-region_rect = Rect2(0, 0, 8192, 8192)
-metadata/_edit_lock_ = true
-
-[node name="Crossfade" type="Node2D" parent="."]
-process_mode = 3
-script = ExtResource("6_dl6ha")
-a_stream = ExtResource("7_4lqm8")
-b_stream = ExtResource("8_2xqrm")
-db = -16.0
-
-[node name="Core" parent="." instance=ExtResource("9_a6mws")]
-z_index = 5
-position = Vector2(-20, 10)
-stats = ExtResource("10_b4m7w")
-
-[node name="Sprite" parent="Core" index="0"]
-texture = ExtResource("11_swidg")
-
-[node name="Light" parent="Core" index="3"]
-enabled = false
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["Obstacle"]]
 modulate = Color(0.62, 0.62, 0.62, 1)
@@ -128,7 +84,15 @@ position = Vector2(-733, -73)
 position = Vector2(-1148, 769)
 scale = Vector2(2, 2)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_uqlg5")
+[node name="BossPositions" type="Node2D" parent="Planet"]
 
-[editable path="Core"]
+[node name="0" type="Marker2D" parent="Planet/BossPositions"]
+
+[node name="1" type="Marker2D" parent="Planet/BossPositions"]
+position = Vector2(-360, 808)
+
+[node name="2" type="Marker2D" parent="Planet/BossPositions"]
+position = Vector2(-1000, -584)
+
+[node name="3" type="Marker2D" parent="Planet/BossPositions"]
+position = Vector2(728, -1048)

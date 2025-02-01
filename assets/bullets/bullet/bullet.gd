@@ -120,6 +120,9 @@ func _on_area_entered(body: Node2D) -> void:
 		if other_bullet.bounce_powerup_lvl:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
+	if body.is_in_group("Enemy") && !from_enemy:
+		body.take_damage(damage)
+		destroy_bullet()
 	if body.is_in_group("Spikeball"):
 		bounce_of_position(body.global_position)
 

@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmom0ye3d0dpl"]
+
+[ext_resource type="Script" path="res://entities/laser_cannon/laser_cannon.gd" id="1_4ostt"]
+[ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="1_n51m6"]
+[ext_resource type="PackedScene" uid="uid://d0d5c6hxwfual" path="res://entities/laser/laser.tscn" id="2_q428g"]
+[ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_rsbnx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kibyo"]
+shader = ExtResource("2_rsbnx")
+shader_parameter/modulate = Color(0, 1, 1, 1)
+shader_parameter/whitening = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xew0m"]
+size = Vector2(64, 64)
+
+[node name="LaserCannon" type="Area2D"]
+script = ExtResource("1_4ostt")
+max_health = 1000
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_kibyo")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_n51m6")
+
+[node name="Laser" parent="." instance=ExtResource("2_q428g")]
+position = Vector2(40, 0)
+max_laser_timer = 5.0
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xew0m")

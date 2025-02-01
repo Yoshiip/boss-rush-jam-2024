@@ -1,11 +1,9 @@
 class_name DefaultEye
-extends CharacterBodyEnemy
+extends AreaEnemy
 
 
 @export var max_shoot_timer := 1.0
 @onready var shoot_timer := max_shoot_timer
-
-@export var speed := 60.0
 
 @export_range(0.0, 1.0) var special_chance = 0.2
 @export_range(0.0, PI / 3) var accurracy = 0.2
@@ -16,19 +14,7 @@ var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 @onready var spaceship: Spaceship = get_tree().get_first_node_in_group(&"Spaceship")
 
-
-func _ready() -> void:
-	super()
-	if randf() > 0.6:
-		speed = 0
-
-
 func _process(delta: float) -> void:
-	if is_instance_valid(spaceship):
-		look_at(spaceship.global_position)
-		velocity = velocity.lerp((spaceship.global_position - global_position).normalized() * speed, 0.5 * delta)
-		move_and_slide()
-
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:
 		shoot_timer = max_shoot_timer

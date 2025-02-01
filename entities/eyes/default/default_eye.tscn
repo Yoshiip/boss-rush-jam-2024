@@ -17,7 +17,7 @@ radius = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_dbj01"]
 radius = 80.399
 
-[node name="DefaultEye" type="CharacterBody2D" groups=["enemy"]]
+[node name="DefaultEye" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
 max_shoot_timer = 3.0
 max_health = 7

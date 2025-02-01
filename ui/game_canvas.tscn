@@ -14,16 +14,33 @@ bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
 border_width_bottom = 4
 border_color = Color(0.0241445, 0.0396609, 0.0639868, 1)
 border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+shadow_color = Color(0, 0, 0, 0.247059)
+shadow_size = 4
+shadow_offset = Vector2(0, 2)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2roa4"]
 bg_color = Color(0.318009, 0.598137, 9.62615e-07, 1)
+border_width_bottom = 4
+border_color = Color(2.16588e-06, 0.608277, 0.442168, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2fr33"]
 bg_color = Color(0.894118, 0.231373, 0.266667, 1)
+border_width_bottom = 4
+border_color = Color(0.380392, 0.0941176, 0.317647, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [sub_resource type="Animation" id="Animation_vlkrs"]
 length = 0.001
@@ -232,72 +249,68 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("1_jhfuf")
 
-[node name="PlayerHealth" type="Control" parent="Container"]
+[node name="PlayerHealth" type="VBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(120, 0)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 14.0
-offset_top = -37.0
-offset_right = 178.0
-offset_bottom = -14.0
+offset_left = 16.0
+offset_top = -42.0
+offset_right = 136.0
+offset_bottom = -16.0
 grow_vertical = 0
 
-[node name="Name" type="Label" parent="Container/PlayerHealth"]
-layout_mode = 1
-offset_right = 59.0
-offset_bottom = 14.0
+[node name="Text" type="HBoxContainer" parent="Container/PlayerHealth"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Container/PlayerHealth/Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.317647, 0.6, 0, 1)
 text = "Health"
 uppercase = true
 
+[node name="Value" type="Label" parent="Container/PlayerHealth/Text"]
+layout_mode = 2
+text = "5/5"
+
 [node name="ProgressBar" type="ProgressBar" parent="Container/PlayerHealth"]
 custom_minimum_size = Vector2(0, 8)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -4.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bwk67")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2roa4")
 value = 83.38
 show_percentage = false
 
-[node name="Value" type="Label" parent="Container/PlayerHealth"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 14.0
-grow_horizontal = 0
-text = "5/5"
-
 [node name="BossHealth" type="VBoxContainer" parent="Container"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -248.0
-offset_top = -58.0
-offset_right = -32.0
-offset_bottom = -32.0
+offset_left = -216.0
+offset_top = -42.0
+offset_right = -16.0
+offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Name" type="RichTextLabel" parent="Container/BossHealth"]
-clip_contents = false
+[node name="Text" type="HBoxContainer" parent="Container/BossHealth"]
 layout_mode = 2
-theme_override_colors/default_color = Color(0.894118, 0.231373, 0.266667, 1)
-bbcode_enabled = true
-text = "[right][wave]BOSS[/wave][/right]"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
+
+[node name="Value" type="Label" parent="Container/BossHealth/Text"]
+layout_mode = 2
+text = "100%"
+
+[node name="Name" type="Label" parent="Container/BossHealth/Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.894118, 0.231373, 0.266667, 1)
+text = "BOSS"
+horizontal_alignment = 2
 
 [node name="ProgressBar" type="ProgressBar" parent="Container/BossHealth"]
 custom_minimum_size = Vector2(0, 8)
@@ -305,6 +318,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bwk67")
 theme_override_styles/fill = SubResource("StyleBoxFlat_2fr33")
 step = 1.0
+value = 50.0
 fill_mode = 1
 show_percentage = false
 

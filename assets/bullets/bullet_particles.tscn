@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dj2ecukpfu5d8"]
+[gd_scene load_steps=5 format=3 uid="uid://dj2ecukpfu5d8"]
 
 [ext_resource type="Texture2D" uid="uid://cnkyxiwscusub" path="res://assets/utils/circle_256.png" id="1_cpil2"]
 [ext_resource type="Script" path="res://assets/bullets/bullet_particles.gd" id="1_tgfc8"]
@@ -7,10 +7,13 @@
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
+[sub_resource type="Gradient" id="Gradient_vkdu0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
 [node name="BulletParticles" type="CPUParticles2D"]
 modulate = Color(0.670588, 0.866667, 0.392157, 1)
 emitting = false
-amount = 20
+amount = 18
 one_shot = true
 explosiveness = 0.9
 texture = ExtResource("1_cpil2")
@@ -18,13 +21,14 @@ emission_shape = 1
 emission_sphere_radius = 8.0
 spread = 180.0
 gravity = Vector2(0, 100)
-initial_velocity_min = 100.0
-initial_velocity_max = 150.0
+initial_velocity_min = 50.0
+initial_velocity_max = 100.0
 linear_accel_min = -50.0
 linear_accel_max = -50.0
 scale_amount_min = 0.03
 scale_amount_max = 0.03
 scale_amount_curve = SubResource("Curve_eu8t2")
+color_ramp = SubResource("Gradient_vkdu0")
 script = ExtResource("1_tgfc8")
 
 [connection signal="finished" from="." to="." method="_on_finished"]

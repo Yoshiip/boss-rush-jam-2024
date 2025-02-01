@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bo2qqir27avfe"]
+
+[ext_resource type="Texture2D" uid="uid://cee8nd1jroklv" path="res://assets/backgrounds/background_green.png" id="1_4nwcd"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="."]
+modulate = Color(0.501407, 0.501406, 0.501406, 1)
+motion_scale = Vector2(0.25, 0.25)
+
+[node name="Sprite" type="Sprite2D" parent="ParallaxLayer"]
+texture_repeat = 2
+texture = ExtResource("1_4nwcd")
+region_enabled = true
+region_rect = Rect2(0, 0, 8192, 8192)
+metadata/_edit_lock_ = true

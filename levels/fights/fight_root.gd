@@ -1,56 +1,114 @@
 class_name FightRoot
 extends Node2D
 
-@export var background: CompressedTexture2D
+@export var planet_radius := 400.0
+@export var boss: BossInfo
 @export var spin_speed := 0.1
 
 @onready var spaceship: Spaceship = $Spaceship
-var core: Core
 @onready var planet := $Planet
 
+
+const CORE = preload("res://entities/core/core.tscn")
+var core: Core
+
+
+# Enemies
+const ENEMY_SPAWN_ANIMATION = preload("res://entities/enemy_spawn_animation/enemy_spawn_animation.tscn")
+
+
 const PAUSE = preload("res://ui/pause/pause.tscn")
+const GAME_CANVAS = preload("res://ui/game_canvas.tscn")
+const PARALLAX_BACKGROUND = preload("res://assets/backgrounds/parallax_background.tscn")
+
+const EFFECTS_BUS = &"Effects"
+
+var background_sprite: Sprite2D
+
+
+
+var canvas: CanvasLayer
+var crossfade: Crossfade
+
+func _add_core() -> void:
+	core = CORE.instantiate()
+	core.stats = boss
+	core.positions = $Planet/BossPositions
+	add_child(core)
 
 func _ready() -> void:
+	
+	_add_core()
+	
 	spaceship.allow_inputs.append("start")
 	spaceship.took_damage.connect(_player_took_damage)
 	spaceship.dead.connect(_on_player_dead)
-	$Canvas/Container/PlayerHealth/ProgressBar.max_value = spaceship.max_health
-	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
-	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
+	canvas = GAME_CANVAS.instantiate()
+	add_child(canvas)
+	
+	canvas.get_node("Container/PlayerHealth/ProgressBar").max_value = spaceship.max_health
+	canvas.get_node("Container/PlayerHealth/ProgressBar").value = spaceship.max_health
+	canvas.get_node("Container/PlayerHealth/Text/Value").text = str(spaceship.health, "/", spaceship.max_health)
+	canvas.get_node("Container/Transition/Title").text = boss.name
+	crossfade = Crossfade.new()
+	crossfade.a_stream = boss.music
+	crossfade.b_stream = boss.pause_music
+	crossfade.db = boss.music_db
+	add_child(crossfade)
+	
+	if boss.background != null:
+		var background = PARALLAX_BACKGROUND.instantiate()
+		
+		background_sprite = background.get_node("ParallaxLayer/Sprite")
+		background_sprite.texture = boss.background
+		add_child(background)
 	
 	core = get_node("Core")
 	core.dead.connect(_on_core_dead)
 	core.new_phase.connect(_on_core_new_phase)
-	core.took_damage.connect(_core_took_damage)
-	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
-	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
+	core.health_changed.connect(_on_core_health_changed)
+	
+	
+	
+
+	
+	canvas.get_node("Container/BossHealth/ProgressBar").max_value = core.max_health
+	
+	_on_core_health_changed()
 	
 	var pause := PAUSE.instantiate()
-	pause.crossfade = $Crossfade
+	pause.crossfade = crossfade
 	pause.visible = false
-	$Canvas/Container.add_child(pause)
+	canvas.get_node("Container").add_child(pause)
+
+
+func _process(delta: float) -> void:
+	background_sprite.position += Vector2.ONE * delta * 4.0
+	if background_sprite.position.x > 512:
+		background_sprite.position -= Vector2.ONE * 512
 
 func _on_core_new_phase(_index: int) -> void:
 	pass
 
-func _core_took_damage() -> void:
-	$Canvas/Container/BossHealth/ProgressBar.value = core.health
+func _on_core_health_changed() -> void:
+	canvas.get_node("Container/BossHealth/ProgressBar").value = core.health
+	canvas.get_node("Container/BossHealth/Text/Value").text = str(floor(core.health * 100.0 / core.max_health), "%")
 
 func _on_core_dead() -> void:
 	await get_tree().create_timer(1.0).timeout
 	get_tree().change_scene_to_file("res://levels/cutscene/cutscene.tscn")
 
 func transition_ended() -> void:
-	$Crossfade.start_a()
+	crossfade.start_a()
 	spaceship.allow_inputs.erase("start")
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 
 func _player_took_damage() -> void:
 	$Camera.add_trauma(5.0)
-	$Canvas/Container/PlayerHealth/ProgressBar.value = max(spaceship.health, 0)
-	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
+	canvas.get_node("Container/PlayerHealth/ProgressBar").value = max(spaceship.health, 0)
+	canvas.get_node("Container/PlayerHealth/Text/Value").text = str(spaceship.health, "/", spaceship.max_health)
 
 
 func is_point_colliding(point: Vector2) -> bool:
@@ -75,11 +133,10 @@ func is_point_colliding(point: Vector2) -> bool:
 func _on_player_dead() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	get_tree().paused = true
-	$Crossfade.stop_both()
-	$Canvas/Container/GameOver.start()
+	crossfade.stop_both()
+	canvas.get_node("Container/GameOver").start()
 
 
-const EFFECTS_BUS = &"Effects"
 
 func _get_audio_player(at: Vector2) -> AudioStreamPlayer2D:
 	var audio := AudioStreamPlayer2D.new()
@@ -107,3 +164,37 @@ func spawn_bullet_destroy_particles(at: Vector2, from_enemy: bool) -> void:
 	particles.position = at
 	particles.from_enemy = from_enemy
 	add_child(particles)
+
+func _get_random_valid_positions(count: int) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	for node in get_tree().get_nodes_in_group("EnemySpawnpoint"):
+		if !is_point_colliding(node.global_position):
+			points.append(node.global_position)
+	if points.is_empty():
+		return _get_pure_random_points(count)
+	points.shuffle()
+	
+	return points.slice(0, count)
+
+
+func _get_pure_random_points(count: int) -> Array[Vector2]:
+	var points: Array[Vector2] = []
+	for i in range(count):
+		var valid_position := false
+		var max_attempts := 50
+		var attempt := 0
+		var pos := Vector2.ZERO
+	
+		while not valid_position and attempt < max_attempts:
+			attempt += 1
+			
+			var random_angle = randf() * PI * 2
+			var random_distance = randi_range(-150,300)
+			pos = Vector2(cos(random_angle), sin(random_angle)) * (planet_radius+random_distance)
+
+			# checks if the position is clear
+			if not is_point_colliding(pos):
+				valid_position = true
+		if valid_position:
+			points.append(pos)
+	return points

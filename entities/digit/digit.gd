@@ -9,10 +9,13 @@ const DIGIT_FIVE = preload("res://assets/steampunk/digit_five.png")
 const DIGIT_TEN = preload("res://assets/steampunk/digit_ten.png")
 
 const DIGIT_VALUES = {
-	10: "ten",
-	5: "five",
-	1: "one"
+	10: ["ten"],
+	9: ["one", "ten"],
+	5: ["five"],
+	4: ["one", "five"],
+	1: ["one"]
 }
+
 func _get_texture(digit_str: String) -> CompressedTexture2D:
 	match digit_str:
 		"one":
@@ -23,11 +26,18 @@ func _get_texture(digit_str: String) -> CompressedTexture2D:
 			return DIGIT_TEN
 
 func _ready() -> void:
-	var remaining = digit
-	for value in [10, 5, 1]:
-		while remaining >= value:
-			digits_str.append(DIGIT_VALUES[value])
-			remaining -= value
+	_convert_to_roman(digit)
+	_create_sprites()
+
+
+func _convert_to_roman(value: int) -> void:
+	digits_str.clear()
+	for key in [10, 9, 5, 4, 1]:
+		while value >= key:
+			digits_str.append_array(DIGIT_VALUES[key])
+			value -= key
+
+func _create_sprites() -> void:
 	var x := -digits_str.size() * 16.0 + 8
 	for digit in digits_str:
 		var spr := Sprite2D.new()
@@ -37,18 +47,29 @@ func _ready() -> void:
 		$Sprites.add_child(spr)
 
 
+
+
 var i := 0.0
 func _process(delta: float) -> void:
-	$Light.scale = Vector2.ONE * cos(i * 2.0) * 0.2
+	
+	$Sprites.scale = $Sprites.scale.lerp(Vector2.ONE, 5.0 * delta)
+	$Light.scale = Vector2.ONE * (1.0 + cos(i * 2.0) * 0.2)
 	$Light.visible = on
+	$Sprites.modulate.a = 0.5 if broken > 0.0 else 1.0
 	i += delta
+	broken -= delta
 
 var on := false
+var broken := 0.0
 
-func take_damage() -> void:
-	pass
+func take_damage(_amount: float) -> void:
+	if on: return
+	$Sprites.scale = Vector2.ONE * 1.5
+	if broken < 0.0:
+		$Explosion.play()
+	broken = 5.0
 
 func _on_body_entered(body: Node2D) -> void:
-	print(body)
-	if body.is_in_group(&"HandClock"):
+	if body.is_in_group(&"HandClock") and not on and not broken:
+		$Sprites.scale = Vector2.ONE * 1.5
 		on = true

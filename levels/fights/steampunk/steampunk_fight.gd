@@ -10,10 +10,10 @@ func _add_digits() -> void:
 	var radius := 1280
 	for i in range(points_count):
 		var digit := DIGIT.instantiate()
-		var angle := i * TAU / points_count
+		var angle := i * TAU / points_count - PI/2
 		
 		digit.position = Vector2(cos(angle), sin(angle)) * radius
-		digit.digit = i
+		digit.digit = i+1
 		add_child(digit)
 
 

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="BossInfo" load_steps=6 format=3 uid="uid://buoadylltd610"]
+
+[ext_resource type="Texture2D" uid="uid://cqh4ixv74pxg1" path="res://assets/backgrounds/background_blue_2.png" id="1_sg1hd"]
+[ext_resource type="Script" path="res://boss_phase_info.gd" id="1_vu4mk"]
+[ext_resource type="Texture2D" uid="uid://bk3wvmw8jvk7m" path="res://entities/core/Rocky core.png" id="2_6a1vg"]
+[ext_resource type="AudioStream" uid="uid://bccy34l1lvpta" path="res://audios/musics/space_troubles/space_troubles.ogg" id="2_7h4ow"]
+[ext_resource type="AudioStream" uid="uid://c10d63lf8k1an" path="res://audios/musics/space_troubles/space_troubles_pause.ogg" id="3_d134u"]
+
+[resource]
+script = ExtResource("1_vu4mk")
+name = "Tutorial 2"
+max_health = 80
+sprite = ExtResource("2_6a1vg")
+background = ExtResource("1_sg1hd")
+music = ExtResource("2_7h4ow")
+pause_music = ExtResource("3_d134u")
+music_db = -4.0
+contact_damage = 1
+phases = Array[float]([0.8, 0.6, 0.4])
+eye_num = Array[float]([2.0, 2.0, 2.0, 2.0, 2.0, 2.0])
+fire_rate = Array[float]([4.0, 4.0, 4.0])
+spc_chance = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
+accur = Array[float]([0.35, 0.35, 0.35, 0.35, 0.35, 0.35])
+bullet_speed = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
+spin_speed = Array[float]([0.1, -0.15, 0.2, -0.25, -0.3, 0.35])
+circle_bullet_fire = Array[float]([12.0, 12.0, 12.0, 12.0, 12.0, 12.0])
+spike_num = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
