@@ -16,6 +16,10 @@ var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 func _process(delta: float) -> void:
 	shoot_timer -= delta
+	if is_instance_valid(player):
+		var diff := player.global_position - global_position
+		global_rotation = lerp_angle(global_rotation, atan2(diff.y, diff.x), 2.0 * delta)
+
 	if shoot_timer <= 0.0:
 		shoot_timer = max_shoot_timer
 		if randf() < special_chance:

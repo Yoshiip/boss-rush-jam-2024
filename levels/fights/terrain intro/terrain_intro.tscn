@@ -10,6 +10,7 @@
 
 [node name="TerrainIntro" type="Node2D"]
 script = ExtResource("1_gqsoa")
+planet_radius = 1500.0
 boss = ExtResource("2_afia8")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_a1kvg")]

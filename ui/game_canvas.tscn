@@ -386,7 +386,6 @@ autoplay = "intro"
 
 [node name="GameOver" type="VBoxContainer" parent="Container"]
 process_mode = 3
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -426,10 +425,17 @@ bus = &"Music"
 stream = ExtResource("6_xt5t1")
 bus = &"Music"
 
-[node name="Restart" type="Button" parent="Container/GameOver"]
-visible = false
+[node name="Buttons" type="HBoxContainer" parent="Container/GameOver"]
+layout_mode = 2
+alignment = 1
+
+[node name="Restart" type="Button" parent="Container/GameOver/Buttons"]
 layout_mode = 2
 text = "Restart fight"
+
+[node name="Upgrades" type="Button" parent="Container/GameOver/Buttons"]
+layout_mode = 2
+text = "Customize spaceship"
 
 [node name="Crosshair" type="TextureRect" parent="Container"]
 layout_mode = 0
@@ -446,4 +452,5 @@ script = ExtResource("8_vlxcy")
 
 [connection signal="animation_finished" from="Container/Transition/AnimationPlayer" to="Container/Transition" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="Container/GameOver/AnimationPlayer" to="Container/GameOver" method="_on_animation_player_animation_finished"]
-[connection signal="pressed" from="Container/GameOver/Restart" to="Container/GameOver" method="_on_restart_pressed"]
+[connection signal="pressed" from="Container/GameOver/Buttons/Restart" to="Container/GameOver" method="_on_restart_pressed"]
+[connection signal="pressed" from="Container/GameOver/Buttons/Upgrades" to="Container/GameOver" method="_on_upgrades_pressed"]
