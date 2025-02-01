@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cvj3g8utd2nb0" path="res://assets/utils/crosshair.png" id="14_863lj"]
 [ext_resource type="Script" path="res://ui/crosshair.gd" id="15_b4v6u"]
 [ext_resource type="AudioStream" uid="uid://bccy34l1lvpta" path="res://audios/musics/space_troubles/space_troubles.ogg" id="16_l3g5q"]
-[ext_resource type="Texture2D" uid="uid://cee8nd1jroklv" path="res://assets/backgrounds/background_3.png" id="17_p5j3a"]
+[ext_resource type="Texture2D" uid="uid://cee8nd1jroklv" path="res://assets/backgrounds/background_green.png" id="17_p5j3a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4pg6c"]
 bg_color = Color(0.156863, 0.156863, 0.156863, 0.247059)

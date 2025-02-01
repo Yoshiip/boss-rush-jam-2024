@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="1_nfqmy"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_jpjum"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="3_fmn0s"]
-[ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background.jpg" id="4_ha1x7"]
+[ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background_purple.jpg" id="4_ha1x7"]
 
 [sub_resource type="Curve" id="Curve_p1ojx"]
 _data = [Vector2(0, 0.406593), 0.0, 2.06044, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]

@@ -4,30 +4,24 @@ extends FightRoot
 
 @export var planet_radius := 400.0
 
-var core: Core
+
 
 const DEFAULT_EYE = preload("res://entities/eyes/default/default_eye.tscn")
 const BOMBER = preload("res://entities/bomber/bomber.tscn")
 const SPIKE_BALL = preload("res://entities/Damaging Parts/spike_ball.tscn")
 const LASER_EYE = preload("res://entities/eyes/laser_eye/laser_eye.tscn")
 
-@onready var planet := $Planet
 
 func _ready() -> void:
 	super()
-	core = get_node("Core")
-	core.dead.connect(_on_core_dead)
-	core.new_phase.connect(_on_core_new_phase)
-	core.took_damage.connect(_core_took_damage)
 	
 	
 	spawn_spikes(3)
 	spawn_wave(5)
 	
-	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
-	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
 
 func _on_core_new_phase(index: int) -> void:
+	super(index)
 	match index:
 		1:
 			spawn_spikes(1)
@@ -59,12 +53,9 @@ func _process(delta: float) -> void:
 		background_sprite.position -= Vector2.ONE * 512
 
 
-func _core_took_damage() -> void:
-	$Canvas/Container/BossHealth/ProgressBar.value = core.health
 
-func _on_core_dead() -> void:
-	await get_tree().create_timer(1.0).timeout
-	get_tree().change_scene_to_file("res://levels/cutscene/cutscene.tscn")
+
+
 
 
 func spawn_enemy(enemy_id: String, pos: Vector2) -> void:

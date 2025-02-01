@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjm7otgcxyv2k"
-path="res://.godot/imported/background.jpg-be264cb91a14f0bece1e21f5f48e7412.ctex"
+uid="uid://colr5ie84kl5x"
+path="res://.godot/imported/gears_alone.png-4d013584b77ffedf98c2c925e8442e6f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/background.jpg"
-dest_files=["res://.godot/imported/background.jpg-be264cb91a14f0bece1e21f5f48e7412.ctex"]
+source_file="res://assets/tiles/steampunk/gears_alone.png"
+dest_files=["res://.godot/imported/gears_alone.png-4d013584b77ffedf98c2c925e8442e6f.ctex"]
 
 [params]
 

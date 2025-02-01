@@ -1,9 +1,12 @@
 class_name FightRoot
 extends Node2D
 
+@export var background: CompressedTexture2D
 @export var spin_speed := 0.1
 
 @onready var spaceship: Spaceship = $Spaceship
+var core: Core
+@onready var planet := $Planet
 
 const PAUSE = preload("res://ui/pause/pause.tscn")
 
@@ -15,11 +18,28 @@ func _ready() -> void:
 	$Canvas/Container/PlayerHealth/ProgressBar.value = spaceship.max_health
 	$Canvas/Container/PlayerHealth/Value.text = str(spaceship.health, "/", spaceship.max_health)
 	
+	
+	core = get_node("Core")
+	core.dead.connect(_on_core_dead)
+	core.new_phase.connect(_on_core_new_phase)
+	core.took_damage.connect(_core_took_damage)
+	$Canvas/Container/BossHealth/ProgressBar.max_value = core.max_health
+	$Canvas/Container/BossHealth/ProgressBar.value = core.max_health
+	
 	var pause := PAUSE.instantiate()
 	pause.crossfade = $Crossfade
 	pause.visible = false
 	$Canvas/Container.add_child(pause)
 
+func _on_core_new_phase(_index: int) -> void:
+	pass
+
+func _core_took_damage() -> void:
+	$Canvas/Container/BossHealth/ProgressBar.value = core.health
+
+func _on_core_dead() -> void:
+	await get_tree().create_timer(1.0).timeout
+	get_tree().change_scene_to_file("res://levels/cutscene/cutscene.tscn")
 
 func transition_ended() -> void:
 	$Crossfade.start_a()

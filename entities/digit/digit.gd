@@ -28,10 +28,27 @@ func _ready() -> void:
 		while remaining >= value:
 			digits_str.append(DIGIT_VALUES[value])
 			remaining -= value
-	var x := -digits_str.size() * 32.0
+	var x := -digits_str.size() * 16.0 + 8
 	for digit in digits_str:
 		var spr := Sprite2D.new()
 		spr.texture = _get_texture(digit)
 		spr.position.x = x
 		x += 32
 		$Sprites.add_child(spr)
+
+
+var i := 0.0
+func _process(delta: float) -> void:
+	$Light.scale = Vector2.ONE * cos(i * 2.0) * 0.2
+	$Light.visible = on
+	i += delta
+
+var on := false
+
+func take_damage() -> void:
+	pass
+
+func _on_body_entered(body: Node2D) -> void:
+	print(body)
+	if body.is_in_group(&"HandClock"):
+		on = true

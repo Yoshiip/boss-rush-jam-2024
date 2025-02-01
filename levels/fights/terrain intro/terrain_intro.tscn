@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_a1kvg"]
 [ext_resource type="PackedScene" uid="uid://v04eq3pwsthx" path="res://assets/camera/default_camera.tscn" id="3_0s83p"]
 [ext_resource type="PackedScene" uid="uid://c5l4hqhvbhlyj" path="res://ui/game_canvas.tscn" id="4_mykd0"]
-[ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background.jpg" id="5_r0g2b"]
+[ext_resource type="Texture2D" uid="uid://cjm7otgcxyv2k" path="res://assets/backgrounds/background_purple.jpg" id="5_r0g2b"]
 [ext_resource type="Script" path="res://assets/utils/crossfade.gd" id="6_dl6ha"]
 [ext_resource type="AudioStream" uid="uid://bccy34l1lvpta" path="res://audios/musics/space_troubles/space_troubles.ogg" id="7_4lqm8"]
 [ext_resource type="AudioStream" uid="uid://c10d63lf8k1an" path="res://audios/musics/space_troubles/space_troubles_pause.ogg" id="8_2xqrm"]
