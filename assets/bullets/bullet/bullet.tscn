@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b1i12ej5dw0r6" path="res://assets/bullets/bullet/bullet.png" id="2_l17vi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ks1eq"]
-radius = 10.8
+radius = 10.0499
 
 [node name="Bullet" type="Area2D" groups=["Bullet"]]
 z_index = 3

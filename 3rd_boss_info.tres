@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_tnb28")
-new_pos = [Vector2(0, 0), Vector2(330, -330), Vector2(-563, -563), Vector2(200, 200), Vector2(682, -81), Vector2(-200, -239)]
+new_pos = [Vector2(0, 0), Vector2(410, -437), Vector2(-563, -563), Vector2(300, 300), Vector2(-958.09, 400), Vector2(1271, -279)]
 phase = [1, 2, 3, 4, 5, 6]
 eye_num = [0, 4, 3, 6, 4, 3]
 hp = [10, 10, 10, 10, 10, 10]
@@ -12,6 +12,6 @@ fire_rate = [1.0, 3.0, 4.0, 3.0, 2.0, 4.0]
 spc_chance = [0.35, 1.0, 0.0, 0.0, 0.5, 0.5]
 accur = [0.2, 0.35, 0.35, 0.01, 0.35, 0.35]
 bullet_speed = [4.0, 3.0, 1.0, 2.0, 1.0, 3.1]
-spin_speed = [0.1, -0.09, 0.05, -0.3, -0.18, 0.22]
+spin_speed = [0.12, -0.1, 0.2, -0.21, 0.18, -0.18]
 circle_bullet_fire = [20, 20, 20, 40, 20, 30]
 spike_num = [2, 2, 2, 2, 2, 2]

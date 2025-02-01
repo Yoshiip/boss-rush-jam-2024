@@ -16,11 +16,11 @@ var velocity := Vector2.ZERO
 var homing_direction := Vector2.ZERO
 var speed := 1.5
 var bounces_count_bullet := 0
-var bounces_count := 0
+var deflects_count_bullet := 0
 
 
 
-var bounce_powerup := false
+var bounce_powerup_lvl := 0
 
 var max_bounces := 2
 var max_splits := 0
@@ -44,7 +44,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	position += velocity * speed
 	
-	if ray_cast_homing.is_colliding():
+	if ray_cast_homing.is_colliding()&& !from_enemy:
 		var coll := ray_cast_homing.get_collider()
 		if coll && coll.is_in_group("enemy"):
 			homing_direction = (coll.global_position - global_position).normalized()
@@ -73,7 +73,11 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage)
 		destroy_bullet()
 	elif body.is_in_group("Obstacle"):
-		if bounce_powerup:
+		
+		if !max_bounces>0:
+				destroy_bullet()
+		max_bounces-=1
+		if bounce_powerup_lvl> 0:
 			speed *= 1.1
 			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
 			damage += 1
@@ -84,13 +88,12 @@ func _on_body_entered(body: Node2D) -> void:
 			ray_cast.set_target_position(velocity.normalized() * 30)
 			if not from_enemy:
 				ray_cast_homing.set_target_position(velocity.normalized() * 300)
-				if max_bounces > 0:
+				if max_splits > 0:
 					_fire()
-					max_bounces -= 1
-			bounces_count += 1
+					max_splits -= 1
 			
-			if bounces_count>= max_bounces:
-				destroy_bullet()
+			
+			
 		else:
 			destroy_bullet()
 	
@@ -98,12 +101,13 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_area_entered(body: Node2D) -> void:
 	if body.is_in_group("Bullet") && !from_enemy && body.from_enemy && max_deflects > 0:
 		var other_bullet := body
-		bounces_count += 1
+		
 		max_deflects-= 1
 			
 		var collision_normal := (body.global_position - global_position).normalized()
-		if !max_pierces > bounces_count_bullet:
+		if !max_pierces > 0:
 			bounce_of_position(body.global_position)
+			max_pierces-=1
 		if max_infections > 0:
 			modulate = Color.DARK_CYAN
 			other_bullet.from_enemy = false
@@ -112,8 +116,8 @@ func _on_area_entered(body: Node2D) -> void:
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
-		other_bullet.bounces_count+=1
-		if other_bullet.bounce_powerup:
+		other_bullet.max_bounces-=1
+		if other_bullet.bounce_powerup_lvl:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
 	if body.is_in_group("Spikeball"):
@@ -133,14 +137,14 @@ func _fire() -> void:
 
 	bullet.velocity = Vector2.RIGHT.rotated(rotation)
 	
-	if GameManager.is_deflect():
+	if GameManager.get_deflection()>0:
 		bullet.max_deflects = GameManager.get_deflection()
 		bullet.max_infections = GameManager.get_infection_bullet()
 		bullet.max_pierces = GameManager.get_pierces()
 
-	bullet.max_bounces = GameManager.get_bounces()
-	bullet.bounces_count = bounces_count
-	bullet.max_splits = GameManager.get_splits()-1
-	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
+	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
+	bullet.max_bounces = GameManager.get_bounces()+1
+	bullet.max_splits = GameManager.get_splits()
+	bullet.scale = Vector2(scale.x * 0.8, scale.y * 0.8)
 	
 	call_deferred("add_sibling", bullet)
