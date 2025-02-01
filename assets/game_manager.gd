@@ -7,19 +7,19 @@ const UI_SOUNDS = {
 }
 
 var save_data = {
-	"points": 10,
+	"points": 6,
 	"level": 0,
 	
 	# UPGRADES
-	"hull_health": 0,
-	"fire_rate": 0,
-	"thrusters": 0,
+	"hull_health": 1,
+	"fire_rate": 1,
+	"thrusters": 1,
 	"bullet_size": 0,
-	"bullet_speed": 0,	
+	"bullet_speed": 1,	
 	# BOUNCES UPGRADES
-	"bullet_bounce": 3,
+	"bullet_bounce": 0,
 	"damage_on_bounce": 0,
-	"split_on_bounce": 3,
+	"split_on_bounce": 0,
 	
 	# DEFLECT UPGRADES
 	"deflection_bullet": 0,
@@ -29,25 +29,24 @@ var save_data = {
 
 func clear_save_data() -> void:
 	save_data = {
-		"points": 10,
-		"level": 0,
-		
-		# UPGRADES
-		"hull_health": 0,
-		"fire_rate": 0,
-		"thrusters": 2,
-		"bullet_size": 0,
-		"bullet_speed": 0,
-		
-		# BOUNCES UPGRADES
-		"bullet_bounce": 3,
-		"damage_on_bounce": 3,
-		"split_on_bounce": 3,
-		
-		# DEFLECT BULLETS
-		"deflection_bullet": 3,
-		"pierce_bullet": 0,
-		"infection_bullet" : 0,
+	"points": 6,
+	"level": 0,
+	
+	# UPGRADES
+	"hull_health": 1,
+	"fire_rate": 1,
+	"thrusters": 1,
+	"bullet_size": 0,
+	"bullet_speed": 1,	
+	# BOUNCES UPGRADES
+	"bullet_bounce": 0,
+	"damage_on_bounce": 0,
+	"split_on_bounce": 0,
+	
+	# DEFLECT UPGRADES
+	"deflection_bullet": 0,
+	"pierce_bullet": 0,
+	"infection_bullet" : 0,
 	}
 
 # functions to return the max of each levels
