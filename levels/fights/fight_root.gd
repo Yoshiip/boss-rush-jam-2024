@@ -1,6 +1,8 @@
 class_name FightRoot
 extends Node2D
 
+@export var spin_speed := 0.1
+
 @onready var spaceship: Spaceship = $Spaceship
 
 const PAUSE = preload("res://ui/pause/pause.tscn")
