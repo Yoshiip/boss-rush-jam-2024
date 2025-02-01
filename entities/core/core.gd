@@ -11,10 +11,12 @@ const CORE_DEAD_TEXTURE = preload("res://entities/core/core_dead.png")
 @onready var health := max_health
 @export var stats : boss_phase_info
 @export var contact_damage := 1
-
+@export var max_shoot_timer := 20.0
+var shoot_timer := max_shoot_timer
 
 ## The number of phases the boss has. The float represents the ratio of speed required to trigger the phase.
 @export var phases: Array[float] = [
+	0.9,
 	0.8,
 	0.6,
 	0.4,
@@ -47,8 +49,8 @@ func _shoot_circle(number : float) -> void:
 		bullet.position = position
 		bullet.from_enemy = true
 		bullet.rotation = (PI * 2.0) / number * i
-		bullet.bounce_powerup = true
-		bullet.bounces_count = -1
+		bullet.bounce_powerup_lvl = true
+		bullet.max_bounces = 3
 		bullet.special_enemy_projectile = true
 		call_deferred("add_sibling", bullet)
 
@@ -56,6 +58,7 @@ func _shoot_circle(number : float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Bullet") && !area.from_enemy:
 		health -= area.damage
+		_shoot_circle(6)
 		if  phase < phases.size() && health <= phases[phase] * max_health:
 			$BossAnger.play()
 			phase+=1
@@ -84,6 +87,10 @@ func _on_area_entered(area: Area2D) -> void:
 func _process(delta: float) -> void:
 	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1)
 	i += delta
+	shoot_timer -= delta
+	if shoot_timer <= 0.0:
+		shoot_timer = max_shoot_timer
+		_shoot_circle(6)
 
 
 

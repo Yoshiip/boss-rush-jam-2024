@@ -95,7 +95,7 @@ func _fire() -> Bullet:
 	$Shoot.play()
 	var bullet = BULLET.instantiate()
 	bullet.position = $ShootPoint.global_position
-	bullet.speed = bullet_speed
+	bullet.speed =  GameManager.get_bullet_speed()
 	#bullet.speed = BULLETS_SPEED[GameManager.save_data.bullet_speed]
 	bullet.from_enemy = false
 	
@@ -113,6 +113,7 @@ func _fire() -> Bullet:
 		bullet.max_pierces = GameManager.get_pierces()
 	bullet.max_bounces = GameManager.get_bounces()
 	bullet.max_splits = GameManager.get_splits()
+	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
 
 	add_sibling(bullet)

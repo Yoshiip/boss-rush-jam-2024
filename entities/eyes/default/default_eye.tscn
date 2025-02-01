@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfbwxs86sb8p1"]
+[gd_scene load_steps=9 format=3 uid="uid://cfbwxs86sb8p1"]
 
 [ext_resource type="Script" path="res://entities/eyes/default/default_eye.gd" id="1_gfg3s"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="2_8iku6"]
@@ -14,10 +14,13 @@ shader_parameter/whitening = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
 radius = 32.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_dbj01"]
+radius = 80.399
+
 [node name="DefaultEye" type="CharacterBody2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
 max_shoot_timer = 3.0
-max_health = 6
+max_health = 7
 dead_texture = ExtResource("2_uden6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -34,3 +37,8 @@ bus = &"Effects"
 
 [node name="ShootPoint" type="Marker2D" parent="."]
 position = Vector2(32, 0)
+
+[node name="homing_radius" type="Area2D" parent="." groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="homing_radius"]
+shape = SubResource("CircleShape2D_dbj01")
