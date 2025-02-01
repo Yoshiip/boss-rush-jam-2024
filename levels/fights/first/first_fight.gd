@@ -5,7 +5,6 @@ extends FightRoot
 func _ready() -> void:
 	super()
 	
-	
 	for pos in _get_random_valid_positions(3):
 		_spawn_enemy("spike_ball", pos)
 	for pos in _get_random_valid_positions(2):
@@ -37,10 +36,6 @@ func _on_core_new_phase(index: int) -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	planet.rotation += delta * spin_speed
-	if Input.is_action_just_pressed("fire"):
-		var point := _get_random_valid_positions(1)[0]
-		_spawn_enemy("", point)
 
 func spawn_wave(count: int) -> void:
 	for pos in _get_random_valid_positions(count):

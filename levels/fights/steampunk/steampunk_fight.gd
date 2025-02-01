@@ -23,8 +23,8 @@ func _ready() -> void:
 	_add_digits()
 
 func _process(delta: float) -> void:
-	$Planet.rotation += spin_speed * delta
-	$Hands/Big.rotation += delta * -spin_speed * 30.0
+	super(delta)
+	$Hands/Big.rotation += delta * -spin_speed
 	$Hands/Small.rotation += delta * -spin_speed * 1/12
 
 func _on_digit_on(number: int) -> void:

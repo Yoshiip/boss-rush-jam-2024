@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://levels/intro/intro.gd" id="1_6wgeg"]
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="2_77im3"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_p46tp"]
-[ext_resource type="AudioStream" uid="uid://c1rojh5h8xxn0" path="res://audios/musics/intro.mp3" id="4_o52jr"]
+[ext_resource type="AudioStream" uid="uid://caxrq7c5lw4pu" path="res://audios/musics/intro.mp3" id="4_o52jr"]
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_6wgeg")

@@ -14,11 +14,7 @@ var stats: BossInfo
 var positions: Node2D
 
 var phase := 0
-var starting_wave_args=[3,10,2,0, 0.35,1]
-var wave_args_adjust=[1,0,-0.1,0.4,-0.1,0.1]
 var wave_args=[0,0,0,0,0,0]
-var spin_speed_change =.12
-var circle_shoot_amount =15
 
 @onready var camera: BetterCamera = get_tree().current_scene.get_node("Camera")
 @onready var root: FightRoot = get_tree().current_scene
@@ -33,12 +29,13 @@ func _ready() -> void:
 	root.spin_speed = stats.spin_speed[phase]
 
 func _shoot_circle(number : float) -> void:
+	var offset_rot := randf() * TAU
 	for i in number:
 		var bullet: Bullet = BULLET.instantiate()
 		if !is_instance_valid(bullet): return
 		bullet.position = position
 		bullet.from_enemy = true
-		bullet.rotation = (PI * 2.0) / number * i
+		bullet.rotation = offset_rot + (PI * 2.0) / number * i
 		bullet.bounce_powerup_lvl = true
 		bullet.max_bounces = 3
 		bullet.special_enemy_projectile = true
@@ -47,7 +44,8 @@ func _shoot_circle(number : float) -> void:
 
 func take_damage(amount: float) -> void:
 	health -= amount
-	_shoot_circle(6)
+	if randf() > 0.7:
+		_shoot_circle(4 + randi() % 2)
 	if  phase < stats.phases.size() && health <= stats.phases[phase] * max_health:
 		$BossAnger.play()
 		phase+=1

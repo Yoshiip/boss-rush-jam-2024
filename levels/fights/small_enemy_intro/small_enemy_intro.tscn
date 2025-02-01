@@ -9,6 +9,7 @@
 
 [node name="Small_Enemy_Intro" type="Node2D"]
 script = ExtResource("1_hnvb3")
+planet_radius = 800.0
 boss = ExtResource("2_u0uai")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_ex2di")]
@@ -46,12 +47,12 @@ position = Vector2(-37, 221)
 [node name="Spawn_Point5" type="Node2D" parent="Planet" groups=["EnemySpawnpoint"]]
 position = Vector2(-312, 547)
 
-[node name="BossPositions" type="Node2D" parent="Planet"]
+[node name="BossPositions" type="Node2D" parent="."]
 
-[node name="0" type="Marker2D" parent="Planet/BossPositions"]
+[node name="0" type="Marker2D" parent="BossPositions"]
 
-[node name="1" type="Marker2D" parent="Planet/BossPositions"]
+[node name="1" type="Marker2D" parent="BossPositions"]
 position = Vector2(640, -328)
 
-[node name="2" type="Marker2D" parent="Planet/BossPositions"]
+[node name="2" type="Marker2D" parent="BossPositions"]
 position = Vector2(0, 584)

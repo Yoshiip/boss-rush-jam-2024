@@ -89,18 +89,18 @@ position = Vector2(-733, -73)
 position = Vector2(-1148, 769)
 scale = Vector2(2, 2)
 
-[node name="BossPositions" type="Node2D" parent="Planet"]
+[node name="BossPositions" type="Node2D" parent="."]
 
-[node name="0" type="Marker2D" parent="Planet/BossPositions"]
+[node name="0" type="Marker2D" parent="BossPositions"]
 
-[node name="1" type="Marker2D" parent="Planet/BossPositions"]
+[node name="1" type="Marker2D" parent="BossPositions"]
 position = Vector2(-360, 808)
 
-[node name="2" type="Marker2D" parent="Planet/BossPositions"]
+[node name="2" type="Marker2D" parent="BossPositions"]
 position = Vector2(-1000, -584)
 
-[node name="3" type="Marker2D" parent="Planet/BossPositions"]
+[node name="3" type="Marker2D" parent="BossPositions"]
 position = Vector2(728, -1048)
 
-[node name="4" type="Marker2D" parent="Planet/BossPositions"]
+[node name="4" type="Marker2D" parent="BossPositions"]
 position = Vector2(-552, 424)

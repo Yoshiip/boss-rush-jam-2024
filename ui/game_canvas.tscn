@@ -43,6 +43,18 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5c4v"]
+bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.190384, 0.245154, 0.320473, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
 [sub_resource type="Animation" id="Animation_vlkrs"]
 length = 0.001
 tracks/0/type = "value"
@@ -238,18 +250,6 @@ _data = {
 "RESET": SubResource("Animation_7iggc")
 }
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q5c4v"]
-bg_color = Color(0.0823529, 0.113725, 0.156863, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.190384, 0.245154, 0.320473, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
 [node name="Canvas" type="CanvasLayer"]
 
 [node name="Container" type="Control" parent="."]
@@ -334,6 +334,38 @@ step = 1.0
 value = 50.0
 fill_mode = 1
 show_percentage = false
+
+[node name="Compass" type="Panel" parent="Container"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -52.0
+offset_top = -52.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q5c4v")
+
+[node name="Arrow" type="TextureRect" parent="Container/Compass"]
+modulate = Color(0.894118, 0.231373, 0.266667, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(10, 10)
+texture = ExtResource("9_xpw7o")
 
 [node name="Transition" type="Control" parent="Container"]
 visible = false
@@ -432,7 +464,7 @@ libraries = {
 
 [node name="Music" type="AudioStreamPlayer" parent="Container/GameOver"]
 stream = ExtResource("5_c6tqm")
-volume_db = -4.0
+volume_db = -8.0
 bus = &"Music"
 
 [node name="Death" type="AudioStreamPlayer" parent="Container/GameOver"]
@@ -463,38 +495,6 @@ texture = ExtResource("7_3bnj0")
 expand_mode = 1
 stretch_mode = 5
 script = ExtResource("8_vlxcy")
-
-[node name="Compass" type="Panel" parent="Container"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -52.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_q5c4v")
-
-[node name="Arrow" type="TextureRect" parent="Container/Compass"]
-modulate = Color(0.894118, 0.231373, 0.266667, 1)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(10, 10)
-texture = ExtResource("9_xpw7o")
 
 [connection signal="animation_finished" from="Container/Transition/AnimationPlayer" to="Container/Transition" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="Container/GameOver/AnimationPlayer" to="Container/GameOver" method="_on_animation_player_animation_finished"]

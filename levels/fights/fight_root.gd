@@ -42,8 +42,8 @@ var compass: TextureRect
 func _add_core() -> void:
 	core = CORE.instantiate()
 	core.stats = boss
-	core.global_position = $Planet/BossPositions.get_child(0).global_position
-	core.positions = $Planet/BossPositions
+	core.global_position = $BossPositions.get_child(0).global_position
+	core.positions = $BossPositions
 	add_child(core)
 
 func _ready() -> void:
@@ -65,6 +65,7 @@ func _ready() -> void:
 	canvas.get_node("Container/Transition/Title").text = boss.name
 	crossfade = Crossfade.new()
 	crossfade.a_stream = boss.music
+	crossfade.process_mode = Node.PROCESS_MODE_ALWAYS
 	crossfade.b_stream = boss.pause_music
 	crossfade.db = boss.music_db
 	add_child(crossfade)
@@ -103,8 +104,12 @@ func _on_door_closing() -> void:
 	UiUtils.apply_transition(canvas.get_node("Container/PlayerHealth"))
 	UiUtils.apply_transition(canvas.get_node("Container/BossHealth"))
 
+
+var _current_spin_speed := 0.0
 func _process(delta: float) -> void:
+	_current_spin_speed = lerp(_current_spin_speed, spin_speed, delta)
 	
+	planet.rotation += delta * _current_spin_speed
 	if is_instance_valid(core) && is_instance_valid(spaceship):
 		var pos := core.global_position - spaceship.global_position
 		
@@ -125,14 +130,21 @@ func _on_core_health_changed() -> void:
 func _on_core_dead() -> void:
 	crossfade.stop_both()
 	var tween := get_tree().create_tween().bind_node(self)
+	spaceship.get_node("CollisionShape").queue_free()
 	tween.tween_property(canvas.get_node("Container"), "modulate", Color.TRANSPARENT, 0.5)
+	tween.tween_interval(5.0)
+	tween.tween_callback(_change_scene)
 	spaceship.invicibility_timer = 10.0
 	spaceship.allow_inputs.append("end")
 	var animation := BOSS_DEAD_ANIMATION.instantiate()
 	animation.global_position = core.global_position
 	add_child(animation)
-	await get_tree().create_timer(5.0).timeout
-	get_tree().change_scene_to_file("res://ui/computer/computer.tscn")
+
+func _change_scene() -> void:
+	if GameManager.save_data.level == 4:
+		get_tree().change_scene_to_file("res://levels/victory/victory.tscn")
+	else:
+		get_tree().change_scene_to_file("res://ui/computer/computer.tscn")
 
 func _unhandled_key_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):

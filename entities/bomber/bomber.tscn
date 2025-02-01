@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cy71ee6yb0t0w"]
+[gd_scene load_steps=9 format=3 uid="uid://cy71ee6yb0t0w"]
 
 [ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="1_hb1wa"]
 [ext_resource type="Script" path="res://entities/bomber/bomber.gd" id="1_khg4o"]
 [ext_resource type="Texture2D" uid="uid://bkycxfbhhb517" path="res://entities/warning.png" id="3_3wd7o"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="3_s7alk"]
 [ext_resource type="Texture2D" uid="uid://fdghs4xd54o4" path="res://assets/utils/circle_256_16.png" id="5_dbcl3"]
+[ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="6_65gxg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qa6qw"]
 shader = ExtResource("3_s7alk")
@@ -15,6 +16,7 @@ shader_parameter/whitening = 0.0
 
 [node name="Bomber" type="CharacterBody2D"]
 script = ExtResource("1_khg4o")
+max_health = 3
 dead_texture = ExtResource("1_hb1wa")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -33,3 +35,7 @@ texture = ExtResource("3_3wd7o")
 [node name="Circle" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("5_dbcl3")
+
+[node name="Death" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_65gxg")
+bus = &"Effects"

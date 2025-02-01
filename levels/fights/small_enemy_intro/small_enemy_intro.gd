@@ -15,13 +15,10 @@ func _on_core_new_phase(index: int) -> void:
 			spawn_wave(4)
 		4:
 			spawn_wave(4)
-			
 		5:
 			spawn_wave(4)
 			pass
 
-func _process(delta: float) -> void:
-	planet.rotation += delta * spin_speed
 
 func spawn_enemy(enemy_id: String, pos: Vector2) -> void:
 	var enemy: PhysicsBody2D
