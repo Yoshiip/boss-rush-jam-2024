@@ -44,6 +44,7 @@ func _next_text() -> void:
 		_close_dialogue()
 		return
 	
+	$DialogueNext.play()
 	$Gradient/NextArrow.visible = progress <= dialogue.size() - 2
 	var text := dialogue[progress]
 	

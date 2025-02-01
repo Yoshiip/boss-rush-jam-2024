@@ -11,19 +11,25 @@ func _ready() -> void:
 	tween.tween_callback(_start_dialogue)
 
 const PHONE_TEXTURE = preload("res://ui/dialogue/portraits/phone.jpg")
+const MAN_TEXTURE = preload("res://ui/dialogue/portraits/man.jpg")
 
+var dialogue: Control
 func _start_dialogue() -> void:
-	var dialogue = DIALOGUE.instantiate()
+	dialogue = DIALOGUE.instantiate()
 	dialogue.ended.connect(_on_dialogue_ended)
 	dialogue.event.connect(_on_dialogue_event)
 	dialogue.dialogue = GameDialogues.INTRO_DIALOGUE
 	dialogue.set_other("Phone", PHONE_TEXTURE)
 	$Canvas/Container.add_child(dialogue)
+
+
 func _on_dialogue_event(id: String) -> void:
 	match id:
 		"ship":
+			dialogue.set_other("Mr. K", MAN_TEXTURE)
 			$Canvas/Container/Spaceship.visible = true
 			$Canvas/Container/Spaceship.modulate.a = 0.0
+			
 			var tween := get_tree().create_tween()
 			tween.tween_property($Canvas/Container/Spaceship, "modulate:a", 1.0, 0.5)
 

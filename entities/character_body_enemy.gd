@@ -22,10 +22,8 @@ func take_damage(amount: float) -> void:
 	if health <= 0:
 		$Sprite.texture = dead_texture
 		$Death.play()
-		var tween := get_tree().create_tween().bind_node(self)
-		tween.tween_property($Sprite.material, "shader_parameter/modulate", Color.DIM_GRAY, 0.5)
 		camera.add_trauma(5)
-		queue_redraw()
+		queue_free()
 	else:
 		$Sprite.material.set_shader_parameter("whitening", 1.0)
 		var tween := get_tree().create_tween()

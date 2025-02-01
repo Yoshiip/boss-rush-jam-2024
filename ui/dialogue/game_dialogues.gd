@@ -34,7 +34,6 @@ static var INTRO_DIALOGUE: Array[String] = [
 	"o:Right now, we look forward to seeing you at our headquarters.",
 	"i:2",
 	"#ship",
-	"i:1",
 	"o:This is your ship for these missions. It's state-of-the-art and will be your perfect tool for fighting Void Things.",
 	"o:It's highly modular. Take a look at it and choose how you want to modify it.",
 	"o:When you're ready, let me know and I'll send you on your first mission.",

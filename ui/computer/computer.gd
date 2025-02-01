@@ -47,10 +47,12 @@ func _ready() -> void:
 var char_timer := 0.05
 func _process(delta: float) -> void:
 	char_timer -= delta
+	var skipping := Input.is_action_pressed("fire")
 	if terminal_text.visible_characters < terminal_text.text.length() && char_timer <= 0.0:
 		terminal_text.visible_characters += 1
 		$Keyboard.pitch_scale = randf_range(0.8, 1.2)
-		$Keyboard.play()
+		if not skipping:
+			$Keyboard.play()
 		var current_character := terminal_text.text[terminal_text.visible_characters - 1]
 		match current_character:
 			":":
@@ -65,7 +67,7 @@ func _process(delta: float) -> void:
 				char_timer = 0.1
 			_:
 				char_timer = 0.05
-		if Input.is_action_pressed("fire"):
+		if skipping:
 			char_timer *= 0.1
 			
 	if Input.is_action_just_pressed("fire") && terminal_text.visible_characters == terminal_text.text.length():
