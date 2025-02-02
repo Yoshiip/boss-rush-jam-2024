@@ -10,7 +10,7 @@
 size = Vector2(64, 64)
 
 [sub_resource type="Curve" id="Curve_aj8fj"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 0.2), 0.0, 0.0, 0, 0, Vector2(0.8, 0.6), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.4), 0.0, 0.0, 0, 0, Vector2(0.1, 0.1), 0.0, 0.0, 0, 0, Vector2(0.8, 0.3), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 4
 metadata/_snap_enabled = true
 
@@ -44,7 +44,7 @@ bus = &"Effects"
 
 [node name="ConnectLine" type="Line2D" parent="."]
 modulate = Color(1, 1, 1, 0.247059)
-width = 48.0
+width = 200.0
 width_curve = SubResource("Curve_aj8fj")
 default_color = Color(0.172549, 0.909804, 0.960784, 1)
 joint_mode = 2

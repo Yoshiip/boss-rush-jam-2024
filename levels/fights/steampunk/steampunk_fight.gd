@@ -12,11 +12,12 @@ func _add_digits() -> void:
 		
 		digit.position = Vector2(cos(angle), sin(angle)) * radius
 		digit.digit = i+1
-		digit.digit_on.connect(_on_digit_on)
+		digit.touched.connect(_on_digit_touched)
 		$Digits.add_child(digit)
 
 func _on_core_new_phase(index: int) -> void:
-	pass
+	for pos in _get_random_valid_positions(3):
+		_spawn_enemy("", pos)
 
 func _ready() -> void:
 	super()
@@ -27,7 +28,7 @@ func _process(delta: float) -> void:
 	$Hands/Big.rotation += delta * -spin_speed
 	$Hands/Small.rotation += delta * -spin_speed * 1/12
 
-func _on_digit_on(number: int) -> void:
+func _on_digit_touched(number: int) -> void:
 	if number == 12:
 		$DigitsFinal.play()
 		var no_on := 0

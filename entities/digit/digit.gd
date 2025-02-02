@@ -1,6 +1,6 @@
 extends Area2D
 
-signal digit_on(number: int)
+signal touched(number: int)
 
 @export var digit := 1
 
@@ -65,10 +65,9 @@ func _process(delta: float) -> void:
 			last_core_position = core.global_position
 			$ConnectLine.clear_points()
 			var step := Vector2.ZERO
-			for i in range(LINES_POINT):
+			for i in range(LINES_POINT+1):
 				$ConnectLine.add_point(step - global_position + core.global_position)
 				step += (global_position - core.global_position) / LINES_POINT
-				print(step)
 	$Sprites.scale = $Sprites.scale.lerp(Vector2.ONE, 5.0 * delta)
 	$Light.scale = Vector2.ONE * (1.0 + cos(i * 2.0) * 0.2)
 	$Light.visible = on
@@ -88,8 +87,9 @@ func take_damage(_amount: int) -> void:
 	broken = true
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.is_in_group(&"HandClock") and not on and not broken:
-		$On.play()
-		$Sprites.scale = Vector2.ONE * 1.5
-		on = true
-		digit_on.emit(digit)
+	if area.is_in_group(&"HandClock"):
+		if not on and not broken:
+			$On.play()
+			$Sprites.scale = Vector2.ONE * 1.5
+			on = true
+		touched.emit(digit)
