@@ -8,8 +8,8 @@
 
 [resource]
 script = ExtResource("1_acu21")
-name = "Tau-01"
-max_health = 100
+name = "Beta-02"
+max_health = 110
 sprite = ExtResource("5_e0r3x")
 background = ExtResource("1_buqmp")
 music = ExtResource("2_r5o0e")

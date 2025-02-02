@@ -70,7 +70,6 @@ text = "Main Menu"
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_5ncrt")
 volume_db = -4.0
-autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="Canvas/Container/Container/Button" to="." method="_on_button_pressed"]

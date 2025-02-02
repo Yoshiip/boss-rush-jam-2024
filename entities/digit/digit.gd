@@ -65,7 +65,7 @@ func _process(delta: float) -> void:
 			last_core_position = core.global_position
 			$ConnectLine.clear_points()
 			var step := Vector2.ZERO
-			for i in range(LINES_POINT+1):
+			for j in range(LINES_POINT+1):
 				$ConnectLine.add_point(step - global_position + core.global_position)
 				step += (global_position - core.global_position) / LINES_POINT
 	$Sprites.scale = $Sprites.scale.lerp(Vector2.ONE, 5.0 * delta)

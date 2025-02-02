@@ -10,7 +10,7 @@ func _ready() -> void:
 	if OS.is_debug_build():
 		$AnimationPlayer.speed_scale = 10.0
 
-func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	root.transition_ended()
 	queue_free()
 

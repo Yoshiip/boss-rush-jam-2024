@@ -146,7 +146,7 @@ func _handle_weapon(delta: float) -> void:
 		)
 	
 		if axis_shoot.length() > 0:
-			var bullet := _fire()
+			_fire()
 
 
 func _apply_force(delta: float) -> void:
@@ -199,5 +199,5 @@ func check_if_crushed() -> void:
 		
 
 
-func _on_crush_detection_body_entered(body: Node2D) -> void:
+func _on_crush_detection_body_entered(_body: Node2D) -> void:
 	take_damage(100)

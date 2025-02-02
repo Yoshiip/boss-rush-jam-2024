@@ -15,34 +15,16 @@ func _add_digits() -> void:
 		digit.touched.connect(_on_digit_touched)
 		$Digits.add_child(digit)
 
-func _on_core_new_phase(index: int) -> void:
+func _on_core_new_phase(_index: int) -> void:
 	for pos in _get_random_valid_positions(3):
 		_spawn_enemy("", pos)
 
-const DIALOGUE = preload("res://ui/dialogue/dialogue.tscn")
-
-var dialogue: Dialogue
-func _on_dialogue_event(id: String) -> void:
-	dialogue.set_other("Chief", MAN_TEXTURE)
-
-const MAN_TEXTURE = preload("res://ui/dialogue/portraits/man.jpg")
 
 
 func _ready() -> void:
 	super()
-	dialogue = DIALOGUE.instantiate()
-	var dial: Array[String]
-	dial.assign(GameDialogues.MISSIONS[4])
-	dialogue.dialogue = dial
-	dialogue.ended.connect(_on_dialogue_ended)
-	dialogue.event.connect(_on_dialogue_event)
-	
-	spaceship.allow_inputs.append("dialogue")
-	canvas.get_node("Container").add_child(dialogue)
 	_add_digits()
 
-func _on_dialogue_ended() -> void:
-	spaceship.allow_inputs.erase("dialogue")
 
 func _process(delta: float) -> void:
 	super(delta)

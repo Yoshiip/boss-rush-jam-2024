@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_vu4mk")
-name = "Beta-02"
+name = "Tau-01"
 max_health = 80
 sprite = ExtResource("5_1pavk")
 background = ExtResource("1_sg1hd")
