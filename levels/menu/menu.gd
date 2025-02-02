@@ -52,6 +52,8 @@ func _build_credits() -> void:
 		card.get_node("Name").text = author.name
 		card.get_node("Role").text = author.role
 		credits_container.add_child(card)
+
+
 func _ready() -> void:
 	_build_credits()
 	credits_section.visible = false
@@ -73,8 +75,11 @@ func _input(event: InputEvent) -> void:
 		$Canvas/Container/Start.visible = false
 		$Canvas/Container/Menu.visible = true
 
+
 func _on_play_button_pressed() -> void:
+	GameManager.clear_save_data()
 	get_tree().change_scene_to_file("res://levels/intro/intro.tscn")
+
 
 func _on_credits_button_pressed() -> void:
 	menu_section.visible = false

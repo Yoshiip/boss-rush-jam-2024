@@ -1,3 +1,4 @@
+class_name Dialogue
 extends Control
 
 signal event(id: String)
@@ -22,9 +23,7 @@ func set_other(new_other_name: String, texture: CompressedTexture2D) -> void:
 
 func _ready() -> void:
 	$AnimationPlayer.play("Open")
-	
-	$Gradient/Content.text = dialogue[progress]
-
+	_next_text()
 
 func _close_dialogue() -> void:
 	set_process(false)
@@ -36,17 +35,23 @@ func _close_dialogue() -> void:
 
 var locked := false
 
+
 func _next_text() -> void:
 	visible_characters = 0
-	progress += 1
 	if progress >= dialogue.size():
 		set_process(false)
 		_close_dialogue()
 		return
 	
-	$DialogueNext.play()
-	$Gradient/NextArrow.visible = progress <= dialogue.size() - 2
 	var text := dialogue[progress]
+	while text.begins_with("#"):
+		event.emit(text.lstrip("#"))
+		progress += 1
+		if progress >= dialogue.size():
+			set_process(false)
+			_close_dialogue()
+			return
+		text = dialogue[progress]
 	
 	var from_other := text.begins_with("o:")
 	if text.begins_with("i:"):
@@ -58,15 +63,14 @@ func _next_text() -> void:
 		locked = false
 		_next_text()
 		return
-	if text.begins_with("#"):
-		event.emit(text.lstrip('#'))
-		_next_text()
-		return
-	$Gradient/Portrait.texture = other_texture if from_other else PLAYER_PORTRAIT
 	
+	$Gradient/Portrait.texture = other_texture if from_other else PLAYER_PORTRAIT
 	$Gradient/Name.text = other_name if from_other else "You"
-	$Gradient/Content.text = dialogue[progress].lstrip('o:')
+	$Gradient/Content.text = text.lstrip("o:")
 	spawning_text = false
+	
+	progress += 1
+
 
 var spawning_text := false
 

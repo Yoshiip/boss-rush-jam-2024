@@ -183,7 +183,7 @@ libraries = {
 
 [node name="PlayButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]
 layout_mode = 2
-text = "Play"
+text = "New Game"
 script = ExtResource("3_feo83")
 
 [node name="SettingsButton" type="Button" parent="Canvas/Container/Menu/VBoxContainer"]

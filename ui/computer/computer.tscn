@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb37w5ufo82h6"]
+[gd_scene load_steps=7 format=3 uid="uid://cb37w5ufo82h6"]
 
 [ext_resource type="Script" path="res://ui/computer/computer.gd" id="1_ocgst"]
 [ext_resource type="Shader" path="res://ui/computer/vhs.gdshader" id="2_na5mr"]
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="2_v1ig6"]
 [ext_resource type="AudioStream" uid="uid://c4137nah0hddm" path="res://audios/effects/ui/keyboard.wav" id="4_yxilj"]
+[ext_resource type="AudioStream" uid="uid://caxrq7c5lw4pu" path="res://audios/musics/intro.mp3" id="5_dgbmx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_doowu"]
 shader = ExtResource("2_na5mr")
@@ -82,3 +83,9 @@ metadata/_edit_lock_ = true
 stream = ExtResource("4_yxilj")
 volume_db = -4.0
 bus = &"Effects"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_dgbmx")
+volume_db = -10.0
+autoplay = true
+bus = &"Music"

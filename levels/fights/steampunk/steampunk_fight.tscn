@@ -95,5 +95,5 @@ position = Vector2(0, -1096)
 
 [node name="DigitsFinal" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_ankrn")
-volume_db = 2.0
+volume_db = 12.0
 bus = &"Effects"
