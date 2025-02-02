@@ -23,7 +23,10 @@ func _update_ui() -> void:
 	$Container/Title.text = title
 	$Container/Container/Level/Current.text = str(current_level)
 	$Container/Container/Level/Max.text = str(max_level)
-	$Max.visible = current_level != 0 && current_level >= max_level
+	if is_instance_valid(constraint_node):
+		$Max.visible = current_level >= constraint_node.max_level
+	else:
+		$Max.visible = current_level >= max_level
 	$Container/Container/RemoveButton.visible = max_level != 0
 	$Container/Container/AddButton.visible = max_level != 0
 	modulate.a = 0.5 if max_level == 0 else 1.0

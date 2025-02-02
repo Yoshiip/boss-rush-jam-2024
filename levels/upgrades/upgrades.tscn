@@ -187,7 +187,7 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
-title = "Count"
+title = "B. Count"
 description = "Increase the max times the projectile can bounce off of terrain"
 max_level = 5
 
@@ -198,14 +198,14 @@ alignment = 1
 [node name="damage_on_bounce" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Damage"
+title = "B. Damage"
 description = "Increase the power of the projectile when it bounces. Max number of times = level"
 constraint = "bounce"
 
 [node name="split" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
-title = "Split"
+title = "B. Split"
 description = "Chance to spawn additional projectiles when it bounces."
 max_level = 4
 constraint = "bounce"
@@ -257,7 +257,7 @@ title = "Pierce"
 description = "Moves through enemy projectiles, while still triggering Deflect, and Infection. Max times = level"
 constraint = "deflection"
 
-[node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
+[node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" groups=["Spaceship"] instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Infection"
@@ -271,7 +271,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 21.0
 offset_top = -52.0
+offset_right = -21.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 8
@@ -288,7 +290,7 @@ autowrap_mode = 3
 [node name="Points" type="Label" parent="Canvas/Container/Footer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_nyu4o")
-text = "Research Points: 10"
+text = "Points: 10"
 horizontal_alignment = 1
 uppercase = true
 
