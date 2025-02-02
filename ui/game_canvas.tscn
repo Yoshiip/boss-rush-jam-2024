@@ -296,36 +296,41 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_2roa4")
 value = 83.38
 show_percentage = false
 
-[node name="BossHealth" type="VBoxContainer" parent="Container"]
-custom_minimum_size = Vector2(200, 0)
+[node name="Boss" type="HBoxContainer" parent="Container"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -272.0
-offset_top = -42.0
-offset_right = -72.0
-offset_bottom = -16.0
+offset_left = -260.0
+offset_top = -44.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/separation = 16
+alignment = 1
 
-[node name="Text" type="HBoxContainer" parent="Container/BossHealth"]
+[node name="Health" type="VBoxContainer" parent="Container/Boss"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Value" type="Label" parent="Container/BossHealth/Text"]
+[node name="Text" type="HBoxContainer" parent="Container/Boss/Health"]
+layout_mode = 2
+
+[node name="Value" type="Label" parent="Container/Boss/Health/Text"]
 layout_mode = 2
 text = "100%"
 
-[node name="Name" type="Label" parent="Container/BossHealth/Text"]
+[node name="Name" type="Label" parent="Container/Boss/Health/Text"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0.894118, 0.231373, 0.266667, 1)
 text = "BOSS"
 horizontal_alignment = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="Container/BossHealth"]
+[node name="ProgressBar" type="ProgressBar" parent="Container/Boss/Health"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_bwk67")
@@ -335,22 +340,12 @@ value = 50.0
 fill_mode = 1
 show_percentage = false
 
-[node name="Compass" type="Panel" parent="Container"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -52.0
-offset_top = -52.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Compass" type="Panel" parent="Container/Boss"]
+custom_minimum_size = Vector2(36, 36)
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q5c4v")
 
-[node name="Arrow" type="TextureRect" parent="Container/Compass"]
+[node name="Arrow" type="TextureRect" parent="Container/Boss/Compass"]
 modulate = Color(0.894118, 0.231373, 0.266667, 1)
 layout_mode = 1
 anchors_preset = 8

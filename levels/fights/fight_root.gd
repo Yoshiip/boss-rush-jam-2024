@@ -57,7 +57,7 @@ func _ready() -> void:
 	canvas = GAME_CANVAS.instantiate()
 	add_child(canvas)
 	
-	compass = canvas.get_node("Container/Compass/Arrow")
+	compass = canvas.get_node("Container/Boss/Compass/Arrow")
 	
 	canvas.get_node("Container/PlayerHealth/ProgressBar").max_value = spaceship.max_health
 	canvas.get_node("Container/PlayerHealth/ProgressBar").value = spaceship.max_health
@@ -87,9 +87,9 @@ func _ready() -> void:
 	
 	
 	canvas.get_node("Container/PlayerHealth").visible = false
-	canvas.get_node("Container/BossHealth").visible = false
+	canvas.get_node("Container/Boss").visible = false
 	
-	canvas.get_node("Container/BossHealth/ProgressBar").max_value = core.max_health
+	canvas.get_node("Container/Boss/Health/ProgressBar").max_value = core.max_health
 	
 	_on_core_health_changed()
 	
@@ -100,9 +100,9 @@ func _ready() -> void:
 
 func _on_door_closing() -> void:
 	canvas.get_node("Container/PlayerHealth").visible = true
-	canvas.get_node("Container/BossHealth").visible = true
+	canvas.get_node("Container/Boss").visible = true
 	UiUtils.apply_transition(canvas.get_node("Container/PlayerHealth"))
-	UiUtils.apply_transition(canvas.get_node("Container/BossHealth"))
+	UiUtils.apply_transition(canvas.get_node("Container/Boss"))
 
 
 var _current_spin_speed := 0.0
@@ -123,8 +123,8 @@ func _on_core_new_phase(_index: int) -> void:
 	pass
 
 func _on_core_health_changed() -> void:
-	canvas.get_node("Container/BossHealth/ProgressBar").value = core.health
-	canvas.get_node("Container/BossHealth/Text/Value").text = str(floor(core.health * 100.0 / core.max_health), "%")
+	canvas.get_node("Container/Boss/Health/ProgressBar").value = core.health
+	canvas.get_node("Container/Boss/Health/Text/Value").text = str(floor(core.health * 100.0 / core.max_health), "%")
 
 
 func _on_core_dead() -> void:
