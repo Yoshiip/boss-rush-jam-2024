@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://ui/computer/vhs.gdshader" id="2_na5mr"]
 [ext_resource type="Theme" uid="uid://bbcaen3oyqxer" path="res://ui/computer/terminal_theme.tres" id="2_v1ig6"]
 [ext_resource type="AudioStream" uid="uid://c4137nah0hddm" path="res://audios/effects/ui/keyboard.wav" id="4_yxilj"]
-[ext_resource type="AudioStream" uid="uid://caxrq7c5lw4pu" path="res://audios/musics/intro.mp3" id="5_dgbmx"]
+[ext_resource type="AudioStream" uid="uid://caoafhkwaubjw" path="res://audios/musics/computer.mp3" id="5_0dn26"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_doowu"]
 shader = ExtResource("2_na5mr")
@@ -85,7 +85,7 @@ volume_db = -4.0
 bus = &"Effects"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_dgbmx")
-volume_db = -10.0
+stream = ExtResource("5_0dn26")
+volume_db = -12.0
 autoplay = true
 bus = &"Music"
