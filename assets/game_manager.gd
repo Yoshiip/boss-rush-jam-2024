@@ -50,8 +50,8 @@ func clear_save_data() -> void:
 
 # functions to return the max of each levels
 
-const BULLETS_SIZE := [1.0, 1.25, 1.5, 1.75, 2.0]
-const BULLETS_SPEED := [5.0,7.0,10.0,13.0,15.0]
+const BULLETS_SIZE := [0.75,1.0, 1.5,1.75, 2.0]
+const BULLETS_SPEED := [1.5,3.0,5.0,7.0,10.0]
 
 func get_health() -> int:
 	return 4 + GameManager.save_data.hull_health * 3
@@ -96,9 +96,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func go_to_fight() -> void:
 	match save_data.level:
 		0:
-			get_tree().change_scene_to_file("res://levels/fights/small_enemy_intro/small_enemy_intro.tscn")
-		1:
 			get_tree().change_scene_to_file("res://levels/fights/terrain intro/terrain_intro.tscn")
+		1:
+			get_tree().change_scene_to_file("res://levels/fights/small_enemy_intro/small_enemy_intro.tscn")
 		2:
 			get_tree().change_scene_to_file("res://levels/fights/first/first_fight.tscn")
 		3:

@@ -19,8 +19,9 @@ func _ready() -> void:
 	UiUtils.apply_transition($Canvas/Container/Boxes/Bottom/Left)
 	UiUtils.apply_transition($Canvas/Container/Boxes/Bottom/Right)
 	UiUtils.apply_transition($Canvas/Container/Footer)
-	$Canvas/Container/Boxes/Bottom/Left.visible = GameManager.save_data.level >= 1
-	$Canvas/Container/Boxes/Bottom/Right.visible = GameManager.save_data.level >= 2
+	#After playing through the game multiple times, I think the upgrades need to be available from the begining
+	#$Canvas/Container/Boxes/Bottom/Left.visible = GameManager.save_data.level >= 0
+	#$Canvas/Container/Boxes/Bottom/Right.visible = GameManager.save_data.level >= 0
 
 func _upgrade_mouse_entered(upgrade: Panel) -> void:
 	description.text = upgrade.description

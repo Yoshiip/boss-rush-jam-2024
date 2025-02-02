@@ -126,23 +126,25 @@ max_level = 5
 [node name="thrusters" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
 title = "Thrusters"
-description = "Increase ship turn speed."
+description = "Increases ship speed."
 max_level = 4
 
 [node name="fire_rate" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
 title = "Fire Rate"
+description = "Decreases time between shots"
 max_level = 5
 
 [node name="bullet_size" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
 title = "Bullet Size"
 description = "Increase the size of your projectiles."
+max_level = 4
 
 [node name="bullet_speed" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
 title = "Bullet Speed"
-description = "Increase the speed at which bullets travel."
+description = "Increase Bullet Speed."
 max_level = 4
 
 [node name="Bottom" type="HBoxContainer" parent="Canvas/Container/Boxes"]
@@ -164,7 +166,7 @@ anchor_right = 1.0
 offset_bottom = 20.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-text = "Bounces"
+text = "Bounce"
 horizontal_alignment = 1
 uppercase = true
 
@@ -186,7 +188,8 @@ custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "Count"
-description = "Increase the max times the projectile can bounce."
+description = "Increase the max times the projectile can bounce off of terrain"
+max_level = 5
 
 [node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left/Left"]
 layout_mode = 2
@@ -196,14 +199,15 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Damage"
-description = "Increase the damage of the projectile each time it bounces."
+description = "Increase the power of the projectile when it bounces. Max number of times = level"
 constraint = "bounce"
 
 [node name="split" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Split"
-description = "Spawn addiotional projectile each time the projectile bounce."
+description = "Chance to spawn additional projectiles when it bounces."
+max_level = 4
 constraint = "bounce"
 
 [node name="Right" type="Panel" parent="Canvas/Container/Boxes/Bottom"]
@@ -218,7 +222,7 @@ anchor_right = 1.0
 offset_bottom = 20.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 10
-text = "Deflect"
+text = "Deflection"
 horizontal_alignment = 1
 uppercase = true
 
@@ -240,6 +244,7 @@ custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "Deflection"
+description = "Your bullets bounce off of enemy bullets, deflecting them. Max number of times = level"
 
 [node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right/Right"]
 layout_mode = 2
@@ -249,14 +254,14 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Pierce"
-description = "Increase luck of shooting proojectiles"
+description = "Moves through enemy projectiles, while still triggering Deflect, and Infection. Max times = level"
 constraint = "deflection"
 
 [node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Infection"
-description = "Increase luck of shooting projectiles that cure Void projectiles"
+description = "Converts Enemy bullets on contact, a number of times equal to level"
 constraint = "deflection"
 
 [node name="Footer" type="HBoxContainer" parent="Canvas/Container"]

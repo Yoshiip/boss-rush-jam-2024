@@ -22,7 +22,7 @@ const AUTHORS = [
 	{
 		"name": "Tentative",
 		"role": "Game Design, Code, Art",
-		"url": "",
+		"url": "https://itch.io/profile/brokenhand",
 	},
 	{
 		"name": "moose",

@@ -75,12 +75,17 @@ func _on_body_entered(body: Node2D) -> void:
 	elif body.is_in_group("Obstacle"):
 		
 		if !max_bounces>0:
-				destroy_bullet()
+			destroy_bullet()
 		max_bounces-=1
 		if bounce_powerup_lvl> 0:
 			speed *= 1.1
 			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
 			damage += 1
+		if !from_enemy:
+			if max_splits > 0:
+				for i in range(max_splits):
+					_fire()
+				max_splits -= 1
 		if ray_cast.is_colliding():
 			var collision_normal = ray_cast.get_collision_normal()
 		#var collision_normal = (body.global_position - global_position).normalized()
@@ -88,9 +93,7 @@ func _on_body_entered(body: Node2D) -> void:
 			ray_cast.set_target_position(velocity.normalized() * 30)
 			if not from_enemy:
 				ray_cast_homing.set_target_position(velocity.normalized() * 300)
-				if max_splits > 0:
-					_fire()
-					max_splits -= 1
+				
 			
 			
 			
@@ -109,9 +112,9 @@ func _on_area_entered(body: Node2D) -> void:
 			bounce_of_position(body.global_position)
 			max_pierces-=1
 		if max_infections > 0:
-			$Sprite.modulate = Color.DARK_CYAN
+			$Sprite.modulate = Color(1, 1, 1, 1)
 			other_bullet.from_enemy = false
-			other_bullet.get_node("Sprite").modulate = Color.DARK_CYAN
+			other_bullet.get_node("Sprite").modulate =Color(1, 1, 1, 1)
 			max_infections -=1
 		speed *= 0.8 
 		other_bullet.speed*=2
@@ -146,8 +149,8 @@ func _fire() -> void:
 		bullet.max_pierces = GameManager.get_pierces()
 
 	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
-	bullet.max_bounces = GameManager.get_bounces()+1
-	bullet.max_splits = GameManager.get_splits()
-	bullet.scale = Vector2(scale.x * 0.8, scale.y * 0.8)
+	bullet.max_bounces = GameManager.get_bounces()-1
+	bullet.max_splits = 0
+	bullet.scale = Vector2(scale.x * 1, scale.y * 1)
 	
-	call_deferred("add_sibling", bullet)
+	get_parent().add_child(bullet)
