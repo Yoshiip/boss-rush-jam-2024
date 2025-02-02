@@ -36,7 +36,7 @@ func _ready() -> void:
 		ray_cast_homing.set_target_position(velocity.normalized() * 400)
 	
 	if special_enemy_projectile:
-		$Sprite.modulate = Color.WEB_PURPLE
+		modulate = Color.WEB_PURPLE
 	if max_infections>0:
 		$Sprite.modulate = Color.DARK_CYAN
 	elif max_deflects>0:
