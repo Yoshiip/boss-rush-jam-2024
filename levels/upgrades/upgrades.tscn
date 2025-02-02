@@ -120,7 +120,8 @@ alignment = 1
 
 [node name="hull_health" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
-description = "Increase max health by 3."
+title = "Hull"
+description = "Increase max health by 5, but increases dash recharge time, and slightly decreases movement speed."
 max_level = 5
 
 [node name="thrusters" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]

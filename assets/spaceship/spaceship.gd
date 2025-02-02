@@ -35,7 +35,7 @@ var invicibility_timer := 0.0
 
 const SPEEDS := [360, 400, 455, 500, 550]
 const TURNING := [5,6,7,13,19]
-@onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
+@onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters] - GameManager.get_armor_penalty()
 @onready var turning_speed: float = TURNING[GameManager.save_data.thrusters]
 var fire_timer := fire_rate
 var weapon_toggle := false
@@ -51,8 +51,8 @@ func _ready() -> void:
 
 var thruster_on := false
 
-var max_dash_cooldown := 2.0
-var dash_cooldown := 2.0
+var max_dash_cooldown = 0.9 + GameManager.get_dash_timer()
+var dash_cooldown = 0.9 + GameManager.get_dash_timer()
 func _handle_input(delta: float) -> void:
 	var axis := Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down") if _is_allowed_inputs() else Vector2.ZERO
@@ -60,7 +60,7 @@ func _handle_input(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("dash") && dash_cooldown < 0.0:
 		$Dash.play()
-		velocity = Vector2.RIGHT.rotated(rotation) * 1400
+		velocity = Vector2.RIGHT.rotated(rotation) * 1200
 		$DashParticles.emitting = true
 		dash_cooldown = max_dash_cooldown
 	$EngineParticles.emitting = axis.length() > 0.25
@@ -86,10 +86,11 @@ func _handle_input(delta: float) -> void:
 			var goal_direction := axis.angle()
 			var dot_product = Vector2(cos(rotation), sin(rotation)).dot(axis)
 			rotation =  lerp_angle(rotation, goal_direction, turning_speed * delta)
-			if dot_product >=0.7:
-				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed, 10.0 * delta)
-			else:
-				velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed * dot_product, 10.0 * delta)
+			if dash_cooldown< max_dash_cooldown-0.3:
+				if dot_product >=0.7:
+					velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed, 10.0 * delta)
+				else:
+					velocity = lerp(velocity, Vector2(cos(rotation), sin(rotation)) * acceleration_speed * dot_product, 10.0 * delta)
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, 2.0 * delta)
 		
@@ -157,6 +158,10 @@ func _apply_force(delta: float) -> void:
 func _process(delta: float) -> void:
 	invicibility_timer -= delta
 	dash_cooldown -= delta
+	if dash_cooldown<0:
+		modulate=Color.WHITE
+	else:
+		modulate=Color.html("3a3c9e")
 	_handle_weapon(delta)
 
 func _physics_process(delta: float) -> void:
@@ -174,6 +179,8 @@ func take_damage(amount: int, from := Vector2.INF) -> void:
 	if invicibility_timer > 0.0:
 		return
 	invicibility_timer = INVICIBILITY_TIME
+	if dash_cooldown>max_dash_cooldown-0.3:
+		return
 	health -= amount
 	took_damage.emit()
 	if health > 0:

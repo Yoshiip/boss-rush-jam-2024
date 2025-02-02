@@ -54,7 +54,13 @@ const BULLETS_SIZE := [0.75,1.0, 1.5,1.75, 2.0]
 const BULLETS_SPEED := [3.0,6.0,9.0,12.0, 15.0]
 
 func get_health() -> int:
-	return 4 + GameManager.save_data.hull_health * 3
+	return 5 + GameManager.save_data.hull_health * 5
+	
+func get_dash_timer() -> float:
+	return GameManager.save_data.hull_health*0.5
+
+func get_armor_penalty() -> float:
+	return GameManager.save_data.hull_health*6
 
 func get_deflect() -> int:
 	return GameManager.save_data.deflection_bullet
