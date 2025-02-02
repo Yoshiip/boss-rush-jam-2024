@@ -35,7 +35,7 @@ bus = &"Effects"
 [node name="On" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ud2ej")
 volume_db = 24.0
-attenuation = 0.05
+attenuation = 0.0659754
 bus = &"Effects"
 
 [node name="Destroy" type="AudioStreamPlayer2D" parent="."]

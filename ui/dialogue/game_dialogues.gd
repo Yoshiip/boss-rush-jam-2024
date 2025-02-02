@@ -37,7 +37,7 @@ static var INTRO_DIALOGUE: Array[String] = [
 	"o:Welcome to the CosmiCorp family, Mr. Vander.",
 ]
 
-static var MISSIONS: Array[Array] = [
+static var MISSIONS := [
 	[
 		"#switch_to_chief",
 		"This is practically robbery!",

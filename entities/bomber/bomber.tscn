@@ -13,7 +13,8 @@ shader = ExtResource("3_s7alk")
 shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdwmb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_64b1u"]
+radius = 32.0
 
 [node name="Bomber" type="CharacterBody2D"]
 script = ExtResource("1_khg4o")
@@ -23,11 +24,10 @@ dead_texture = ExtResource("1_hb1wa")
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qa6qw")
 rotation = 2.35619
-scale = Vector2(0.4, 0.4)
 texture = ExtResource("4_2l0a4")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_kdwmb")
+shape = SubResource("CircleShape2D_64b1u")
 
 [node name="Warning" type="Sprite2D" parent="."]
 position = Vector2(0, -48)
