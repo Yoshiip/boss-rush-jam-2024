@@ -1,6 +1,6 @@
 extends Area2D
 
-var damage := 2
+var damage := 1
 
 func _ready() -> void:
 	add_to_group(&"Enemy")

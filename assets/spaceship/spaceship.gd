@@ -63,6 +63,12 @@ func _handle_input(delta: float) -> void:
 		velocity = Vector2.RIGHT.rotated(rotation) * 1200
 		$DashParticles.emitting = true
 		dash_cooldown = max_dash_cooldown
+		
+		get_tree().current_scene.enemy_impact_sfx(global_position)
+		$Sprite.material.set_shader_parameter("whitening", 3.0)
+		var tween := get_tree().create_tween()
+		tween.tween_property($Sprite.material, "shader_parameter/whitening", 0, 0.3)
+		
 	$EngineParticles.emitting = axis.length() > 0.25
 	if axis.length() > 0.25 && !$Engine.playing:
 		if !thruster_on:
@@ -123,7 +129,7 @@ func _fire() -> Bullet:
 	bullet.max_splits = GameManager.get_splits()
 	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
-	bullet.damage = GameManager.get_bullet_size()
+	bullet.damage = GameManager.get_bullet_size() * 1.25
 	add_sibling(bullet)
 	fire_timer = fire_rate
 	
@@ -179,7 +185,7 @@ func take_damage(amount: int, from := Vector2.INF) -> void:
 	if invicibility_timer > 0.0:
 		return
 	invicibility_timer = INVICIBILITY_TIME
-	if dash_cooldown>max_dash_cooldown-0.3:
+	if dash_cooldown>max_dash_cooldown-0.4:
 		return
 	health -= amount
 	took_damage.emit()

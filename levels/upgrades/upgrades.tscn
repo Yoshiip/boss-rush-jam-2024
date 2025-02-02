@@ -200,14 +200,14 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "B. Damage"
-description = "Increase the power of the projectile when it bounces. Max number of times = level"
+description = "Increase damage of the projectile by 1 when it bounces. Max number of times = level"
 constraint = "bounce"
 
 [node name="split" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "B. Split"
-description = "Chance to spawn additional projectiles when it bounces."
+description = "Adds chance for bullets to spawn additional bullets  when they bounce. Additional projectiles have your bullets traits, but cannot split again"
 max_level = 4
 constraint = "bounce"
 
@@ -255,7 +255,7 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Pierce"
-description = "Moves through enemy projectiles, while still triggering Deflect, and Infection. Max times = level"
+description = "Moves through enemies and enemy projectiles, while still triggering damage, Deflect, and Infection. Max times = level"
 constraint = "deflection"
 
 [node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" groups=["Spaceship"] instance=ExtResource("1_gvm2u")]

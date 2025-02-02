@@ -20,7 +20,6 @@ radius = 80.399
 [node name="DefaultEye" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_gfg3s")
 max_shoot_timer = 3.0
-max_health = 7
 dead_texture = ExtResource("2_uden6")
 
 [node name="Sprite" type="Sprite2D" parent="."]

@@ -2,7 +2,7 @@ extends Resource
 class_name BossInfo
 
 @export var name := "Boss 1"
-@export var max_health := 100
+@export var max_health := 100.0
 @export var sprite: CompressedTexture2D
 @export var background: CompressedTexture2D
 

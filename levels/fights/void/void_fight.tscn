@@ -63,32 +63,39 @@ max_shoot_timer = 2.0
 special_chance = 0.0
 accurracy = 0.17
 bullet_speed = 4
+max_health = 10.0
 
 [node name="DefaultEye3" parent="Planet" instance=ExtResource("8_me18f")]
 position = Vector2(665, -295)
 max_shoot_timer = 2.0
 special_chance = 0.0
 accurracy = 0.17
+max_health = 10.0
 
 [node name="LaserCannon" parent="Planet" instance=ExtResource("9_3ngdo")]
 position = Vector2(-1247, 36)
 rotation = -1.58979
+max_health = null
 
 [node name="LaserCannon2" parent="Planet" instance=ExtResource("9_3ngdo")]
 position = Vector2(53, 989)
 rotation = 1.07818
+max_health = null
 
 [node name="LaserCannon3" parent="Planet" instance=ExtResource("9_3ngdo")]
 position = Vector2(-710, -1395)
 rotation = 0.620307
+max_health = null
 
 [node name="LaserCannon4" parent="Planet" instance=ExtResource("9_3ngdo")]
 position = Vector2(555, -1007)
 rotation = 1.54994
+max_health = null
 
 [node name="LaserCannon5" parent="Planet" instance=ExtResource("9_3ngdo")]
 position = Vector2(1082, 525)
 rotation = -3.09805
+max_health = null
 
 [node name="BossPositions" type="Node2D" parent="."]
 

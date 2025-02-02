@@ -43,7 +43,7 @@ func _shoot_circle(number : float) -> void:
 		call_deferred("add_sibling", bullet)
 
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: float) -> void:
 	health -= amount
 	_shoot_circle(1 + randi() % 6)
 	scale_bonus += amount * 0.01

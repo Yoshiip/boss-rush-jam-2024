@@ -53,7 +53,7 @@ func clear_save_data() -> void:
 const BULLETS_SIZE := [0.75,1.0, 1.5,1.75, 2.0]
 const BULLETS_SPEED := [3.0,6.0,9.0,12.0, 15.0]
 
-func get_health() -> int:
+func get_health() -> float:
 	return 5 + GameManager.save_data.hull_health * 5
 	
 func get_dash_timer() -> float:

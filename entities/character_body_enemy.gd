@@ -1,7 +1,7 @@
 class_name CharacterBodyEnemy
 extends CharacterBody2D
 
-@export var max_health := 10
+@export var max_health := 10.0
 @onready var health := max_health
 
 
@@ -15,7 +15,7 @@ func _ready() -> void:
 
 @export var dead_texture: CompressedTexture2D
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: float) -> void:
 	health -= amount
 	camera.add_trauma(2)
 

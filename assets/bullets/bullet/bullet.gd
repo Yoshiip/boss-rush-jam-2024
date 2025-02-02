@@ -10,7 +10,7 @@ const BULLET = preload("res://assets/bullets/bullet/bullet.tscn")
 
 var from_enemy := false
 var special_enemy_projectile := false
-var damage := 1
+var damage := 1.0
 
 var velocity := Vector2.ZERO
 var homing_direction := Vector2.ZERO
@@ -76,7 +76,11 @@ func _on_body_entered(body: Node2D) -> void:
 		#bullets bounce off of obstacles a number of times. player bullets bounce fewer times
 	elif body.is_in_group("Enemy") && !from_enemy:
 		body.take_damage(damage)
-		destroy_bullet()
+		if max_pierces>0:
+			max_pierces-=1
+			max_deflects-=1
+		else:
+			destroy_bullet()
 	elif body.is_in_group("Obstacle"):
 		
 		if !max_bounces>0:
@@ -85,7 +89,9 @@ func _on_body_entered(body: Node2D) -> void:
 		if bounce_powerup_lvl> 0:
 			speed *= 1.2
 			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
-			damage += 1
+			if !from_enemy:
+				damage += 1
+			
 		if !from_enemy:
 			if max_splits > 0:
 				for i in range(max_splits):
@@ -115,7 +121,7 @@ func _on_area_entered(body: Node2D) -> void:
 		var collision_normal := (body.global_position - global_position).normalized()
 		if !max_pierces > 0:
 			bounce_of_position(body.global_position)
-			max_pierces-=1
+		
 		if max_infections > 0:
 			
 			if max_deflects>0:
@@ -125,6 +131,7 @@ func _on_area_entered(body: Node2D) -> void:
 			other_bullet.from_enemy = false
 			other_bullet.modulate = Color.WHITE
 			max_infections -=1
+			other_bullet.max_infections = max_infections
 		speed *= 0.8 
 		other_bullet.speed*=2
 		other_bullet.velocity = other_bullet.velocity.bounce(-collision_normal)
@@ -132,13 +139,16 @@ func _on_area_entered(body: Node2D) -> void:
 		if other_bullet.bounce_powerup_lvl:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
+		
 	if body.is_in_group("Spikeball"):
 		print("!!!")
 		bounce_of_position(body.global_position)
 	elif body.is_in_group("Enemy") && !from_enemy:
 		body.take_damage(damage)
-		destroy_bullet()
-
+		if !max_pierces>0:
+			destroy_bullet()
+	if max_pierces>0:
+			max_pierces-=1
 const MIN_ANGLE = deg_to_rad(-45)
 const MAX_ANGLE = deg_to_rad(45)
 
@@ -160,7 +170,7 @@ func _fire() -> void:
 
 	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
 	bullet.max_bounces = GameManager.get_bounces()-1
-	bullet.max_splits = 0
+	bullet.max_splits =  0
 	bullet.scale = Vector2(scale.x * 1, scale.y * 1)
 	
 	get_parent().add_child(bullet)

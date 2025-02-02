@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=4 uid="uid://c0w4rxhhyblam"]
+[gd_scene load_steps=9 format=4 uid="uid://c0w4rxhhyblam"]
 
 [ext_resource type="Script" path="res://levels/fights/terrain intro/terrain_intro.gd" id="1_gqsoa"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_a1kvg"]
 [ext_resource type="Resource" uid="uid://buoadylltd610" path="res://resources/bosses/tutorial_enemy_2.tres" id="2_afia8"]
 [ext_resource type="PackedScene" uid="uid://v04eq3pwsthx" path="res://assets/camera/default_camera.tscn" id="3_0s83p"]
 [ext_resource type="PackedScene" uid="uid://dxd1rajk1renk" path="res://assets/door/door.tscn" id="7_b6r3l"]
+[ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_skbmq"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_n2ax5"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="12_smwef"]
 
@@ -108,3 +109,13 @@ position = Vector2(444, 293)
 
 [node name="5" type="Marker2D" parent="BossPositions"]
 position = Vector2(1257, -290)
+
+[node name="DefaultEye" parent="." instance=ExtResource("8_skbmq")]
+position = Vector2(-2613, 509)
+max_shoot_timer = 1.0
+max_health = 10.0
+
+[node name="DefaultEye2" parent="." instance=ExtResource("8_skbmq")]
+position = Vector2(-2694, 55)
+max_shoot_timer = 1.0
+max_health = 10.0
