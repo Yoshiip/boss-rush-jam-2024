@@ -34,6 +34,7 @@ func take_damage(amount: float) -> void:
 		_dead()
 		
 	else:
+		get_tree().current_scene.enemy_impact_sfx(global_position)
 		$Sprite.material.set_shader_parameter("whitening", 1.0)
 		var tween := get_tree().create_tween()
 		tween.tween_property($Sprite.material, "shader_parameter/whitening", 0.0, 0.2)

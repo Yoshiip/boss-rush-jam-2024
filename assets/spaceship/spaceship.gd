@@ -59,6 +59,7 @@ func _handle_input(delta: float) -> void:
 	
 	
 	if Input.is_action_just_pressed("dash") && dash_cooldown < 0.0:
+		$Dash.play()
 		velocity = Vector2.RIGHT.rotated(rotation) * 1400
 		$DashParticles.emitting = true
 		dash_cooldown = max_dash_cooldown

@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://boss_phase_info.gd" id="1_acu21"]
 [ext_resource type="Texture2D" uid="uid://bgq4kno0jv33q" path="res://assets/backgrounds/background_blue.png" id="1_buqmp"]
-[ext_resource type="AudioStream" uid="uid://brkbi1vmerp6y" path="res://audios/musics/raw_mechanical/raw_mechanical.mp3" id="2_b4yhe"]
-[ext_resource type="AudioStream" uid="uid://s8imave3nv6w" path="res://audios/musics/raw_mechanical/raw_mechanical_pause.mp3" id="3_rniwa"]
+[ext_resource type="AudioStream" uid="uid://cvhci6y4vla8c" path="res://audios/musics/asteroids_ahead/asteroids_ahead.mp3" id="2_r5o0e"]
+[ext_resource type="AudioStream" uid="uid://ew4k3mldlae" path="res://audios/musics/asteroids_ahead/asteroids_ahead_pause.mp3" id="3_ijuo1"]
 [ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="5_ewf6n"]
 
 [resource]
@@ -12,8 +12,8 @@ name = "Tutorial"
 max_health = 100
 sprite = ExtResource("5_ewf6n")
 background = ExtResource("1_buqmp")
-music = ExtResource("2_b4yhe")
-pause_music = ExtResource("3_rniwa")
+music = ExtResource("2_r5o0e")
+pause_music = ExtResource("3_ijuo1")
 music_db = -8.0
 contact_damage = 1
 phases = Array[float]([0.7, 0.5, 0.3])

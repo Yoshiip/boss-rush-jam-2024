@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://cqh4ixv74pxg1" path="res://assets/backgrounds/background_blue_2.png" id="1_sg1hd"]
 [ext_resource type="Script" path="res://boss_phase_info.gd" id="1_vu4mk"]
-[ext_resource type="AudioStream" uid="uid://6e8nm0buhr5o" path="res://audios/musics/space_troubles/space_troubles.mp3" id="2_vcvrx"]
-[ext_resource type="AudioStream" uid="uid://cpggjlsc3dctu" path="res://audios/musics/space_troubles/space_troubles_pause.mp3" id="3_vb7ig"]
+[ext_resource type="AudioStream" uid="uid://cvhci6y4vla8c" path="res://audios/musics/asteroids_ahead/asteroids_ahead.mp3" id="2_770xk"]
+[ext_resource type="AudioStream" uid="uid://ew4k3mldlae" path="res://audios/musics/asteroids_ahead/asteroids_ahead_pause.mp3" id="3_3cax4"]
 [ext_resource type="Texture2D" uid="uid://bk3wvmw8jvk7m" path="res://entities/core/Rocky core.png" id="5_s1dr3"]
 
 [resource]
@@ -12,8 +12,8 @@ name = "Tutorial 2"
 max_health = 80
 sprite = ExtResource("5_s1dr3")
 background = ExtResource("1_sg1hd")
-music = ExtResource("2_vcvrx")
-pause_music = ExtResource("3_vb7ig")
+music = ExtResource("2_770xk")
+pause_music = ExtResource("3_3cax4")
 music_db = -12.0
 contact_damage = 1
 phases = Array[float]([0.8, 0.65, 0.55, 0.36, 0.2])

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=4 uid="uid://swbe71fh4smh"]
+[gd_scene load_steps=9 format=4 uid="uid://swbe71fh4smh"]
 
 [ext_resource type="Script" path="res://levels/fights/steampunk/steampunk_fight.gd" id="1_ydmgx"]
 [ext_resource type="PackedScene" uid="uid://cw0njmjruvdmf" path="res://assets/spaceship/spaceship.tscn" id="2_ddxgr"]
 [ext_resource type="Resource" uid="uid://3ul7r0tla1yw" path="res://resources/bosses/steampunk.tres" id="2_qhn5i"]
 [ext_resource type="Script" path="res://assets/camera/BetterCamera.gd" id="3_sbtjg"]
+[ext_resource type="AudioStream" uid="uid://ukf0lmxtlyma" path="res://audios/effects/clock/final.wav" id="7_ankrn"]
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="11_gwwk4"]
 [ext_resource type="PackedScene" uid="uid://dxd1rajk1renk" path="res://assets/door/door.tscn" id="12_bmpm0"]
 
@@ -91,3 +92,8 @@ position = Vector2(-760, -712)
 
 [node name="5" type="Marker2D" parent="BossPositions"]
 position = Vector2(0, -1096)
+
+[node name="DigitsFinal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_ankrn")
+volume_db = 2.0
+bus = &"Effects"

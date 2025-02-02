@@ -67,12 +67,13 @@ func take_damage(_amount: float) -> void:
 	if on or broken: return
 	$Sprites.scale = Vector2.ONE * 1.5
 	if not broken:
+		$Destroy.play()
 		$Explosion.play()
 	broken = true
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group(&"HandClock") and not on and not broken:
-		
+		$On.play()
 		$Sprites.scale = Vector2.ONE * 1.5
 		on = true
 		digit_on.emit(digit)

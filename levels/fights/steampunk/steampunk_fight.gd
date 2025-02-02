@@ -29,6 +29,7 @@ func _process(delta: float) -> void:
 
 func _on_digit_on(number: int) -> void:
 	if number == 12:
+		$DigitsFinal.play()
 		var no_on := 0
 		for digit in $Digits.get_children():
 			if digit.on:

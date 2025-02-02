@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cw0njmjruvdmf"]
+[gd_scene load_steps=16 format=3 uid="uid://cw0njmjruvdmf"]
 
 [ext_resource type="Script" path="res://assets/spaceship/spaceship.gd" id="1_lprlc"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_dnahp"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://dofnyla65okqc" path="res://audios/effects/hit.wav" id="4_iu0yo"]
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="5_cgrs7"]
 [ext_resource type="AudioStream" uid="uid://dthrhsmby65ko" path="res://audios/effects/shoot1.wav" id="6_bnv04"]
+[ext_resource type="AudioStream" uid="uid://0i3ruqxiy1qr" path="res://audios/effects/dash.wav" id="6_fxq7n"]
 [ext_resource type="AudioStream" uid="uid://1ddqm0oqcvp5" path="res://audios/effects/player/engine/engine.wav" id="6_vuef6"]
 [ext_resource type="AudioStream" uid="uid://dsbo7hhlumq6i" path="res://audios/effects/player/engine/engine-start.wav" id="7_08tnd"]
 [ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="7_hfrik"]
@@ -69,6 +70,11 @@ one_way_collision_margin = 0.0
 [node name="Hit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_iu0yo")
 volume_db = -2.0
+bus = &"Effects"
+
+[node name="Dash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_fxq7n")
+volume_db = 4.0
 bus = &"Effects"
 
 [node name="Engine" type="AudioStreamPlayer" parent="."]

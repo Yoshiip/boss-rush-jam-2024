@@ -197,6 +197,7 @@ func _get_audio_player(at: Vector2) -> AudioStreamPlayer2D:
 
 const PROJECTILE_BOUNCE_SFX = preload("res://audios/effects/bounce.wav")
 const PROJECTILE_SHOOT_SFX = preload("res://audios/effects/shoot1.wav")
+const FLESH_2_SFX = preload("res://audios/effects/flesh/flesh2.wav")
 
 func spawn_bullet_sfx(at: Vector2) -> void:
 	var _audio := _get_audio_player(at)
@@ -207,6 +208,12 @@ func spawn_bounce_sfx(at: Vector2) -> void:
 	var _audio := _get_audio_player(at)
 	_audio.stream = PROJECTILE_BOUNCE_SFX
 	add_child(_audio)
+
+func enemy_impact_sfx(at: Vector2) -> void:
+	var _audio := _get_audio_player(at)
+	_audio.stream = FLESH_2_SFX
+	add_child(_audio)
+
 
 const BULLET_PARTICLES = preload("res://assets/bullets/bullet_particles.tscn")
 
