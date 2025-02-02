@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cy71ee6yb0t0w"]
+[gd_scene load_steps=10 format=3 uid="uid://cy71ee6yb0t0w"]
 
 [ext_resource type="Texture2D" uid="uid://crdkb1citka0y" path="res://icon.svg" id="1_hb1wa"]
 [ext_resource type="Script" path="res://entities/bomber/bomber.gd" id="1_khg4o"]
 [ext_resource type="Texture2D" uid="uid://bkycxfbhhb517" path="res://entities/warning.png" id="3_3wd7o"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="3_s7alk"]
+[ext_resource type="Texture2D" uid="uid://brragp7cjro5n" path="res://entities/bomber/bomber.png" id="4_2l0a4"]
 [ext_resource type="Texture2D" uid="uid://fdghs4xd54o4" path="res://assets/utils/circle_256_16.png" id="5_dbcl3"]
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="6_65gxg"]
 
@@ -12,7 +13,8 @@ shader = ExtResource("3_s7alk")
 shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdwmb"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_64b1u"]
+radius = 32.0
 
 [node name="Bomber" type="CharacterBody2D"]
 script = ExtResource("1_khg4o")
@@ -21,11 +23,11 @@ dead_texture = ExtResource("1_hb1wa")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_qa6qw")
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("1_hb1wa")
+rotation = 2.35619
+texture = ExtResource("4_2l0a4")
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_kdwmb")
+shape = SubResource("CircleShape2D_64b1u")
 
 [node name="Warning" type="Sprite2D" parent="."]
 position = Vector2(0, -48)

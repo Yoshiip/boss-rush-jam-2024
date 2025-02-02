@@ -17,6 +17,7 @@ func _ready() -> void:
 const EXPLOSION = preload("res://entities/explosion/explosion.tscn")
 func _physics_process(delta: float) -> void:
 	if is_instance_valid(player):
+		look_at(player.global_position)
 		velocity = velocity.lerp((player.position - position).normalized() * speed, 5.0 * delta)
 		move_and_slide()
 

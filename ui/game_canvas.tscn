@@ -410,7 +410,6 @@ offset_bottom = -40.0
 grow_vertical = 0
 theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
-text = "[shake]123 light-years from Earth[/shake]"
 scroll_active = false
 
 [node name="Sound" type="AudioStreamPlayer" parent="Container/Transition"]

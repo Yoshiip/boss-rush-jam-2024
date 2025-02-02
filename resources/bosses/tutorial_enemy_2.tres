@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://boss_phase_info.gd" id="1_vu4mk"]
 [ext_resource type="AudioStream" uid="uid://cvhci6y4vla8c" path="res://audios/musics/asteroids_ahead/asteroids_ahead.mp3" id="2_770xk"]
 [ext_resource type="AudioStream" uid="uid://ew4k3mldlae" path="res://audios/musics/asteroids_ahead/asteroids_ahead_pause.mp3" id="3_3cax4"]
-[ext_resource type="Texture2D" uid="uid://bk3wvmw8jvk7m" path="res://entities/core/Rocky core.png" id="5_s1dr3"]
+[ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="5_nqink"]
 
 [resource]
 script = ExtResource("1_vu4mk")
-name = "Tutorial 2"
+name = "Beta-02"
 max_health = 80
-sprite = ExtResource("5_s1dr3")
+sprite = ExtResource("5_nqink")
 background = ExtResource("1_sg1hd")
 music = ExtResource("2_770xk")
 pause_music = ExtResource("3_3cax4")

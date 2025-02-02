@@ -27,5 +27,5 @@ func _on_mouse_entered() -> void:
 		hover_sound.play()
 
 func _on_pressed() -> void:
-	if is_instance_valid(click_sound):
+	if is_instance_valid(click_sound) && click_sound.is_inside_tree():
 		click_sound.play()

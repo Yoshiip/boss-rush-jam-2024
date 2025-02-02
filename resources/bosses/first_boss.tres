@@ -8,7 +8,7 @@
 
 [resource]
 script = ExtResource("1_p7w0e")
-name = "Boss 1"
+name = "Alpha-03"
 max_health = 100
 sprite = ExtResource("5_a26uy")
 background = ExtResource("1_kflao")

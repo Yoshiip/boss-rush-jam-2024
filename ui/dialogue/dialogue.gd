@@ -12,8 +12,6 @@ var other_name := "Other"
 var other_texture: CompressedTexture2D
 
 var progress := 0
-
-var skip_progress := 0.0
 const PLAYER_PORTRAIT = preload("res://ui/dialogue/portraits/player.jpg")
 
 func set_other(new_other_name: String, texture: CompressedTexture2D) -> void:
@@ -67,7 +65,7 @@ func _next_text() -> void:
 	$Gradient/Portrait.texture = other_texture if from_other else PLAYER_PORTRAIT
 	$Gradient/Name.text = other_name if from_other else "You"
 	$Gradient/Content.text = text.lstrip("o:")
-	spawning_text = false
+	spawning_text = true
 	
 	progress += 1
 
@@ -82,18 +80,11 @@ var visible_characters := 0
 
 func _process(delta: float) -> void:
 	if locked: return
-	if Input.is_action_pressed("fire"):
-		skip_progress += delta * 0.5
-	else:
-		skip_progress -= delta * 0.75
-	$Skip/ProgressBar.value = skip_progress
-	if skip_progress >= 1.0:
-		_close_dialogue()
 	i += delta
 	
 	if Input.is_action_just_pressed("fire"):
 		if spawning_text:
-			visible_characters = $Gradient/Content.visible_characters
+			visible_characters = $Gradient/Content.text.length()
 			spawning_text = false
 		else:
 			_next_text()
