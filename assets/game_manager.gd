@@ -28,14 +28,14 @@ var save_data = {
 	}
 func clear_save_data() -> void:
 	save_data = {
-		"points": 6,
+		"points": 5,
 		"level": 0,
 		
 		# UPGRADES
 		"hull_health": 1,
 		"fire_rate": 1,
 		"thrusters": 1,
-		"bullet_size": 0,
+		"bullet_size": 1,
 		"bullet_speed": 1,	
 		# BOUNCES UPGRADES
 		"bounce": 0,
@@ -51,7 +51,7 @@ func clear_save_data() -> void:
 # functions to return the max of each levels
 
 const BULLETS_SIZE := [0.75,1.0, 1.5,1.75, 2.0]
-const BULLETS_SPEED := [1.5,3.0,5.0,7.0,10.0]
+const BULLETS_SPEED := [3.0,6.0,9.0,12.0, 15.0]
 
 func get_health() -> int:
 	return 4 + GameManager.save_data.hull_health * 3

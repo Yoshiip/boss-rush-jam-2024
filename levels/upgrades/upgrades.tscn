@@ -137,8 +137,8 @@ max_level = 5
 
 [node name="bullet_size" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]
 layout_mode = 2
-title = "Bullet Size"
-description = "Increase the size of your projectiles."
+title = "Bullet Power"
+description = "Increase the size and damage of your projectiles."
 max_level = 4
 
 [node name="bullet_speed" parent="Canvas/Container/Boxes/Top" instance=ExtResource("1_gvm2u")]

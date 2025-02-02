@@ -26,6 +26,7 @@ var BULLET = load("res://assets/bullets/bullet/bullet.tscn")
 
 func _ready() -> void:
 	$Sprite.material = $Sprite.material.duplicate()
+	$Sprite.texture = stats.sprite
 	root.spin_speed = stats.spin_speed[phase]
 
 func _shoot_circle(number : float) -> void:
@@ -44,8 +45,7 @@ func _shoot_circle(number : float) -> void:
 
 func take_damage(amount: float) -> void:
 	health -= amount
-	if randf() > 0.7:
-		_shoot_circle(4 + randi() % 2)
+	_shoot_circle(1 + randi() % 6)
 	if  phase < stats.phases.size() && health <= stats.phases[phase] * max_health:
 		$BossAnger.play()
 		phase+=1

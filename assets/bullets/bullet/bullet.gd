@@ -37,6 +37,10 @@ func _ready() -> void:
 	
 	if special_enemy_projectile:
 		$Sprite.modulate = Color.WEB_PURPLE
+	if max_infections>0:
+		$Sprite.modulate = Color.DARK_CYAN
+	elif max_deflects>0:
+		$Sprite.modulate = Color.CYAN
 		# we'il probably make a special bullet for enemy later
 		
 		#speed *= 0.2
@@ -78,7 +82,7 @@ func _on_body_entered(body: Node2D) -> void:
 			destroy_bullet()
 		max_bounces-=1
 		if bounce_powerup_lvl> 0:
-			speed *= 1.1
+			speed *= 1.2
 			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
 			damage += 1
 		if !from_enemy:
@@ -112,9 +116,13 @@ func _on_area_entered(body: Node2D) -> void:
 			bounce_of_position(body.global_position)
 			max_pierces-=1
 		if max_infections > 0:
-			$Sprite.modulate = Color(1, 1, 1, 1)
+			
+			if max_deflects>0:
+				$Sprite.modulate = Color.CYAN
+			else:
+				$Sprite.modulate = Color.WHITE
 			other_bullet.from_enemy = false
-			other_bullet.get_node("Sprite").modulate =Color(1, 1, 1, 1)
+			other_bullet.modulate = Color.WHITE
 			max_infections -=1
 		speed *= 0.8 
 		other_bullet.speed*=2

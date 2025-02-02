@@ -9,19 +9,19 @@
 [resource]
 script = ExtResource("1_acu21")
 name = "Tutorial"
-max_health = 50
+max_health = 100
 sprite = ExtResource("5_ewf6n")
 background = ExtResource("1_buqmp")
 music = ExtResource("2_b4yhe")
 pause_music = ExtResource("3_rniwa")
 music_db = -8.0
 contact_damage = 1
-phases = Array[float]([0.7, 0.3])
+phases = Array[float]([0.7, 0.5, 0.3])
 eye_num = Array[float]([2.0, 2.0, 2.0, 2.0, 2.0, 2.0])
-fire_rate = Array[float]([4.0, 4.0, 4.0, 4.0, 4.0, 4.0])
+fire_rate = Array[float]([20.0, 20.0, 8.0, 5.0, 10.0, 10.0])
 spc_chance = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 accur = Array[float]([0.35, 0.35, 0.35, 0.35, 0.35, 0.35])
 bullet_speed = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
-spin_speed = Array[float]([0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
+spin_speed = Array[float]([0.15, -0.2, 0.15, -0.1, 0.1, 0.1])
 circle_bullet_fire = Array[float]([12.0, 12.0, 12.0, 12.0, 12.0, 12.0])
 spike_num = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])

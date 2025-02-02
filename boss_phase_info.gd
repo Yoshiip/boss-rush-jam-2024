@@ -16,10 +16,10 @@ class_name BossInfo
 @export var phases: Array[float] = [0.9, 0.8, 0.6, 0.4, 0.2]
 
 @export var eye_num : Array[float] = [2, 2, 2, 2, 2, 2]
-@export var fire_rate: Array[float] = [4.0, 4.0, 4.0, 4.0, 4.0, 4.0]
+@export var fire_rate: Array[float] = [1500.0, 18.0, 40.0, 5.0, 10.0, 10.0]
 @export var spc_chance: Array[float] = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 @export var accur: Array[float] = [0.35, 0.35, 0.35, 0.35, 0.35, 0.35]
 @export var bullet_speed: Array[float] =[1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-@export var spin_speed: Array[float] = [0.1, -0.15, 0.2, -0.25, -0.3, 0.35]
+@export var spin_speed: Array[float] = [0., -0.15, 0.09, -0.2, -0.13, 0.13]
 @export var circle_bullet_fire: Array[float] = [12, 12, 12, 12, 12, 12]
 @export var spike_num: Array[float] = [0, 0, 0, 0, 0, 0]

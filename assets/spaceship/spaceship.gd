@@ -26,14 +26,14 @@ var axis_shoot := Vector2.ZERO
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
-const FIRE_RATES := [0.5, 0.4, 0.35, 0.3, 0.25, 0.2]
+const FIRE_RATES := [0.6,0.5, 0.4, 0.3, 0.2, 0.1]
 @onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
 var bullet_speed = GameManager.get_bullet_speed()
 var invicibility_timer := 0.0
 
 
-const SPEEDS := [350, 400, 455, 520, 600]
+const SPEEDS := [350, 400, 455, 500, 550]
 const TURNING := [5,6,7,13,19]
 @onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
 @onready var turning_speed: float = TURNING[GameManager.save_data.thrusters]
@@ -121,7 +121,7 @@ func _fire() -> Bullet:
 	bullet.max_splits = GameManager.get_splits()
 	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
-
+	bullet.damage = GameManager.get_bullet_size()
 	add_sibling(bullet)
 	fire_timer = fire_rate
 	

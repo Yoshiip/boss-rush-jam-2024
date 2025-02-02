@@ -56,3 +56,6 @@ position = Vector2(640, -328)
 
 [node name="2" type="Marker2D" parent="BossPositions"]
 position = Vector2(0, 584)
+
+[node name="3" type="Marker2D" parent="BossPositions"]
+position = Vector2(-364, -676)

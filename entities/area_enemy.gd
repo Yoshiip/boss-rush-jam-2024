@@ -26,7 +26,7 @@ func _dead() -> void:
 	$CollisionShape.queue_free()
 	reparent(get_tree().current_scene)
 
-func take_damage(amount: int) -> void:
+func take_damage(amount: float) -> void:
 	health -= amount
 	camera.add_trauma(2)
 
