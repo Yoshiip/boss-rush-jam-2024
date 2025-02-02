@@ -12,7 +12,7 @@ const START_TEXT := """Mission Complete!
 ----------
 
 [SYSTEM] Congratulations on completing your mission.
-To reward you for your efforts, you have been credited with 5 research points for your ship. Use them as you see fit!
+To reward you for your efforts, you have been credited with 3 research points for your ship. Use them as you see fit!
 A new contract will soon be assigned to you. Until then, take this time to rest and recover.
 (click to continue)
 """
