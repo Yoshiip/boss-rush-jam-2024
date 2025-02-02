@@ -14,8 +14,8 @@ static var TEST_DIALOGUE: Array[String] = [
 # #: event
 static var INTRO_DIALOGUE: Array[String] = [
 	"Sigh... I shouldn’t have gambled after drinking last night, I lost everything...",
-	"How am I supposed to pay 923 701 in a week?",
-	"o:Ring ring..",
+	"How am I supposed to pay $923,701 in a week?",
+	"o:Ring ring...",
 	"Who is this? How did you access my communications system?",
 	"o: Congratulations, Mr. Vander. You’ve been selected for an exclusive employment opportunity with CosmiCapital Corporation. You start today.",
 	"What? I didn’t apply for anything.",

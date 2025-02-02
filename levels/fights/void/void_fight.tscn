@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://i22pg8laj3ji"]
+[gd_scene load_steps=10 format=4 uid="uid://i22pg8laj3ji"]
 
 [ext_resource type="Script" path="res://levels/fights/void/void_fight.gd" id="1_s63xu"]
 [ext_resource type="Resource" uid="uid://b82ui4q165rbt" path="res://resources/bosses/final_boss.tres" id="2_4agk0"]
@@ -8,6 +8,7 @@
 [ext_resource type="TileSet" uid="uid://cxnslw8n81qkk" path="res://assets/tiles/Basic_tile_set.tres" id="6_f5h48"]
 [ext_resource type="PackedScene" uid="uid://brl7hqa4uojyj" path="res://entities/Damaging Parts/spike_ball.tscn" id="7_qhje5"]
 [ext_resource type="PackedScene" uid="uid://cfbwxs86sb8p1" path="res://entities/eyes/default/default_eye.tscn" id="8_me18f"]
+[ext_resource type="PackedScene" uid="uid://dmom0ye3d0dpl" path="res://entities/laser_cannon/laser_cannon.tscn" id="9_3ngdo"]
 
 [node name="VoidFight" type="Node2D"]
 script = ExtResource("1_s63xu")
@@ -88,6 +89,26 @@ position = Vector2(-151, 1011)
 
 [node name="DefaultEye8" parent="Planet" instance=ExtResource("8_me18f")]
 position = Vector2(893, 1235)
+
+[node name="LaserCannon" parent="Planet" instance=ExtResource("9_3ngdo")]
+position = Vector2(-72, 383)
+rotation = -0.817214
+
+[node name="LaserCannon2" parent="Planet" instance=ExtResource("9_3ngdo")]
+position = Vector2(74, 1267)
+rotation = -0.434013
+
+[node name="LaserCannon3" parent="Planet" instance=ExtResource("9_3ngdo")]
+position = Vector2(-1089, -1203)
+rotation = -0.140316
+
+[node name="LaserCannon4" parent="Planet" instance=ExtResource("9_3ngdo")]
+position = Vector2(1479, 7.00002)
+rotation = -0.140316
+
+[node name="LaserCannon5" parent="Planet" instance=ExtResource("9_3ngdo")]
+position = Vector2(1344, 445)
+rotation = -3.09805
 
 [node name="BossPositions" type="Node2D" parent="."]
 

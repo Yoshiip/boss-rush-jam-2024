@@ -26,7 +26,7 @@ var axis_shoot := Vector2.ZERO
 # Only allow inputs if is empty
 var allow_inputs: Array[String] = []
 
-const FIRE_RATES := [0.6,0.5, 0.4, 0.3, 0.2, 0.1]
+const FIRE_RATES := [0.6, 0.5, 0.42, 0.36, 0.3, 0.25]
 @onready var fire_rate: float = FIRE_RATES[GameManager.save_data.fire_rate]
 
 var bullet_speed = GameManager.get_bullet_speed()

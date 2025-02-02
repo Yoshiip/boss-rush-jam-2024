@@ -1,18 +1,18 @@
 [gd_scene load_steps=8 format=3 uid="uid://lfxo8kfr2a6a"]
 
 [ext_resource type="Script" path="res://entities/eyes/laser_eye/laser_eye.gd" id="1_p55p2"]
+[ext_resource type="Texture2D" uid="uid://blgpgqhyq8fe" path="res://entities/laser/laser_eye.png" id="3_k2p5q"]
 [ext_resource type="Shader" path="res://assets/spaceship/whitening.gdshader" id="3_t4eq0"]
-[ext_resource type="Texture2D" uid="uid://cr014glk1f4dj" path="res://entities/eyes/default/eye_default.png" id="4_7koqc"]
 [ext_resource type="AudioStream" uid="uid://03eaf8f8e41o" path="res://audios/effects/death.wav" id="5_8x5kq"]
 [ext_resource type="PackedScene" uid="uid://d0d5c6hxwfual" path="res://entities/laser/laser.tscn" id="5_fystm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f7q5k"]
 shader = ExtResource("3_t4eq0")
-shader_parameter/modulate = Color(0, 1, 1, 1)
+shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ufsgx"]
-radius = 32.0
+radius = 48.0
 
 [node name="LaserEye" type="Area2D" groups=["enemy"]]
 script = ExtResource("1_p55p2")
@@ -20,10 +20,12 @@ max_health = 6
 
 [node name="Sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_f7q5k")
-texture = ExtResource("4_7koqc")
+texture = ExtResource("3_k2p5q")
 offset = Vector2(4, 0)
+flip_h = true
 
 [node name="CollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(7, 0)
 shape = SubResource("CircleShape2D_ufsgx")
 
 [node name="Death" type="AudioStreamPlayer2D" parent="."]
@@ -31,5 +33,5 @@ stream = ExtResource("5_8x5kq")
 bus = &"Effects"
 
 [node name="Laser" parent="." instance=ExtResource("5_fystm")]
-position = Vector2(32, 0)
+position = Vector2(19, -3)
 max_thickness = 16.0

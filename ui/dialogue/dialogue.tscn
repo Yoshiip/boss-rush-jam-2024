@@ -1,9 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cg6t65il15mfq"]
+[gd_scene load_steps=10 format=3 uid="uid://cg6t65il15mfq"]
 
 [ext_resource type="Theme" uid="uid://dk1lq0oeybxad" path="res://ui/theme.tres" id="1_28rdg"]
 [ext_resource type="Script" path="res://ui/dialogue/dialogue.gd" id="2_0b2e0"]
 [ext_resource type="Texture2D" uid="uid://dp81vx88ryrd7" path="res://assets/utils/dialogue_next.png" id="3_wua8h"]
-[ext_resource type="Texture2D" uid="uid://b7ca404jr4ql0" path="res://assets/utils/circular_progress_bar.png" id="4_dkd36"]
 [ext_resource type="Texture2D" uid="uid://dyrprgmv2ahol" path="res://ui/dialogue/portraits/player.jpg" id="4_iw4j1"]
 [ext_resource type="AudioStream" uid="uid://durebple0m4xj" path="res://audios/effects/dialogue_next.wav" id="6_gij1u"]
 
@@ -91,8 +90,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 8.0
-offset_bottom = 128.0
+offset_top = -120.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_8f7mt")
@@ -154,36 +152,6 @@ stretch_mode = 5
 libraries = {
 "": SubResource("AnimationLibrary_jewyn")
 }
-
-[node name="Skip" type="HBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -94.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 56.0
-grow_horizontal = 0
-
-[node name="ProgressBar" type="TextureProgressBar" parent="Skip"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-max_value = 1.0
-step = 0.01
-fill_mode = 4
-nine_patch_stretch = true
-texture_under = ExtResource("4_dkd36")
-texture_progress = ExtResource("4_dkd36")
-tint_under = Color(0, 0, 0, 1)
-
-[node name="Button" type="Button" parent="Skip"]
-layout_mode = 2
-size_flags_vertical = 4
-text = "skip"
 
 [node name="DialogueNext" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_gij1u")

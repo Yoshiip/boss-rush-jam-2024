@@ -8,8 +8,8 @@
 
 [resource]
 script = ExtResource("1_xsb5d")
-name = "Steampunk"
-max_health = 150
+name = "Theta-05"
+max_health = 250
 sprite = ExtResource("2_3gg2j")
 background = ExtResource("1_x8d7g")
 music = ExtResource("2_ibg20")

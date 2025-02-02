@@ -63,6 +63,7 @@ func _ready() -> void:
 	canvas.get_node("Container/PlayerHealth/ProgressBar").value = spaceship.max_health
 	canvas.get_node("Container/PlayerHealth/Text/Value").text = str(spaceship.health, "/", spaceship.max_health)
 	canvas.get_node("Container/Transition/Title").text = boss.name
+	canvas.get_node("Container/Transition/Subtitle").text = str("Boss No. ", GameManager.save_data.level + 1)
 	crossfade = Crossfade.new()
 	crossfade.a_stream = boss.music
 	crossfade.process_mode = Node.PROCESS_MODE_ALWAYS
