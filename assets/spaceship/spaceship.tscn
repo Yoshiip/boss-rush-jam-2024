@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cw0njmjruvdmf"]
+[gd_scene load_steps=15 format=3 uid="uid://cw0njmjruvdmf"]
 
 [ext_resource type="Script" path="res://assets/spaceship/spaceship.gd" id="1_lprlc"]
 [ext_resource type="Texture2D" uid="uid://b5h6clohub72s" path="res://assets/spaceship/spaceship.png" id="2_dnahp"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://1ddqm0oqcvp5" path="res://audios/effects/player/engine/engine.wav" id="6_vuef6"]
 [ext_resource type="AudioStream" uid="uid://dsbo7hhlumq6i" path="res://audios/effects/player/engine/engine-start.wav" id="7_08tnd"]
 [ext_resource type="Texture2D" uid="uid://w3os3vngij2t" path="res://assets/utils/blob.png" id="7_hfrik"]
+[ext_resource type="Texture2D" uid="uid://fdghs4xd54o4" path="res://assets/utils/circle_256_16.png" id="10_e1wj5"]
 
 [sub_resource type="Curve" id="Curve_wtfqi"]
 _data = [Vector2(0, 0.406593), 0.0, 2.06044, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -22,6 +23,10 @@ colors = PackedColorArray(0.996078, 0.905882, 0.380392, 1, 0.996078, 0.682353, 0
 shader = ExtResource("2_k6v8s")
 shader_parameter/modulate = Color(1, 1, 1, 1)
 shader_parameter/whitening = 0.0
+
+[sub_resource type="Curve" id="Curve_ckhg8"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.911864, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -21.9434, 0.0, 0, 0]
+point_count = 3
 
 [node name="Spaceship" type="CharacterBody2D" groups=["Spaceship"]]
 position = Vector2(-1, 0)
@@ -97,5 +102,21 @@ collision_mask = 2
 scale = Vector2(0.7, 0.7)
 polygon = PackedVector2Array(-15.7143, -14.2857, 18.5714, -5.71429, 18.5714, 5.71429, -15.7143, 14.2857)
 one_way_collision_margin = 0.0
+
+[node name="DashRayCast" type="RayCast2D" parent="."]
+target_position = Vector2(100, 0)
+
+[node name="DashParticles" type="CPUParticles2D" parent="."]
+emitting = false
+lifetime = 0.3
+one_shot = true
+preprocess = 0.1
+randomness = 1.0
+texture = ExtResource("10_e1wj5")
+gravity = Vector2(0, 0)
+scale_amount_min = 0.25
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_ckhg8")
+color = Color(0.552941, 0.717647, 1, 1)
 
 [connection signal="body_entered" from="CrushDetection" to="." method="_on_crush_detection_body_entered"]

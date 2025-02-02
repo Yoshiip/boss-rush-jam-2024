@@ -51,11 +51,17 @@ func _ready() -> void:
 
 var thruster_on := false
 
+var max_dash_cooldown := 2.0
+var dash_cooldown := 2.0
 func _handle_input(delta: float) -> void:
 	var axis := Input.get_vector(
 		"move_left", "move_right", "move_up", "move_down") if _is_allowed_inputs() else Vector2.ZERO
 	
 	
+	if Input.is_action_just_pressed("dash") && dash_cooldown < 0.0:
+		velocity = Vector2.RIGHT.rotated(rotation) * 1400
+		$DashParticles.emitting = true
+		dash_cooldown = max_dash_cooldown
 	$EngineParticles.emitting = axis.length() > 0.25
 	if axis.length() > 0.25 && !$Engine.playing:
 		if !thruster_on:
@@ -149,6 +155,7 @@ func _apply_force(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	invicibility_timer -= delta
+	dash_cooldown -= delta
 	_handle_weapon(delta)
 
 func _physics_process(delta: float) -> void:
