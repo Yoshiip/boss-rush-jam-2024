@@ -53,7 +53,22 @@ func _create_sprites() -> void:
 
 var i := 0.0
 
+@onready var core: Core = get_tree().current_scene.core
+
+const LINES_POINT := 10
+var last_core_position := Vector2.INF
+
 func _process(delta: float) -> void:
+	$ConnectLine.default_color = Color("2ce8f5") if on else Color.WHITE
+	if is_instance_valid(core):
+		if core.global_position != last_core_position && not broken:
+			last_core_position = core.global_position
+			$ConnectLine.clear_points()
+			var step := Vector2.ZERO
+			for i in range(LINES_POINT):
+				$ConnectLine.add_point(step - global_position + core.global_position)
+				step += (global_position - core.global_position) / LINES_POINT
+				print(step)
 	$Sprites.scale = $Sprites.scale.lerp(Vector2.ONE, 5.0 * delta)
 	$Light.scale = Vector2.ONE * (1.0 + cos(i * 2.0) * 0.2)
 	$Light.visible = on
@@ -67,6 +82,7 @@ func take_damage(_amount: int) -> void:
 	if on or broken: return
 	$Sprites.scale = Vector2.ONE * 1.5
 	if not broken:
+		$ConnectLine.clear_points()
 		$Destroy.play()
 		$Explosion.play()
 	broken = true

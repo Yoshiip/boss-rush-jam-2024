@@ -43,9 +43,10 @@ stream = ExtResource("5_6uxjg")
 bus = &"Effects"
 
 [node name="ConnectLine" type="Line2D" parent="."]
-points = PackedVector2Array(-1, 2, 107, 180, 708, 189, 833, -132, 442, -296, 13, -233, -189, 121, -87, 387, 411, 459, 1005, 445, 1451, 137)
-width = 80.0
+modulate = Color(1, 1, 1, 0.247059)
+width = 48.0
 width_curve = SubResource("Curve_aj8fj")
+default_color = Color(0.172549, 0.909804, 0.960784, 1)
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
