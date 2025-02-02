@@ -63,7 +63,7 @@ func _process(delta: float) -> void:
 var on := false
 var broken := false
 
-func take_damage(_amount: float) -> void:
+func take_damage(_amount: int) -> void:
 	if on or broken: return
 	$Sprites.scale = Vector2.ONE * 1.5
 	if not broken:

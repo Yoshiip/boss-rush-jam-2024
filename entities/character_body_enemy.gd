@@ -15,7 +15,7 @@ func _ready() -> void:
 
 @export var dead_texture: CompressedTexture2D
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: int) -> void:
 	health -= amount
 	camera.add_trauma(2)
 

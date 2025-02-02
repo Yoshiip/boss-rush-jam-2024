@@ -26,7 +26,7 @@ func _ready() -> void:
 func _upgrade_mouse_entered(upgrade: Panel) -> void:
 	description.text = upgrade.description
 
-func _upgrade_mouse_exited(upgrade: Panel) -> void:
+func _upgrade_mouse_exited(_upgrade: Panel) -> void:
 	description.text = ""
 
 func _upgrade_added_point(new_level: int, max_level: int) -> void:

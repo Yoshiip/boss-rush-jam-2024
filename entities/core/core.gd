@@ -43,7 +43,7 @@ func _shoot_circle(number : float) -> void:
 		call_deferred("add_sibling", bullet)
 
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: int) -> void:
 	health -= amount
 	_shoot_circle(1 + randi() % 6)
 	if  phase < stats.phases.size() && health <= stats.phases[phase] * max_health:

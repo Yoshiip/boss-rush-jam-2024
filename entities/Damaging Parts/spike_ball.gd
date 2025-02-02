@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 	$Sprite.scale = $Sprite.scale.lerp(Vector2.ONE, delta * 2.0)
 
 
-func take_damage(_amount: float) -> void:
+func take_damage(_amount: int) -> void:
 	pass
 
 func _on_body_entered(body: Node2D) -> void:

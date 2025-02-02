@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _dead() -> void:
 	$Sprite.texture = dead_texture
-	$Death.play()
+	$Death.call_deferred("play")
 	var tween := get_tree().create_tween().bind_node(self)
 	tween.tween_property($Sprite.material, "shader_parameter/modulate", Color.DIM_GRAY, 0.5)
 	camera.add_trauma(10)
@@ -26,7 +26,7 @@ func _dead() -> void:
 	$CollisionShape.queue_free()
 	reparent(get_tree().current_scene)
 
-func take_damage(amount: float) -> void:
+func take_damage(amount: int) -> void:
 	health -= amount
 	camera.add_trauma(2)
 

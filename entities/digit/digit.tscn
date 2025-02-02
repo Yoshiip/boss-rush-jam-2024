@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6y5hgo2rb6qq"]
+[gd_scene load_steps=8 format=3 uid="uid://b6y5hgo2rb6qq"]
 
 [ext_resource type="Script" path="res://entities/digit/digit.gd" id="1_e1lru"]
 [ext_resource type="Texture2D" uid="uid://6nweyjicm3mp" path="res://assets/utils/light.png" id="2_mfd6t"]
@@ -8,6 +8,11 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2l5v3"]
 size = Vector2(64, 64)
+
+[sub_resource type="Curve" id="Curve_aj8fj"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.2, 0.2), 0.0, 0.0, 0, 0, Vector2(0.8, 0.6), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
+metadata/_snap_enabled = true
 
 [node name="Digit" type="Area2D" groups=["Enemy"]]
 collision_layer = 5
@@ -36,5 +41,13 @@ bus = &"Effects"
 [node name="Destroy" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_6uxjg")
 bus = &"Effects"
+
+[node name="ConnectLine" type="Line2D" parent="."]
+points = PackedVector2Array(-1, 2, 107, 180, 708, 189, 833, -132, 442, -296, 13, -233, -189, 121, -87, 387, 411, 459, 1005, 445, 1451, 137)
+width = 80.0
+width_curve = SubResource("Curve_aj8fj")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
