@@ -7,7 +7,7 @@ const UI_SOUNDS = {
 }
 
 var save_data = {
-		"points": 5,
+		"points": 4,
 		"level": 0,
 		
 		# UPGRADES
@@ -28,7 +28,7 @@ var save_data = {
 	}
 func clear_save_data() -> void:
 	save_data = {
-		"points": 5,
+		"points": 4,
 		"level": 0,
 		
 		# UPGRADES

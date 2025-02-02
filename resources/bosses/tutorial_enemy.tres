@@ -4,13 +4,13 @@
 [ext_resource type="Texture2D" uid="uid://bgq4kno0jv33q" path="res://assets/backgrounds/background_blue.png" id="1_buqmp"]
 [ext_resource type="AudioStream" uid="uid://cvhci6y4vla8c" path="res://audios/musics/asteroids_ahead/asteroids_ahead.mp3" id="2_r5o0e"]
 [ext_resource type="AudioStream" uid="uid://ew4k3mldlae" path="res://audios/musics/asteroids_ahead/asteroids_ahead_pause.mp3" id="3_ijuo1"]
-[ext_resource type="Texture2D" uid="uid://doirwymy84qij" path="res://entities/core/core.png" id="5_ewf6n"]
+[ext_resource type="Texture2D" uid="uid://diyp20lqau04f" path="res://Small Enemy Intro Boss.png" id="5_e0r3x"]
 
 [resource]
 script = ExtResource("1_acu21")
 name = "Tau-01"
 max_health = 100
-sprite = ExtResource("5_ewf6n")
+sprite = ExtResource("5_e0r3x")
 background = ExtResource("1_buqmp")
 music = ExtResource("2_r5o0e")
 pause_music = ExtResource("3_ijuo1")

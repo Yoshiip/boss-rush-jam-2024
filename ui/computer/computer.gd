@@ -122,5 +122,5 @@ const PHONE_TEXTURE = preload("res://ui/dialogue/portraits/phone.jpg")
 
 func _on_dialogue_ended() -> void:
 	GameManager.save_data.level += 1
-	GameManager.save_data.points += 5
+	GameManager.save_data.points += 3
 	get_tree().change_scene_to_file("res://levels/upgrades/upgrades.tscn")
