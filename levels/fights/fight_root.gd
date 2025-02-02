@@ -194,6 +194,11 @@ func _get_audio_player(at: Vector2) -> AudioStreamPlayer2D:
 	var audio := AudioStreamPlayer2D.new()
 	audio.position = at
 	audio.bus = EFFECTS_BUS
+	audio.finished.connect(func():
+		print("fini")
+		audio.queue_free()
+	)
+	audio.autoplay = true
 	return audio;
 
 const PROJECTILE_BOUNCE_SFX = preload("res://audios/effects/bounce.wav")
@@ -212,6 +217,7 @@ func spawn_bounce_sfx(at: Vector2) -> void:
 
 func enemy_impact_sfx(at: Vector2) -> void:
 	var _audio := _get_audio_player(at)
+	_audio.volume_db = 12
 	_audio.stream = FLESH_2_SFX
 	add_child(_audio)
 

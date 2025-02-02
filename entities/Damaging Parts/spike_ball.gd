@@ -4,6 +4,7 @@ var damage := 2
 
 func _ready() -> void:
 	add_to_group(&"Enemy")
+	add_to_group(&"Spikeball")
 
 
 func _process(delta: float) -> void:

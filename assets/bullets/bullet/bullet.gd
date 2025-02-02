@@ -64,6 +64,7 @@ func destroy_bullet():
 func bounce_of_position(pos: Vector2) -> void:
 	var collision_normal := (pos - global_position).normalized()
 	velocity = velocity.bounce(collision_normal)
+	get_tree().current_scene.spawn_bounce_sfx(global_position)
 	ray_cast.set_target_position(velocity.normalized()*30)
 	ray_cast_homing.set_target_position(velocity.normalized()*300)
 
@@ -131,11 +132,12 @@ func _on_area_entered(body: Node2D) -> void:
 		if other_bullet.bounce_powerup_lvl:
 			other_bullet.speed*=1.1
 			other_bullet.scale = Vector2(scale.x*1.2,scale.y*1.2)
-	if body.is_in_group("Enemy") && !from_enemy:
+	if body.is_in_group("Spikeball"):
+		print("!!!")
+		bounce_of_position(body.global_position)
+	elif body.is_in_group("Enemy") && !from_enemy:
 		body.take_damage(damage)
 		destroy_bullet()
-	if body.is_in_group("Spikeball"):
-		bounce_of_position(body.global_position)
 
 const MIN_ANGLE = deg_to_rad(-45)
 const MAX_ANGLE = deg_to_rad(45)
