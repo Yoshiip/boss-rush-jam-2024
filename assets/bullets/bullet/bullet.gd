@@ -87,16 +87,19 @@ func _on_body_entered(body: Node2D) -> void:
 			destroy_bullet()
 		max_bounces-=1
 		if bounce_powerup_lvl> 0:
-			speed *= 1.2
+			speed *= 1.4
 			scale = Vector2(scale.x * 1.2, scale.y * 1.2)
 			if !from_enemy:
 				damage += 1
 			
 		if !from_enemy:
 			if max_splits > 0:
-				for i in range(max_splits):
+				for i in range(min(max_splits,2)):
+					speed *= 0.8
+					damage*=0.8
 					_fire()
 				max_splits -= 1
+				
 		if ray_cast.is_colliding():
 			var collision_normal = ray_cast.get_collision_normal()
 		#var collision_normal = (body.global_position - global_position).normalized()
@@ -156,6 +159,7 @@ func _fire() -> void:
 	var bullet := BULLET.instantiate()
 	bullet.position = position
 	bullet.speed = speed
+	bullet.damage = damage
 	bullet.from_enemy = false
 
 	var random_rotation := randf_range(MIN_ANGLE + rotation, MAX_ANGLE + rotation)
@@ -172,5 +176,6 @@ func _fire() -> void:
 	bullet.max_bounces = GameManager.get_bounces()-1
 	bullet.max_splits =  0
 	bullet.scale = Vector2(scale.x * 1, scale.y * 1)
+	
 	
 	get_parent().add_child(bullet)

@@ -129,7 +129,7 @@ func _fire() -> Bullet:
 	bullet.max_splits = GameManager.get_splits()
 	bullet.bounce_powerup_lvl =  GameManager.get_damage_up_bounces()
 	bullet.scale = Vector2.ONE * GameManager.get_bullet_size()
-	bullet.damage = GameManager.get_bullet_size() * 1.25
+	bullet.damage = GameManager.get_bullet_size() * 1.2
 	add_sibling(bullet)
 	fire_timer = fire_rate
 	

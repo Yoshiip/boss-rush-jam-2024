@@ -189,7 +189,7 @@ custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 title = "B. Count"
-description = "Increase the max times the projectile can bounce off of terrain"
+description = "Increase the max times the bullet can bounce off of terrain"
 max_level = 5
 
 [node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Left/Left"]
@@ -200,15 +200,14 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "B. Damage"
-description = "Increase damage of the projectile by 1 when it bounces. Max number of times = level"
+description = "Increase damage of the bullets by 1, and increases speed by x1.4, when it bounces. Max number of times = level"
 constraint = "bounce"
 
 [node name="split" parent="Canvas/Container/Boxes/Bottom/Left/Left/Container" instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "B. Split"
-description = "Adds chance for bullets to spawn additional bullets  when they bounce. Additional projectiles have your bullets traits, but cannot split again"
-max_level = 4
+description = "Adds chance for bullets to spawn additional bullets  when they bounce, but lose speed and damage. Additional bullets have your bullets traits, but cannot split again"
 constraint = "bounce"
 
 [node name="Right" type="Panel" parent="Canvas/Container/Boxes/Bottom"]
@@ -246,6 +245,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 title = "Deflection"
 description = "Your bullets bounce off of enemy bullets, deflecting them. Max number of times = level"
+max_level = 4
 
 [node name="Container" type="HBoxContainer" parent="Canvas/Container/Boxes/Bottom/Right/Right"]
 layout_mode = 2
@@ -255,14 +255,16 @@ alignment = 1
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Pierce"
-description = "Moves through enemies and enemy projectiles, while still triggering damage, Deflect, and Infection. Max times = level"
+description = "Moves through enemies and enemy bullets, while still triggering damage, Deflect, and Infection. Max times = level"
+max_level = 4
 constraint = "deflection"
 
 [node name="infection" parent="Canvas/Container/Boxes/Bottom/Right/Right/Container" groups=["Spaceship"] instance=ExtResource("1_gvm2u")]
 custom_minimum_size = Vector2(120, 80)
 layout_mode = 2
 title = "Infection"
-description = "Converts Enemy bullets on contact, a number of times equal to level"
+description = "Your bullets convert enemy bullets on contact. Maximum number of times = level"
+max_level = 4
 constraint = "deflection"
 
 [node name="Footer" type="HBoxContainer" parent="Canvas/Container"]
