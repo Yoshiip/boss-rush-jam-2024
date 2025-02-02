@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("4_ol82t")
 name = "Epsilon-04"
-max_health = 175
+max_health = 120.0
 sprite = ExtResource("5_yniow")
 background = ExtResource("1_ip45c")
 music = ExtResource("2_wsku2")

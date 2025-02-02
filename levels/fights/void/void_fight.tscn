@@ -12,6 +12,7 @@
 
 [node name="VoidFight" type="Node2D"]
 script = ExtResource("1_s63xu")
+planet_radius = 1600.0
 boss = ExtResource("2_4agk0")
 
 [node name="Spaceship" parent="." instance=ExtResource("2_4sj3j")]
