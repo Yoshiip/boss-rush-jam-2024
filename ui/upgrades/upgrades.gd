@@ -4,7 +4,7 @@ extends Control
 @onready var description: Label = $Canvas/Container/Footer/Description
 
 func _update_ui() -> void:
-	points_label.text = str("research points: ", GameManager.save_data.points)
+	points_label.text = str("points: ", GameManager.save_data.points)
 
 func _ready() -> void:
 	_update_ui()

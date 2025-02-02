@@ -7,7 +7,7 @@ const UI_SOUNDS = {
 }
 
 var save_data = {
-		"points": 6,
+		"points": 5,
 		"level": 0,
 		
 		# UPGRADES

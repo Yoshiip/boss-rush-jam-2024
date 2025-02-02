@@ -5,24 +5,8 @@ const SETTINGS_MENU = preload("res://ui/settings/settings_menu.tscn")
 
 const AUTHORS = [
 	{
-		"name": "Yoshiip",
-		"role": "Code",
-		"url": "",
-	},
-	{
-		"name": "coinbirdface",
+		"name": "Avvakira",
 		"role": "Art",
-		"url": "",
-	},
-	{
-		"name": "Silvo",
-		"role": "Music",
-		"url": "",
-	},
-	{
-		"name": "Tentative",
-		"role": "Game Design, Code, Art",
-		"url": "https://itch.io/profile/brokenhand",
 	},
 	{
 		"name": "moose",
@@ -30,11 +14,17 @@ const AUTHORS = [
 		"url": "",
 	},
 	{
-		"name": "Avvakira",
-		"role": "Art",
-		"url": "",
+		"name": "Silvo",
+		"role": "Music",
 	},
-	
+	{
+		"name": "Tentative",
+		"role": "Game Design, Code, Art",
+	},
+	{
+		"name": "Yoshiip",
+		"role": "Code",
+	},
 ]
 
 @onready var menu_section: Control = $Canvas/Container/Menu
@@ -85,7 +75,7 @@ func _on_credits_button_pressed() -> void:
 	menu_section.visible = false
 	credits_section.visible = true
 	UiUtils.apply_transition(credits_container)
-
+	$Crossfade.to_a()
 
 func _on_settings_button_pressed() -> void:
 	$Canvas/Container.add_child(SETTINGS_MENU.instantiate())
@@ -95,24 +85,9 @@ func _on_go_back_button_pressed() -> void:
 	menu_section.visible = true
 	credits_section.visible = false
 	UiUtils.apply_transition(menu_section)
+	$Crossfade.to_b()
 
 
 func _on_hit_timer_timeout() -> void:
-	$Core.scale = Vector2(1.3, 1.3)
+	$Core.scale = Vector2(1.2, 1.2)
 	$Canvas/Container/Menu/VBoxContainer/Control/Title/AnimationPlayer.play("Bounce")
-
-
-func _on_debug_1_pressed() -> void:
-	GameManager.save_data.level = 1
-	get_tree().change_scene_to_file("res://levels/fights/first/first_fight.tscn")
-
-
-func _on_debug_2_pressed() -> void:
-	GameManager.save_data.level = 2
-	get_tree().change_scene_to_file("res://levels/fights/steampunk/steampunk_fight.tscn")
-
-
-
-func _on_debug_3_pressed() -> void:
-	GameManager.save_data.level = 3
-	get_tree().change_scene_to_file("res://levels/fights/void/void_fight.tscn")
