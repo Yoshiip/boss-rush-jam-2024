@@ -66,5 +66,7 @@ func _on_digit_touched(number: int) -> void:
 			core.heal(no_on * 2)
 		else:
 			core.heal(no_on * 4)
-	for pos in _get_random_valid_positions(3):
-		_spawn_enemy("", pos)
+		for pos in _get_random_valid_positions(3):
+			_spawn_enemy("", pos)
+
+	_spawn_enemy("", _get_random_valid_positions()[0])

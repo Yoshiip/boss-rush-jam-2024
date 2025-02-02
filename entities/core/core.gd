@@ -46,6 +46,7 @@ func _shoot_circle(number : float) -> void:
 func take_damage(amount: int) -> void:
 	health -= amount
 	_shoot_circle(1 + randi() % 6)
+	scale_bonus += amount * 0.01
 	if  phase < stats.phases.size() && health <= stats.phases[phase] * max_health:
 		$BossAnger.play()
 		phase+=1
@@ -75,8 +76,10 @@ func heal(amount: int) -> void:
 	health = min(health + amount, max_health)
 	health_changed.emit()
 
+
+var scale_bonus := 1.0
 func _process(delta: float) -> void:
-	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1)
+	$Sprite.scale = Vector2.ONE * (0.9 + cos(i) * 0.1) * scale_bonus
 	i += delta
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:

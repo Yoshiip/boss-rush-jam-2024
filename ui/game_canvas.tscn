@@ -463,6 +463,7 @@ bus = &"Music"
 
 [node name="Death" type="AudioStreamPlayer" parent="Container/GameOver"]
 stream = ExtResource("6_xt5t1")
+volume_db = 6.0
 bus = &"Music"
 
 [node name="Buttons" type="HBoxContainer" parent="Container/GameOver"]

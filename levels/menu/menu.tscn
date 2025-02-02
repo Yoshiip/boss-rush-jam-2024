@@ -236,6 +236,7 @@ wait_time = 1.714
 autostart = true
 
 [node name="Crossfade" parent="." instance=ExtResource("6_tdn0y")]
+db = -10.0
 
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Canvas/Container/Menu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

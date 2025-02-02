@@ -9,7 +9,7 @@
 [resource]
 script = ExtResource("1_xsb5d")
 name = "Theta-05"
-max_health = 250
+max_health = 125
 sprite = ExtResource("2_3gg2j")
 background = ExtResource("1_x8d7g")
 music = ExtResource("2_ibg20")
@@ -22,6 +22,6 @@ fire_rate = Array[float]([1500.0, 18.0, 40.0, 5.0, 10.0, 10.0])
 spc_chance = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
 accur = Array[float]([0.35, 0.35, 0.35, 0.35, 0.35, 0.35])
 bullet_speed = Array[float]([1.0, 1.0, 1.0, 1.0, 1.0, 1.0])
-spin_speed = Array[float]([0.1, -0.12, 0.18, -0.22, -0.28, 0.32])
+spin_speed = Array[float]([0.06, -0.11, 0.17, -0.2, -0.25, 0.3])
 circle_bullet_fire = Array[float]([12.0, 12.0, 12.0, 12.0, 12.0, 12.0])
 spike_num = Array[float]([0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
