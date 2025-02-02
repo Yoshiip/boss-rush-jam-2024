@@ -14,27 +14,27 @@ func _on_core_new_phase(index: int) -> void:
 	super(index)
 	match index:
 		1:
-			for pos in _get_random_valid_positions(1):
+			for pos in _get_random_valid_positions(2):
 				_spawn_enemy("laser_eye", pos)
 			for pos in _get_random_valid_positions(2):
 				_spawn_enemy( "bomber", pos)
 		2:
-			for pos in _get_random_valid_positions(1):
+			for pos in _get_random_valid_positions(3):
 				_spawn_enemy("laser_eye", pos)
 			for pos in _get_random_valid_positions(2):
 				_spawn_enemy( "bomber", pos)
 		3:
-			for pos in _get_random_valid_positions(2):
+			for pos in _get_random_valid_positions(3):
 				_spawn_enemy("laser_eye", pos)
 			for pos in _get_random_valid_positions(2):
 				_spawn_enemy( "bomber", pos)
 		4:
-			for pos in _get_random_valid_positions(2):
+			for pos in _get_random_valid_positions(5):
 				_spawn_enemy("laser_eye", pos)
 			for pos in _get_random_valid_positions(2):
 				_spawn_enemy( "bomber", pos)
 		5:
-			for pos in _get_random_valid_positions(2):
+			for pos in _get_random_valid_positions(4):
 				_spawn_enemy("laser_eye", pos)
 			for pos in _get_random_valid_positions(2):
 				_spawn_enemy( "bomber", pos)
