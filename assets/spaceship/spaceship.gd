@@ -33,7 +33,7 @@ var bullet_speed = GameManager.get_bullet_speed()
 var invicibility_timer := 0.0
 
 
-const SPEEDS := [350, 400, 455, 500, 550]
+const SPEEDS := [360, 400, 455, 500, 550]
 const TURNING := [5,6,7,13,19]
 @onready var acceleration_speed: float = SPEEDS[GameManager.save_data.thrusters]
 @onready var turning_speed: float = TURNING[GameManager.save_data.thrusters]
